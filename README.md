@@ -42,5 +42,6 @@ Planned. The PDK list, pinned versions and directory layout will be documented h
 
 ## Licensing
 
-Each PDK is distributed under its own upstream license. This repository does
+The scripts and configuration in this repository are released under the
+[MIT License](LICENSE). Each PDK is distributed under its own upstream license. This repository does
 not relicense any PDK content; see each PDK's upstream repository for its terms.
