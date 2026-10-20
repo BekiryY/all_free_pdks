@@ -45,9 +45,11 @@ export TAP_CELL_NAME = gt2_6t_tapfspdn_w31_lvt
 export TAPCELL_DISTANCE ?= 28
 export TAPCELL_TCL ?= $(PLATFORM_DIR)/tapcell.tcl
 
-export PLACE_DENSITY ?= 0.58
+# Spread cells more than GT2N's AES example (0.58 / pad 0): denser placement
+# left 3 M1/M2 spacing violations in detailed routing for gcd.
+export PLACE_DENSITY ?= 0.40
 export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT ?= 1
-export CELL_PAD_IN_SITES_DETAIL_PLACEMENT ?= 0
+export CELL_PAD_IN_SITES_DETAIL_PLACEMENT ?= 1
 
 export ROUTING_LAYER_ADJUSTMENT ?= 0.25
 export MIN_ROUTING_LAYER ?= M1
