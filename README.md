@@ -129,7 +129,7 @@ from a fresh `install_pdks.py` install.
 | sky130A | LibreLane | `librelane --smoke-test` | pass |
 | gf180mcuD | LibreLane | `librelane --smoke-test --pdk gf180mcuD` | pass |
 | ihp-sg13g2 | LibreLane | `librelane --smoke-test --pdk ihp-sg13g2` | pass |
-| icsprout55 | LibreLane | UART design, `--manual-pdk` | full flow runs; re-verification pending |
+| icsprout55 | LibreLane | UART design, `--manual-pdk` | full flow + GDS, 0 route DRC; deferred hold-violation error (see below) |
 | nangate45 | ORFS | `tests/orfs/run_gcd.sh nangate45` | pass: GDS, 0 route DRC |
 | asap7 | ORFS | `tests/orfs/run_gcd.sh asap7` | pass: GDS, 0 route DRC |
 | gt2n | ORFS | `tests/orfs/run_gcd.sh gt2n` | pass: GDS, 0 route DRC, timing met |
@@ -138,6 +138,12 @@ from a fresh `install_pdks.py` install.
 ORFS's stock gcd configs for nangate45 and asap7 set a clock slightly beyond
 what gcd meets (worst slack −0.05 ns and −33 ps); that is the example's
 target, not a PDK problem.
+
+The icsprout55 UART design completes all 59 steps and writes the final GDS,
+then LibreLane exits non-zero: hold violations in the `min_ff` (440) and
+`max_ss` (9) corners are reported as a deferred error after the flow ends.
+The typical corner is clean, and results are identical to the same design on
+the previous icsprout55 pin, so this is the design's hold closure, not the PDK.
 
 ### Manufacturability
 
