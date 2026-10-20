@@ -45,6 +45,29 @@ LibreLane is tested against. All other PDKs are pinned to a fixed upstream commi
 | GT2N | 2 nm | predictive, experimental | [azadnaeemi/GT2N](https://github.com/azadnaeemi/GT2N) | pinned commit |
 | OSU025 | 0.25 µm | educational (MOSIS SCMOS) | [stineje/MOSIS_SCMOS](https://github.com/stineje/MOSIS_SCMOS) | pinned commit |
 
+### Manufacturability
+
+| PDK | Fab | Can tape out? | Commercial use |
+| --- | --- | ------------- | -------------- |
+| sky130 | SkyWater (US) | yes: open MPW shuttles and direct | yes (Apache-2.0) |
+| gf180mcu | GlobalFoundries (SG/US) | yes: open MPW shuttles and direct | yes (Apache-2.0) |
+| ihp-sg13g2 | IHP (DE) | yes: IHP MPW shuttles | yes (Apache-2.0) |
+| icsprout55 | ICsprout (CN) | test/academic shuttles only | PDK is Apache-2.0, but upstream forbids commercial mass-production tapeouts |
+| ASAP7 | none (predictive) | no | n/a (BSD-3, research PDK) |
+| FreePDK45 + Nangate45 | none (predictive) | no | n/a (research PDK) |
+| GT2N | none (predictive) | no | n/a (BSD-3, research PDK) |
+| OSU025 | TSMC 0.25 µm via MOSIS (legacy) | no: process data is under NDA, service discontinued | no: OSU copyright limits use to research/education |
+
+Predictive and legacy PDKs are for learning and research on the RTL-to-GDSII flow;
+their layouts cannot be manufactured.
+
+### Install footprint
+
+sky130 is installed lean: the LibreLane default library set plus
+`sky130_fd_sc_hd` and `sky130_fd_sc_hs` (instead of all 12 libraries, about 16 GB).
+ciel always fetches both `sky130A` and `sky130B` and checks both on every
+LibreLane run, so `sky130B` is kept to avoid re-downloads.
+
 Not included: FreePDK3 (no standard cell library) and FreePDK15 (registration-gated
 download, non-commercial license).
 
