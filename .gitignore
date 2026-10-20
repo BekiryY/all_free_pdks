@@ -1,0 +1,14 @@
+# Installed PDKs (populated by install_pdks.py, too large to track)
+/pdks/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
