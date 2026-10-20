@@ -42,14 +42,20 @@ pdks/
 ├── ciel/{sky130,gf180mcu,ihp-sg13g2}/versions/<hash>/   # managed by ciel
 ├── sky130A, sky130B, gf180mcuA..D, ihp-sg13g2           # ciel symlinks
 ├── icsprout55/        # upstream checkout + release files + LibreLane overlay
-├── asap7 -> .src/orfs-asap7/flow/platforms/asap7         # ORFS platform
-├── nangate45 -> .src/orfs-nangate45/flow/platforms/nangate45
-├── gt2n/              # upstream checkout
-├── osu025/            # .lef/.lib/.gds/.v links into .src/osu025
+├── orfs/              # OpenROAD-flow-scripts (sparse checkout + patch)
+│   └── flow/platforms/{asap7,nangate45,gt2n,osu025}
+├── asap7 -> orfs/flow/platforms/asap7
+├── nangate45 -> orfs/flow/platforms/nangate45
+├── gt2n/              # upstream checkout; its ORFS add-on unpacked in orfs_example/
+├── osu025/            # ORFS platform: overlay files + upstream cells
 └── .src/              # sparse git checkouts backing the links above
 ```
 
 ### Using the PDKs
+
+Fab PDKs run in LibreLane; predictive and educational PDKs run in
+[OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts)
+(ORFS). Both use the same tools: the ones LibreLane ships.
 
 - **sky130, gf180mcu, ihp-sg13g2:** LibreLane works as-is with
   `PDK_ROOT=<repo>/pdks`.
@@ -57,10 +63,42 @@ pdks/
   LibreLane integration files (`libs.tech/librelane`, ...) come from
   [`overlays/icsprout55`](overlays/icsprout55). Magic, KLayout and Netgen
   entries there are placeholders: there is no open DRC/LVS deck for it yet.
-- **asap7, nangate45:** OpenROAD-flow-scripts platform directories; point ORFS
-  at them with `PLATFORM_DIR=<repo>/pdks/asap7` (or `nangate45`).
-- **gt2n:** see `pdks/gt2n/Openroad_example`.
-- **osu025:** single LEF (tech + cells), Liberty, GDS and Verilog in `pdks/osu025/`.
+- **asap7, nangate45, gt2n, osu025:** run ORFS from `pdks/orfs/flow` with
+  `openroad`, `yosys` and `klayout` on `PATH` (e.g. inside LibreLane's
+  nix-shell). `source env.sh` sets the needed variables. Example designs:
+
+  ```bash
+  source env.sh
+  tests/orfs/run_gcd.sh asap7        # or nangate45, gt2n, osu025
+  # your own design:
+  cd "$ORFS_FLOW" && make DESIGN_CONFIG=/path/to/config.mk   # PLATFORM = asap7 ...
+  ```
+
+#### ORFS version
+
+ORFS is pinned to `75ac7bc` (2026-02-19), the last commit before ORFS moved its
+OpenROAD past `dcf3613`, the OpenROAD that LibreLane 3.0.6 pins. That way ORFS
+runs on LibreLane's tools and its scripts are never newer than the tool. With
+those tools:
+
+- `LEC_CHECK=0`: ORFS's equivalence checker (kepler-formal) is not part of LibreLane.
+- `QT_QPA_PLATFORM=offscreen`, plus [a patch](patches/orfs) that makes the
+  final screenshots non-fatal; this OpenROAD build lacks a display control
+  ORFS's image script expects. Images are skipped, the layout is unaffected.
+
+#### Local changes per PDK
+
+Nothing upstream is stored here; these files are added or derived on install.
+
+- **osu025:** ORFS platform written for this repo
+  ([`overlays/osu025`](overlays/osu025)). The installer derives three files
+  from the upstream cells: Liberty with a `default_max_transition` (CTS needs
+  one), LEF without the obsolete `TURN` via rules (rejected by OpenROAD), and a
+  tech-only LEF. RC values are rough estimates. The library has no tie cells,
+  so designs must not synthesize constant nets.
+- **gt2n:** uses GT2N's own ORFS add-on from `Openroad_example/`, plus
+  [`overlays/gt2n/post_pdn.tcl`](overlays/gt2n/post_pdn.tcl), which removes an
+  empty power wire the PDN leaves with this OpenROAD (KLayout cannot read it).
 
 ## PDKs
 
@@ -76,10 +114,10 @@ LibreLane is tested against. All other PDKs are pinned to a fixed upstream commi
 | gf180mcu | 180 nm | fab (GlobalFoundries) | ciel | stable: LibreLane pin |
 | ihp-sg13g2 | 130 nm SiGe | fab (IHP) | ciel | stable: LibreLane pin |
 | icsprout55 | 55 nm | fab | [openecos-projects/icsprout55-pdk](https://github.com/openecos-projects/icsprout55-pdk) | release v1.10.101 (`e3d5c11`) |
-| ASAP7 | 7 nm | predictive (ASU) | [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts) `platforms/asap7` | pinned commit |
-| FreePDK45 + Nangate45 | 45 nm | predictive (NCSU) | OpenROAD-flow-scripts `platforms/nangate45` | pinned commit |
-| GT2N | 2 nm | predictive, experimental | [azadnaeemi/GT2N](https://github.com/azadnaeemi/GT2N) | pinned commit |
-| OSU025 | 0.25 µm | educational (MOSIS SCMOS) | [stineje/MOSIS_SCMOS](https://github.com/stineje/MOSIS_SCMOS) | pinned commit |
+| ASAP7 | 7 nm | predictive (ASU) | [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts) `platforms/asap7` | ORFS `75ac7bc` |
+| FreePDK45 + Nangate45 | 45 nm | predictive (NCSU) | OpenROAD-flow-scripts `platforms/nangate45` | ORFS `75ac7bc` |
+| GT2N | 2 nm | predictive, experimental | [azadnaeemi/GT2N](https://github.com/azadnaeemi/GT2N) | pinned commit `fe179cb` |
+| OSU025 | 0.25 µm | educational (MOSIS SCMOS) | [stineje/MOSIS_SCMOS](https://github.com/stineje/MOSIS_SCMOS) | pinned commit `b36db52` |
 
 ### Manufacturability
 
@@ -105,8 +143,9 @@ about 16 GB for all 12 libraries.
 ciel always fetches both `sky130A` and `sky130B` and checks both on every
 LibreLane run, so `sky130B` is kept to avoid re-downloads.
 
-Not included: FreePDK3 (no standard cell library) and FreePDK15 (registration-gated
-download, non-commercial license).
+Not included: FreePDK3 (no standard cell library) and FreePDK15 (no standard
+cell library in the kit; the 15 nm cells are a separate registration-gated
+download, and its Calibre rules are under Mentor's confidential SVRF license).
 
 ## Requirements
 
@@ -114,7 +153,7 @@ download, non-commercial license).
 - Python 3.10+ with `venv` (Debian/Ubuntu: `sudo apt install python3-venv`)
 - git 2.25+ (sparse checkout)
 - ~15 GB free disk for everything
-- LibreLane 3.0.x (tested with 3.0.6) to use the ciel PDKs
+- LibreLane 3.0.x (tested with 3.0.6); its tools also run the ORFS PDKs
 
 Nothing else is needed: ciel is installed into a repo-local `.venv`, and every
 PDK is fetched from its public upstream at the version pinned in `pdks.json`.
