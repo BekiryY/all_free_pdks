@@ -20,7 +20,7 @@ identical tree.
   resulting layout is always the same; there is no per-machine variation.
 
 ```bash
-git clone https://github.com/BekirYufka/all_free_pdks.git
+git clone https://github.com/BekiryY/all_free_pdks.git
 cd all_free_pdks
 python3 install_pdks.py
 export PDK_ROOT="$PWD/pdks"
