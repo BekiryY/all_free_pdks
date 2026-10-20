@@ -119,6 +119,26 @@ LibreLane is tested against. All other PDKs are pinned to a fixed upstream commi
 | GT2N | 2 nm | predictive, experimental | [azadnaeemi/GT2N](https://github.com/azadnaeemi/GT2N) | pinned commit `fe179cb` |
 | OSU025 | 0.25 µm | educational (MOSIS SCMOS) | [stineje/MOSIS_SCMOS](https://github.com/stineje/MOSIS_SCMOS) | pinned commit `b36db52` |
 
+### Test status
+
+Last verified 2026-10-20 on WSL2 (Ubuntu 24.04) with LibreLane 3.0.6's tools,
+from a fresh `install_pdks.py` install.
+
+| PDK | Flow | Test | Result |
+| --- | ---- | ---- | ------ |
+| sky130A | LibreLane | `librelane --smoke-test` | pass |
+| gf180mcuD | LibreLane | `librelane --smoke-test --pdk gf180mcuD` | pass |
+| ihp-sg13g2 | LibreLane | `librelane --smoke-test --pdk ihp-sg13g2` | pass |
+| icsprout55 | LibreLane | UART design, `--manual-pdk` | full flow runs; re-verification pending |
+| nangate45 | ORFS | `tests/orfs/run_gcd.sh nangate45` | pass: GDS, 0 route DRC |
+| asap7 | ORFS | `tests/orfs/run_gcd.sh asap7` | pass: GDS, 0 route DRC |
+| gt2n | ORFS | `tests/orfs/run_gcd.sh gt2n` | pass: GDS, 0 route DRC, timing met |
+| osu025 | ORFS | `tests/orfs/run_gcd.sh osu025` | pass: GDS, 0 route DRC, timing met |
+
+ORFS's stock gcd configs for nangate45 and asap7 set a clock slightly beyond
+what gcd meets (worst slack −0.05 ns and −33 ps); that is the example's
+target, not a PDK problem.
+
 ### Manufacturability
 
 | PDK | Fab | Can tape out? | Commercial use |
