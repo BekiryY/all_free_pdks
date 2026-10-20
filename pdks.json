@@ -7,21 +7,21 @@
       "family": "sky130",
       "version": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
       "libraries": ["default", "sky130_fd_sc_hs"],
-      "approx_size_gb": 8
+      "approx_size_gb": 6
     },
     "gf180mcu": {
       "kind": "ciel",
       "family": "gf180mcu",
       "version": "54435919abffb937387ec956209f9cf5fd2dfbee",
       "libraries": ["default"],
-      "approx_size_gb": 6
+      "approx_size_gb": 4
     },
     "ihp-sg13g2": {
       "kind": "ciel",
       "family": "ihp-sg13g2",
       "version": "c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c",
       "libraries": ["default"],
-      "approx_size_gb": 3
+      "approx_size_gb": 1
     },
     "icsprout55": {
       "kind": "git",

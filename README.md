@@ -24,7 +24,7 @@ identical tree.
 ```bash
 git clone https://github.com/BekiryY/all_free_pdks.git
 cd all_free_pdks
-python3 install_pdks.py                     # everything (~20 GB)
+python3 install_pdks.py                     # everything (~13 GB)
 python3 install_pdks.py --only sky130,asap7 # or a subset
 python3 install_pdks.py --list              # pins and install status
 source env.sh                               # sets PDK_ROOT=<repo>/pdks
@@ -100,7 +100,8 @@ their layouts cannot be manufactured.
 ### Install footprint
 
 sky130 is installed lean: the LibreLane default library set plus
-`sky130_fd_sc_hd` and `sky130_fd_sc_hs` (instead of all 12 libraries, about 16 GB).
+`sky130_fd_sc_hd` and `sky130_fd_sc_hs`: 5.6 GB for both variants, instead of
+about 16 GB for all 12 libraries.
 ciel always fetches both `sky130A` and `sky130B` and checks both on every
 LibreLane run, so `sky130B` is kept to avoid re-downloads.
 
@@ -109,9 +110,15 @@ download, non-commercial license).
 
 ## Requirements
 
-- Linux or WSL2
-- Python 3.10+
-- LibreLane 3.0.x (tested with 3.0.6)
+- Linux or WSL2, with internet access to github.com
+- Python 3.10+ with `venv` (Debian/Ubuntu: `sudo apt install python3-venv`)
+- git 2.25+ (sparse checkout)
+- ~15 GB free disk for everything
+- LibreLane 3.0.x (tested with 3.0.6) to use the ciel PDKs
+
+Nothing else is needed: ciel is installed into a repo-local `.venv`, and every
+PDK is fetched from its public upstream at the version pinned in `pdks.json`.
+No PDK data is stored in this repository.
 
 ## Licensing
 
