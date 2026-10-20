@@ -26,18 +26,18 @@
     "icsprout55": {
       "kind": "git",
       "repo": "https://github.com/openecos-projects/icsprout55-pdk.git",
-      "commit": "c0a4ee0123a4c04812571dd71c3922d9b17ed5c0",
+      "commit": "e3d5c11a34ce4288302d71a34e0be40eeeb62eca",
       "dest": "icsprout55",
       "assets": {
-        "base_url": "https://github.com/openecos-projects/icsprout55-pdk/releases/download/v1.10.100",
+        "base_url": "https://github.com/openecos-projects/icsprout55-pdk/releases/download/v1.10.101",
         "files": [
-          {"name": "ics55_LLSC_H7CH_liberty.tar.bz2", "sha256": "bd8327c9694b625275bebf63743d49e9e019f23be76152d2edbd530e150ecbba", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
-          {"name": "ics55_LLSC_H7CL_liberty.tar.bz2", "sha256": "8312dd3f2e4fed8a63fd26c51deb8c79a75becfdfe544e44cce164e87f7875f4", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
-          {"name": "ics55_LLSC_H7CR_liberty.tar.bz2", "sha256": "faa3fc2f3ef8560c2d7cafc7800ecee39b69b8d177b14d098ed94062ba3f6e5c", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
-          {"name": "ics55_LLSC_H7CH_gds.tar.bz2", "sha256": "c1138641deb9683422bdc4da7828af0aedeae1b4424c78c288722f5fdb7fc273", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
-          {"name": "ics55_LLSC_H7CL_gds.tar.bz2", "sha256": "10adbc3edb4618639544227f6bbc78208848929f6a2e3468b3064ab1ede79942", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
-          {"name": "ics55_LLSC_H7CR_gds.tar.bz2", "sha256": "279a6775b84270de84761a08a1c4b523eca478747273178bf252816be585fd9d", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
-          {"name": "ICsprout_55LLULP1233_IO_251013_gds.tar.bz2", "sha256": "c775a0078316f29de5545f5c39f79563c3ae10dd6fe4d90df619b72f6d29db54", "extract_to": "IP/IO/ICsprout_55LLULP1233_IO_251013"}
+          {"name": "ics55_LLSC_H7CH_liberty.tar.bz2", "sha256": "0f6931fbc61277869bef49528b0e324a7b5a02dae6c3607efda94c1c32fd57d8", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
+          {"name": "ics55_LLSC_H7CL_liberty.tar.bz2", "sha256": "a8fee1e683005b36f87c06e5f3b9f3fbd603070ee51ce8ea0160c50f52064f1e", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
+          {"name": "ics55_LLSC_H7CR_liberty.tar.bz2", "sha256": "970fd1e19137672749538b0e4d3c4552d731e5c3480d862b485a3bad6edda0de", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
+          {"name": "ics55_LLSC_H7CH_gds.tar.bz2", "sha256": "6268684fdd0784087adc1a972125f9001bc9761c3142ab954d2a9eade53d5490", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
+          {"name": "ics55_LLSC_H7CL_gds.tar.bz2", "sha256": "9a643ae864d178f45fec4aa59dc98f0420894760d8a431ce0fd640b97e1c2f68", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
+          {"name": "ics55_LLSC_H7CR_gds.tar.bz2", "sha256": "525a7a486e15e36888e4ce08887c946cd16c60dc2c90819fb493d865ed38cc2b", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
+          {"name": "ICsprout_55LLULP1233_IO_251013_gds.tar.bz2", "sha256": "47d248be322a6f054a0ab11fe2f2ee83ad76f9ce15d6f4cd53a81c8d08c7693b", "extract_to": "IP/IO/ICsprout_55LLULP1233_IO_251013"}
         ]
       },
       "overlay": "overlays/icsprout55",
