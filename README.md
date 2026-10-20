@@ -39,7 +39,7 @@ LibreLane is tested against. All other PDKs are pinned to a fixed upstream commi
 | sky130 | 130 nm | fab (SkyWater) | [ciel](https://github.com/fossi-foundation/ciel) | stable: LibreLane pin |
 | gf180mcu | 180 nm | fab (GlobalFoundries) | ciel | stable: LibreLane pin |
 | ihp-sg13g2 | 130 nm SiGe | fab (IHP) | ciel | stable: LibreLane pin |
-| icsprout55 | 55 nm | fab | [openecos-projects/icsprout55-pdk](https://github.com/openecos-projects/icsprout55-pdk) | pinned commit |
+| icsprout55 | 55 nm | fab | [openecos-projects/icsprout55-pdk](https://github.com/openecos-projects/icsprout55-pdk) | pinned commit `c0a4ee0` |
 | ASAP7 | 7 nm | predictive (ASU) | [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts) `platforms/asap7` | pinned commit |
 | FreePDK45 + Nangate45 | 45 nm | predictive (NCSU) | OpenROAD-flow-scripts `platforms/nangate45` | pinned commit |
 | GT2N | 2 nm | predictive, experimental | [azadnaeemi/GT2N](https://github.com/azadnaeemi/GT2N) | pinned commit |
