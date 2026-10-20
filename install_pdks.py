@@ -25,6 +25,7 @@ REPO = Path(__file__).resolve().parent
 PDK_ROOT = REPO / "pdks"
 CACHE = PDK_ROOT / ".cache"
 VENV = REPO / ".venv"
+CIEL_ATTEMPTS = 3
 
 
 def log(msg):
@@ -111,7 +112,16 @@ def install_ciel(name, pdk, cfg):
     cmd.append(pdk["version"])
     # ciel reads PDK/PDK_FAMILY/PDK_ROOT from the environment; keep them out.
     env = {k: v for k, v in os.environ.items() if k not in ("PDK", "PDK_FAMILY", "PDK_ROOT")}
-    run(cmd, env=env)
+    # Large library downloads occasionally time out; ciel cleans up after a
+    # failure, so retrying is safe.
+    for attempt in range(1, CIEL_ATTEMPTS + 1):
+        try:
+            run(cmd, env=env)
+            return
+        except subprocess.CalledProcessError:
+            if attempt == CIEL_ATTEMPTS:
+                raise
+            log(f"ciel failed for {name} (attempt {attempt}/{CIEL_ATTEMPTS}), retrying")
 
 
 # --------------------------------------------------------------------------
@@ -244,10 +254,13 @@ def main():
     for name in selected:
         pdk = cfg["pdks"][name]
         log(f"=== {name}")
-        if pdk["kind"] == "ciel":
-            install_ciel(name, pdk, cfg)
-        else:
-            install_git(name, pdk, cfg)
+        try:
+            if pdk["kind"] == "ciel":
+                install_ciel(name, pdk, cfg)
+            else:
+                install_git(name, pdk, cfg)
+        except subprocess.CalledProcessError as e:
+            die(f"{name} failed: command exited with status {e.returncode}. Rerun to resume.")
     log(f"done. Use: export PDK_ROOT={PDK_ROOT}   (or: source env.sh)")
 
 

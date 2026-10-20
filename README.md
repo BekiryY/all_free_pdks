@@ -16,15 +16,51 @@ identical tree.
 - Small files (configs, version pins, scripts) are tracked in git.
 - The PDKs themselves are large, so they live under `pdks/`, which is
   git-ignored.
-- `install_pdks.py` downloads and installs the pinned PDKs into `pdks/`. The
-  resulting layout is always the same; there is no per-machine variation.
+- `install_pdks.py` downloads and installs the pinned PDKs listed in
+  [`pdks.json`](pdks.json) into `pdks/`. The resulting layout is always the
+  same; there is no per-machine variation. Rerunning it skips anything already
+  at its pinned version.
 
 ```bash
 git clone https://github.com/BekiryY/all_free_pdks.git
 cd all_free_pdks
-python3 install_pdks.py
-export PDK_ROOT="$PWD/pdks"
+python3 install_pdks.py                     # everything (~20 GB)
+python3 install_pdks.py --only sky130,asap7 # or a subset
+python3 install_pdks.py --list              # pins and install status
+source env.sh                               # sets PDK_ROOT=<repo>/pdks
 ```
+
+**Native Linux and WSL2 are both supported.** On WSL2, clone into the Linux
+filesystem (e.g. `~/eda/all_free_pdks`), not under `/mnt/c`: the installer
+refuses to run there because ciel needs real symlinks and case-sensitive paths,
+and `/mnt` is much slower. Native Windows is not supported (neither is LibreLane).
+
+### Layout
+
+```
+pdks/
+├── ciel/{sky130,gf180mcu,ihp-sg13g2}/versions/<hash>/   # managed by ciel
+├── sky130A, sky130B, gf180mcuA..D, ihp-sg13g2           # ciel symlinks
+├── icsprout55/        # upstream checkout + release files + LibreLane overlay
+├── asap7 -> .src/orfs-asap7/flow/platforms/asap7         # ORFS platform
+├── nangate45 -> .src/orfs-nangate45/flow/platforms/nangate45
+├── gt2n/              # upstream checkout
+├── osu025/            # .lef/.lib/.gds/.v links into .src/osu025
+└── .src/              # sparse git checkouts backing the links above
+```
+
+### Using the PDKs
+
+- **sky130, gf180mcu, ihp-sg13g2:** LibreLane works as-is with
+  `PDK_ROOT=<repo>/pdks`.
+- **icsprout55:** not managed by ciel; run LibreLane with `--manual-pdk`. The
+  LibreLane integration files (`libs.tech/librelane`, ...) come from
+  [`overlays/icsprout55`](overlays/icsprout55). Magic, KLayout and Netgen
+  entries there are placeholders: there is no open DRC/LVS deck for it yet.
+- **asap7, nangate45:** OpenROAD-flow-scripts platform directories; point ORFS
+  at them with `PLATFORM_DIR=<repo>/pdks/asap7` (or `nangate45`).
+- **gt2n:** see `pdks/gt2n/Openroad_example`.
+- **osu025:** single LEF (tech + cells), Liberty, GDS and Verilog in `pdks/osu025/`.
 
 ## PDKs
 
