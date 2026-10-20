@@ -1,0 +1,92 @@
+{
+  "ciel_version": "2.3.1",
+  "librelane_version": "3.0.6",
+  "pdks": {
+    "sky130": {
+      "kind": "ciel",
+      "family": "sky130",
+      "version": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
+      "libraries": ["default", "sky130_fd_sc_hs"],
+      "approx_size_gb": 8
+    },
+    "gf180mcu": {
+      "kind": "ciel",
+      "family": "gf180mcu",
+      "version": "54435919abffb937387ec956209f9cf5fd2dfbee",
+      "libraries": ["default"],
+      "approx_size_gb": 6
+    },
+    "ihp-sg13g2": {
+      "kind": "ciel",
+      "family": "ihp-sg13g2",
+      "version": "c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c",
+      "libraries": ["default"],
+      "approx_size_gb": 3
+    },
+    "icsprout55": {
+      "kind": "git",
+      "repo": "https://github.com/openecos-projects/icsprout55-pdk.git",
+      "commit": "c0a4ee0123a4c04812571dd71c3922d9b17ed5c0",
+      "dest": "icsprout55",
+      "assets": {
+        "base_url": "https://github.com/openecos-projects/icsprout55-pdk/releases/download/v1.10.100",
+        "files": [
+          {"name": "ics55_LLSC_H7CH_liberty.tar.bz2", "sha256": "bd8327c9694b625275bebf63743d49e9e019f23be76152d2edbd530e150ecbba", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
+          {"name": "ics55_LLSC_H7CL_liberty.tar.bz2", "sha256": "8312dd3f2e4fed8a63fd26c51deb8c79a75becfdfe544e44cce164e87f7875f4", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
+          {"name": "ics55_LLSC_H7CR_liberty.tar.bz2", "sha256": "faa3fc2f3ef8560c2d7cafc7800ecee39b69b8d177b14d098ed94062ba3f6e5c", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
+          {"name": "ics55_LLSC_H7CH_gds.tar.bz2", "sha256": "c1138641deb9683422bdc4da7828af0aedeae1b4424c78c288722f5fdb7fc273", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
+          {"name": "ics55_LLSC_H7CL_gds.tar.bz2", "sha256": "10adbc3edb4618639544227f6bbc78208848929f6a2e3468b3064ab1ede79942", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
+          {"name": "ics55_LLSC_H7CR_gds.tar.bz2", "sha256": "279a6775b84270de84761a08a1c4b523eca478747273178bf252816be585fd9d", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
+          {"name": "ICsprout_55LLULP1233_IO_251013_gds.tar.bz2", "sha256": "c775a0078316f29de5545f5c39f79563c3ae10dd6fe4d90df619b72f6d29db54", "extract_to": "IP/IO/ICsprout_55LLULP1233_IO_251013"}
+        ]
+      },
+      "overlay": "overlays/icsprout55",
+      "symlinks": {"libs.tech/openlane": "librelane"},
+      "approx_size_gb": 2
+    },
+    "asap7": {
+      "kind": "git",
+      "repo": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git",
+      "commit": "bf3f9b344bf7d9d999f199778a722833bccbd33c",
+      "dest": ".src/orfs-asap7",
+      "sparse": ["flow/platforms/asap7"],
+      "links": {"asap7": ".src/orfs-asap7/flow/platforms/asap7"},
+      "approx_size_gb": 0.3
+    },
+    "nangate45": {
+      "kind": "git",
+      "repo": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git",
+      "commit": "bf3f9b344bf7d9d999f199778a722833bccbd33c",
+      "dest": ".src/orfs-nangate45",
+      "sparse": ["flow/platforms/nangate45"],
+      "links": {"nangate45": ".src/orfs-nangate45/flow/platforms/nangate45"},
+      "approx_size_gb": 0.1
+    },
+    "gt2n": {
+      "kind": "git",
+      "repo": "https://github.com/azadnaeemi/GT2N.git",
+      "commit": "fe179cb2aa424f93a2199a78bbbbed26c738f79c",
+      "dest": "gt2n",
+      "approx_size_gb": 0.2
+    },
+    "osu025": {
+      "kind": "git",
+      "repo": "https://github.com/stineje/MOSIS_SCMOS.git",
+      "commit": "b36db529c2dff117e1fbead561bf792ec866e1cb",
+      "dest": ".src/osu025",
+      "sparse": [
+        "latest/cadence/lib/tsmc025/lib",
+        "latest/cadence/lib/tsmc025/signalstorm",
+        "latest/cadence/lib/source/gds2",
+        "latest/cadence/flow/tsmc025"
+      ],
+      "links": {
+        "osu025/osu025_stdcells.lef": ".src/osu025/latest/cadence/lib/tsmc025/lib/osu025_stdcells.lef",
+        "osu025/osu025_stdcells.lib": ".src/osu025/latest/cadence/lib/tsmc025/signalstorm/osu025_stdcells.lib",
+        "osu025/osu025_stdcells.gds": ".src/osu025/latest/cadence/lib/source/gds2/osu025_stdcells.gds2",
+        "osu025/osu025_stdcells.v": ".src/osu025/latest/cadence/flow/tsmc025/osu025_stdcells.v"
+      },
+      "approx_size_gb": 0.1
+    }
+  }
+}

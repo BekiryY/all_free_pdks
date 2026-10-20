@@ -1,0 +1,5 @@
+# Placeholder — no Magic tech file available for ICsprout 55nm
+tech
+  format 35
+  icsprout55
+end
