@@ -99,7 +99,7 @@ set ::env(PRIMARY_GDSII_STREAMOUT_TOOL) "klayout"
 set ::env(MAGIC_MAGICRC) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/magic/icsprout55.magicrc"
 set ::env(MAGIC_TECH_FILE) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/magic/icsprout55.tech"
 
-# ── Signoff: KLayout (placeholder) ──
+# ── Signoff: KLayout ──
 set ::env(KLAYOUT_TECH) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/klayout/tech/icsprout55.lyt"
 set ::env(KLAYOUT_PROPERTIES) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/klayout/tech/icsprout55.lyp"
 set ::env(KLAYOUT_DEF_LAYER_MAP) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/klayout/tech/icsprout55.map"

@@ -1,1 +1,47 @@
-# KLayout DEF layer map — placeholder
+# KLayout LEF/DEF layer map for icsprout55 (prtech/techLEF/N551P6M_ecos.lef stack).
+# GDS numbers follow the PDK layer map (techfile/icsprout55.layermap, v1.10.103):
+# datatype 1 = drawing, 2 = dummy fill, 6 = text. The PDK has no pin purpose,
+# so DEF/LEF pins go on drawing and pin names on the text datatype, matching
+# the standard-cell GDS (pin labels on 81/6).
+# Columns: <LEF layer> <purposes> <GDS layer> <GDS datatype>
+
+CT     NET,SPNET,PIN,LEFPIN,VIA   72  1
+
+MET1   NET,SPNET,PIN,LEFPIN,VIA   81  1
+MET1   FILL                       81  2
+NAME   MET1/PIN,MET1/LABEL        81  6
+
+VIA1   NET,SPNET,PIN,LEFPIN,VIA   91  1
+
+MET2   NET,SPNET,PIN,LEFPIN,VIA   82  1
+MET2   FILL                       82  2
+NAME   MET2/PIN,MET2/LABEL        82  6
+
+VIA2   NET,SPNET,PIN,LEFPIN,VIA   92  1
+
+MET3   NET,SPNET,PIN,LEFPIN,VIA   83  1
+MET3   FILL                       83  2
+NAME   MET3/PIN,MET3/LABEL        83  6
+
+VIA3   NET,SPNET,PIN,LEFPIN,VIA   93  1
+
+MET4   NET,SPNET,PIN,LEFPIN,VIA   84  1
+MET4   FILL                       84  2
+NAME   MET4/PIN,MET4/LABEL        84  6
+
+VIA4   NET,SPNET,PIN,LEFPIN,VIA   94  1
+
+MET5   NET,SPNET,PIN,LEFPIN,VIA   85  1
+MET5   FILL                       85  2
+NAME   MET5/PIN,MET5/LABEL        85  6
+
+T4V2   NET,SPNET,PIN,LEFPIN,VIA  113  1
+
+T4M2   NET,SPNET,PIN,LEFPIN,VIA  103  1
+T4M2   FILL                      103  2
+NAME   T4M2/PIN,T4M2/LABEL       103  6
+
+RV     NET,SPNET,PIN,LEFPIN,VIA  120  1
+
+RDL    NET,SPNET,PIN,LEFPIN,VIA  123  1
+NAME   RDL/PIN,RDL/LABEL         123  6
