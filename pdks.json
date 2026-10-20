@@ -86,7 +86,10 @@
       "links": {
         "orfs/flow/platforms/gt2n": "gt2n/orfs_example/gt2n_openroad_run/OpenROAD-flow-scripts/flow/platforms/gt2n"
       },
-      "repo_links": {"orfs/flow/designs/gt2n": "tests/orfs/gt2n"},
+      "repo_links": {
+        "orfs/flow/designs/gt2n": "tests/orfs/gt2n",
+        "gt2n/orfs_example/gt2n_openroad_run/OpenROAD-flow-scripts/flow/platforms/gt2n/all_free_pdks_post_pdn.tcl": "overlays/gt2n/post_pdn.tcl"
+      },
       "approx_size_gb": 0.3
     },
     "osu025": {
