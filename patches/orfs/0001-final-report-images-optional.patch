@@ -1,0 +1,15 @@
+diff --git a/flow/scripts/final_report.tcl b/flow/scripts/final_report.tcl
+index 928e92b..069638c 100644
+--- a/flow/scripts/final_report.tcl
++++ b/flow/scripts/final_report.tcl
+@@ -65,5 +65,9 @@ report_metrics 6 "finish"
+ 
+ # Save a final image if openroad is compiled with the gui
+ if { [ord::openroad_gui_compiled] } {
+-  gui::show "source $::env(SCRIPTS_DIR)/save_images.tcl" false
++  # all_free_pdks: images are optional; some OpenROAD builds lack display
++  # controls save_images.tcl expects, which must not fail the flow.
++  if { [catch { gui::show "source $::env(SCRIPTS_DIR)/save_images.tcl" false } msg] } {
++    puts "WARNING: final images not saved: $msg"
++  }
+ }

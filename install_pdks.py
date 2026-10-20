@@ -14,6 +14,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -177,11 +178,7 @@ def install_assets(name, pdk, dest):
         target = dest / a["extract_to"]
         target.mkdir(parents=True, exist_ok=True)
         log(f"extracting {a['name']} -> {target.relative_to(PDK_ROOT)}")
-        with tarfile.open(archive) as tar:
-            if hasattr(tarfile, "data_filter"):
-                tar.extractall(target, filter="data")
-            else:
-                tar.extractall(target)
+        extract(archive, target)
         archive.unlink()
         marker.write_text(a["sha256"] + "\n")
 
@@ -199,17 +196,90 @@ def relink(link, target):
     link.symlink_to(rel)
 
 
-def install_git(name, pdk, cfg):
-    dest = checkout(pdk)
-    if "assets" in pdk:
-        install_assets(name, pdk, dest)
-    if "overlay" in pdk:
-        log(f"applying {pdk['overlay']}")
-        shutil.copytree(REPO / pdk["overlay"], dest, dirs_exist_ok=True)
-    for link, target in pdk.get("symlinks", {}).items():
-        relink(dest / link, dest / Path(link).parent / target)
+def extract(archive, target):
+    with tarfile.open(archive) as tar:
+        if hasattr(tarfile, "data_filter"):
+            tar.extractall(target, filter="data")
+        else:
+            tar.extractall(target)
+
+
+def apply_patches(pdk, dest):
+    for p in pdk.get("patches", []):
+        patch = REPO / p
+        # Already applied if it reverses cleanly.
+        if subprocess.run(["git", "-C", dest, "apply", "--reverse", "--check", patch],
+                          capture_output=True).returncode == 0:
+            continue
+        log(f"patching {pdk['dest']} with {p}")
+        git(dest, "apply", str(patch))
+
+
+def derive(d):
+    """Write a locally modified copy of an upstream file (never stored in this repo)."""
+    src = (PDK_ROOT / d["src"]).read_text(errors="surrogateescape").splitlines(keepends=True)
+    out = []
+    if "insert_after" in d:
+        pat, done = re.compile(d["insert_after"]), False
+        for line in src:
+            out.append(line)
+            if not done and pat.search(line):
+                out.append(d["text"] + "\n")
+                done = True
+        if not done:
+            die(f"{d['src']}: pattern {d['insert_after']!r} not found")
+    elif "keep_until" in d:
+        pat = re.compile(d["keep_until"])
+        for line in src:
+            if pat.search(line):
+                break
+            out.append(line)
+        out.append(d["text"] + "\n")
+    elif "drop_block" in d:
+        start, end = (re.compile(p) for p in d["drop_block"])
+        skipping = False
+        for line in src:
+            if not skipping and start.search(line):
+                skipping = True
+            if not skipping:
+                out.append(line)
+            elif end.search(line):
+                skipping = False
+    dst = PDK_ROOT / d["out"]
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if dst.is_symlink():
+        dst.unlink()
+    dst.write_text("".join(out), errors="surrogateescape")
+
+
+def install_links(pdk):
     for link, target in pdk.get("links", {}).items():
         relink(PDK_ROOT / link, PDK_ROOT / target)
+    for link, target in pdk.get("repo_links", {}).items():
+        relink(PDK_ROOT / link, REPO / target)
+
+
+def install_git(name, pdk, cfg):
+    dest = checkout(pdk)
+    apply_patches(pdk, dest)
+    if "assets" in pdk:
+        install_assets(name, pdk, dest)
+    for e in pdk.get("extract", []):
+        marker = CACHE / name / (Path(e["archive"]).name + ".extracted")
+        if not (marker.exists() and marker.read_text().strip() == pdk["commit"]):
+            log(f"extracting {e['archive']} -> {pdk['dest']}/{e['to']}")
+            extract(dest / e["archive"], dest / e["to"])
+            marker.parent.mkdir(parents=True, exist_ok=True)
+            marker.write_text(pdk["commit"] + "\n")
+    for d in pdk.get("derive", []):
+        derive(d)
+    if "overlay" in pdk:
+        target = PDK_ROOT / pdk.get("overlay_dest", pdk["dest"])
+        log(f"applying {pdk['overlay']}")
+        shutil.copytree(REPO / pdk["overlay"], target, dirs_exist_ok=True)
+    for link, target in pdk.get("symlinks", {}).items():
+        relink(dest / link, dest / Path(link).parent / target)
+    install_links(pdk)
 
 
 # --------------------------------------------------------------------------
@@ -219,14 +289,32 @@ def is_installed(name, cfg):
     pdk = cfg["pdks"][name]
     if pdk["kind"] == "ciel":
         return (PDK_ROOT / "ciel" / pdk["family"] / "versions" / pdk["version"]).is_dir()
+    links_ok = all((PDK_ROOT / l).exists() for l in {**pdk.get("links", {}), **pdk.get("repo_links", {})})
+    if pdk["kind"] == "link":
+        return links_ok and all(is_installed(r, cfg) for r in pdk.get("requires", []))
     dest = PDK_ROOT / pdk["dest"]
-    return (dest / ".git").exists() and git(dest, "rev-parse", "HEAD", capture=True) == pdk["commit"]
+    return links_ok and (dest / ".git").exists() and git(dest, "rev-parse", "HEAD", capture=True) == pdk["commit"]
+
+
+def with_requirements(selected, cfg):
+    """Selected names plus their requirements, requirements first."""
+    ordered = []
+    def add(n):
+        for r in cfg["pdks"][n].get("requires", []):
+            add(r)
+        if n not in ordered:
+            ordered.append(n)
+    for n in selected:
+        add(n)
+    return ordered
 
 
 def list_pdks(cfg):
-    print(f"{'PDK':<12} {'source':<6} {'version':<10} {'~GB':>5}  installed")
+    print(f"{'name':<12} {'source':<6} {'version':<10} {'~GB':>5}  installed")
     for name, pdk in cfg["pdks"].items():
-        ver = (pdk.get("version") or pdk.get("commit"))[:7]
+        ver = (pdk.get("version") or pdk.get("commit") or "-")[:7]
+        if pdk["kind"] == "link":
+            ver = "via " + ",".join(pdk["requires"])
         mark = "yes" if is_installed(name, cfg) else "no"
         print(f"{name:<12} {pdk['kind']:<6} {ver:<10} {pdk.get('approx_size_gb', 0):>5}  {mark}")
 
@@ -250,6 +338,7 @@ def main():
         if unknown:
             die(f"unknown PDK(s): {', '.join(unknown)}. Known: {', '.join(cfg['pdks'])}")
 
+    selected = with_requirements(selected, cfg)
     preflight(selected, cfg, args.skip_space_check)
     for name in selected:
         pdk = cfg["pdks"][name]
@@ -257,6 +346,8 @@ def main():
         try:
             if pdk["kind"] == "ciel":
                 install_ciel(name, pdk, cfg)
+            elif pdk["kind"] == "link":
+                install_links(pdk)
             else:
                 install_git(name, pdk, cfg)
         except subprocess.CalledProcessError as e:

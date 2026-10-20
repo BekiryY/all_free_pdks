@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- KLayout technology for the OSU 0.25 um cells (MOSIS SCMOS GDS layer numbers).
+     metal1/via/metal2 match the cell GDS; via2..metal5 use the MOSIS SCMOS table
+     (CVS 61, CMT 62, CVT 30, CTM 31, CVQ 32, CMQ 33). -->
+<technology>
+ <name>osu025</name>
+ <description>OSU TSMC 0.25 um standard cells (MOSIS SCMOS)</description>
+ <dbu>0.001</dbu>
+ <base-path/>
+ <original-base-path/>
+ <layer-properties_file/>
+ <add-other-layers>true</add-other-layers>
+ <reader-options>
+  <lefdef>
+   <read-all-layers>true</read-all-layers>
+   <layer-map>layer_map('OUTLINE : 235/0';'metal1 : 49/0';'metal1.LABEL : 49/0';'metal1.PIN : 49/0';'via : 50/0';'metal2 : 51/0';'metal2.LABEL : 51/0';'metal2.PIN : 51/0';'via2 : 61/0';'metal3 : 62/0';'metal3.LABEL : 62/0';'metal3.PIN : 62/0';'via3 : 30/0';'metal4 : 31/0';'metal4.LABEL : 31/0';'metal4.PIN : 31/0';'via4 : 32/0';'metal5 : 33/0';'metal5.LABEL : 33/0';'metal5.PIN : 33/0')</layer-map>
+   <dbu>0.001</dbu>
+   <produce-net-names>true</produce-net-names>
+   <net-property-name>#1</net-property-name>
+   <produce-inst-names>true</produce-inst-names>
+   <inst-property-name>#1</inst-property-name>
+   <produce-cell-outlines>true</produce-cell-outlines>
+   <cell-outline-layer>OUTLINE</cell-outline-layer>
+   <produce-placement-blockages>true</produce-placement-blockages>
+   <placement-blockage-layer>PLACEMENT_BLK</placement-blockage-layer>
+   <produce-regions>true</produce-regions>
+   <region-layer>REGIONS</region-layer>
+   <produce-via-geometry>true</produce-via-geometry>
+   <via-geometry-suffix/>
+   <via-geometry-datatype>0</via-geometry-datatype>
+   <produce-pins>true</produce-pins>
+   <pins-suffix>.PIN</pins-suffix>
+   <pins-datatype>2</pins-datatype>
+   <produce-obstructions>true</produce-obstructions>
+   <obstructions-suffix>.OBS</obstructions-suffix>
+   <obstructions-datatype>3</obstructions-datatype>
+   <produce-blockages>true</produce-blockages>
+   <blockages-suffix>.BLK</blockages-suffix>
+   <blockages-datatype>4</blockages-datatype>
+   <produce-labels>true</produce-labels>
+   <labels-suffix>.LABEL</labels-suffix>
+   <labels-datatype>1</labels-datatype>
+   <produce-routing>true</produce-routing>
+   <routing-suffix/>
+   <routing-datatype>0</routing-datatype>
+   <lef-files>./osu025_stdcells.lef</lef-files>
+  </lefdef>
+ </reader-options>
+ <writer-options/>
+ <connectivity/>
+</technology>

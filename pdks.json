@@ -44,33 +44,54 @@
       "symlinks": {"libs.tech/openlane": "librelane"},
       "approx_size_gb": 2
     },
-    "asap7": {
+    "orfs": {
       "kind": "git",
+      "flow": true,
+      "comment": "OpenROAD-flow-scripts at the last commit before its OpenROAD moved past the one LibreLane 3.0.6 pins (dcf3613), so it runs with LibreLane's tools.",
       "repo": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git",
-      "commit": "bf3f9b344bf7d9d999f199778a722833bccbd33c",
-      "dest": ".src/orfs-asap7",
-      "sparse": ["flow/platforms/asap7"],
-      "links": {"asap7": ".src/orfs-asap7/flow/platforms/asap7"},
-      "approx_size_gb": 0.3
+      "commit": "75ac7bc7036bd0f42f5ebcbe010bc6479937c8c1",
+      "dest": "orfs",
+      "sparse": [
+        "flow/scripts",
+        "flow/util",
+        "flow/platforms/common",
+        "flow/platforms/asap7",
+        "flow/platforms/nangate45",
+        "flow/designs/src/gcd",
+        "flow/designs/asap7/gcd",
+        "flow/designs/nangate45/gcd"
+      ],
+      "patches": ["patches/orfs/0001-final-report-images-optional.patch"],
+      "approx_size_gb": 0.5
+    },
+    "asap7": {
+      "kind": "link",
+      "requires": ["orfs"],
+      "links": {"asap7": "orfs/flow/platforms/asap7"}
     },
     "nangate45": {
-      "kind": "git",
-      "repo": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git",
-      "commit": "bf3f9b344bf7d9d999f199778a722833bccbd33c",
-      "dest": ".src/orfs-nangate45",
-      "sparse": ["flow/platforms/nangate45"],
-      "links": {"nangate45": ".src/orfs-nangate45/flow/platforms/nangate45"},
-      "approx_size_gb": 0.1
+      "kind": "link",
+      "requires": ["orfs"],
+      "links": {"nangate45": "orfs/flow/platforms/nangate45"}
     },
     "gt2n": {
       "kind": "git",
+      "requires": ["orfs"],
       "repo": "https://github.com/azadnaeemi/GT2N.git",
       "commit": "fe179cb2aa424f93a2199a78bbbbed26c738f79c",
       "dest": "gt2n",
-      "approx_size_gb": 0.2
+      "extract": [
+        {"archive": "Openroad_example/gt2n_openroad_runscripts_no_work_20260601.tar.gz", "to": "orfs_example"}
+      ],
+      "links": {
+        "orfs/flow/platforms/gt2n": "gt2n/orfs_example/gt2n_openroad_run/OpenROAD-flow-scripts/flow/platforms/gt2n"
+      },
+      "repo_links": {"orfs/flow/designs/gt2n": "tests/orfs/gt2n"},
+      "approx_size_gb": 0.3
     },
     "osu025": {
       "kind": "git",
+      "requires": ["orfs"],
       "repo": "https://github.com/stineje/MOSIS_SCMOS.git",
       "commit": "b36db529c2dff117e1fbead561bf792ec866e1cb",
       "dest": ".src/osu025",
@@ -81,11 +102,35 @@
         "latest/cadence/flow/tsmc025"
       ],
       "links": {
-        "osu025/osu025_stdcells.lef": ".src/osu025/latest/cadence/lib/tsmc025/lib/osu025_stdcells.lef",
-        "osu025/osu025_stdcells.lib": ".src/osu025/latest/cadence/lib/tsmc025/signalstorm/osu025_stdcells.lib",
         "osu025/osu025_stdcells.gds": ".src/osu025/latest/cadence/lib/source/gds2/osu025_stdcells.gds2",
-        "osu025/osu025_stdcells.v": ".src/osu025/latest/cadence/flow/tsmc025/osu025_stdcells.v"
+        "osu025/osu025_stdcells.v": ".src/osu025/latest/cadence/flow/tsmc025/osu025_stdcells.v",
+        "orfs/flow/platforms/osu025": "osu025"
       },
+      "derive": [
+        {
+          "comment": "OpenROAD CTS needs a max slew; the 2004 Liberty has none.",
+          "out": "osu025/osu025_stdcells.lib",
+          "src": ".src/osu025/latest/cadence/lib/tsmc025/signalstorm/osu025_stdcells.lib",
+          "insert_after": "^\\s*library\\s*\\(",
+          "text": "  default_max_transition : 1.5 ;"
+        },
+        {
+          "comment": "OpenROAD rejects the obsolete same-layer TURN via rules.",
+          "out": "osu025/osu025_stdcells.lef",
+          "src": ".src/osu025/latest/cadence/lib/tsmc025/lib/osu025_stdcells.lef",
+          "drop_block": ["^VIARULE TURN\\d+ GENERATE", "^END TURN\\d+"]
+        },
+        {
+          "comment": "Tech-only LEF (upstream ships tech and cells in one file); KLayout rejects reading the cells twice.",
+          "out": "osu025/osu025_tech.lef",
+          "src": "osu025/osu025_stdcells.lef",
+          "keep_until": "^MACRO ",
+          "text": "END LIBRARY"
+        }
+      ],
+      "overlay": "overlays/osu025",
+      "overlay_dest": "osu025",
+      "repo_links": {"orfs/flow/designs/osu025": "tests/orfs/osu025"},
       "approx_size_gb": 0.1
     }
   }
