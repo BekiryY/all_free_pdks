@@ -128,11 +128,11 @@ set ::env(STA_CORNERS) [list \
     "max_ss_125C_1v08" \
 ]
 
-set ::env(TIMING_VIOLATION_CORNERS) [list \
-    "nom_tt_025C_1v20" \
-    "min_ff_n40C_1v32" \
-    "max_ss_125C_1v08" \
-]
+# There are no RC extraction rules, so the post-route multi-corner STA
+# (STAPostPNR) cannot run, and mid-PnR STA only covers the default corner.
+# The ff/ss timing metrics would be stale values from pre-placement STA, so
+# only the typical corner is checked. Multi-corner signoff is not available.
+set ::env(TIMING_VIOLATION_CORNERS) [list "nom_tt_025C_1v20"]
 
 # ── LIB: corner → liberty file mapping ──
 # LibreLane 3.x expects a dict keyed by corner name
