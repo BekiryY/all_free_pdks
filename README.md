@@ -163,29 +163,31 @@ LibreLane is tested against. All other PDKs are pinned to a fixed upstream commi
 
 ### Test status
 
-Last verified 2026-10-20 on WSL2 (Ubuntu 24.04) with LibreLane 3.0.6's tools,
-from a fresh `install_pdks.py` install.
+Last verified 2026-10-21 on WSL2 (Ubuntu 24.04) with LibreLane 3.0.6's tools,
+from a fresh `install_pdks.py` install. All tests use public example designs.
 
 | PDK | Flow | Test | Result |
 | --- | ---- | ---- | ------ |
-| sky130A | LibreLane | `librelane --smoke-test` | pass |
+| sky130A | LibreLane | `tests/librelane/run_spm.sh sky130A` | pass |
 | gf180mcuD | LibreLane | `librelane --smoke-test --pdk gf180mcuD` | pass |
 | ihp-sg13g2 | LibreLane | `librelane --smoke-test --pdk ihp-sg13g2` | pass |
-| icsprout55 | LibreLane | UART design, `--manual-pdk` | full flow + GDS, 0 route DRC; deferred hold-violation error (see below) |
-| nangate45 | ORFS | `tests/orfs/run_gcd.sh nangate45` | pass: GDS, 0 route DRC |
-| asap7 | ORFS | `tests/orfs/run_gcd.sh asap7` | pass: GDS, 0 route DRC |
-| gt2n | ORFS | `tests/orfs/run_gcd.sh gt2n` | pass: GDS, 0 route DRC, timing met |
-| osu025 | ORFS | `tests/orfs/run_gcd.sh osu025` | pass: GDS, 0 route DRC, timing met |
+| icsprout55 | LibreLane | `tests/librelane/run_spm.sh icsprout55` | pass: GDS, 0 route DRC, typical-corner timing met |
+| nangate45 | ORFS | `tests/orfs/run.sh nangate45` | pass: GDS, 0 route DRC |
+| asap7 | ORFS | `tests/orfs/run.sh asap7` | pass: GDS, 0 route DRC |
+| gt2n | ORFS | `tests/orfs/run.sh gt2n aes` | pass: GDS, 0 route DRC, PDN connected, timing met |
+| osu025 | ORFS | `tests/orfs/run.sh osu025` | pass: GDS, 0 route DRC, timing met |
 
 ORFS's stock gcd configs for nangate45 and asap7 set a clock slightly beyond
 what gcd meets (worst slack −0.05 ns and −33 ps); that is the example's
 target, not a PDK problem.
 
-The icsprout55 UART design completes all 59 steps and writes the final GDS,
-then LibreLane exits non-zero: hold violations in the `min_ff` (440) and
-`max_ss` (9) corners are reported as a deferred error after the flow ends.
-The typical corner is clean, and results are identical to the same design on
-the previous icsprout55 pin, so this is the design's hold closure, not the PDK.
+gt2n aes takes about 8 minutes and 16 GB of memory. `tests/orfs/run.sh gt2n`
+(gcd) is a one-minute smoke test, but gcd is too small for GT2N's PDN pitches,
+so its power grid is fragmentary.
+
+icsprout55 has no RC extraction rules, so LibreLane cannot run its post-route
+multi-corner STA; timing is signed off in the typical corner only, and the
+ff/ss values in its reports are stale pre-placement numbers.
 
 ### Manufacturability
 
