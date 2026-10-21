@@ -26,9 +26,10 @@ extra=()
 case "$pdk" in
   icsprout55)
     # Not managed by ciel. The PDK ships no Magic tech, Netgen setup, RC
-    # extraction rules or LEF antenna data, so those steps are skipped.
+    # extraction rules or LEF antenna data, so those steps (and the SPEF-based
+    # STA and IR drop reports) are skipped.
     extra=(--manual-pdk
-      -S OpenROAD.RCX -S OpenROAD.STAPostPNR
+      -S OpenROAD.RCX -S OpenROAD.STAPostPNR -S OpenROAD.IRDropReport
       -S Magic.StreamOut -S Magic.WriteLEF -S Magic.DRC -S Magic.SpiceExtraction
       -S Netgen.LVS -S Odb.CheckDesignAntennaProperties)
     ;;
