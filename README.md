@@ -1,15 +1,58 @@
 # all_free_pdks
 
-One repository that bundles the latest stable open-source (free) PDKs in a
-single, predictable layout, ready to use with [LibreLane](https://github.com/librelane/librelane)
-and other open-source EDA tools.
+Go from RTL + constraints to GDSII on any free PDK, with as little setup as
+possible. One clone and one install command give you eight open PDKs, pinned to
+versions that are tested end to end with
+[LibreLane](https://github.com/librelane/librelane) and
+[OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts),
+plus one-line commands to run your own design.
 
 ## Why
 
 Open PDKs are spread across many upstream repositories, each with its own
-build steps, versioning and directory layout. This repository pins known-good
-versions and installs them all the same way, so every checkout ends up with an
-identical tree.
+build steps, versioning, directory layout and missing pieces. This repository
+pins known-good versions, fills the integration gaps (flow configs, layer maps,
+tool workarounds) and installs everything the same way, so every checkout ends
+up with an identical, working tree.
+
+## Quick start
+
+```bash
+git clone https://github.com/BekiryY/all_free_pdks.git
+cd all_free_pdks
+python3 install_pdks.py --only sky130     # or leave out --only for all (~13 GB)
+
+# inside LibreLane's nix-shell (or any shell with librelane on PATH):
+tests/librelane/run_spm.sh sky130A        # example design -> GDS
+scripts/run_librelane.sh my_design/config.json   # your own design
+```
+
+## Your own design
+
+**Fab PDKs (sky130, gf180mcu, ihp-sg13g2, icsprout55) with LibreLane.** Write a
+normal LibreLane `config.json` (set `PDK` and `STD_CELL_LIBRARY`, your
+`VERILOG_FILES`, `CLOCK_PORT`, `CLOCK_PERIOD` and SDC files) and run:
+
+```bash
+scripts/run_librelane.sh path/to/config.json
+```
+
+The wrapper sets `PDK_ROOT` and adds the extra options icsprout55 needs
+(`--manual-pdk` and skipping the Magic, Netgen and RC-extraction steps it has
+no data for). Any other LibreLane option can be appended.
+
+**Predictive and educational PDKs (asap7, nangate45, gt2n, osu025) with ORFS.**
+Write an ORFS `config.mk` and `constraint.sdc` (copy one from
+[`tests/orfs`](tests/orfs) as a template) and run, with `openroad`, `yosys` and
+`klayout` on `PATH`:
+
+```bash
+source env.sh
+cd "$ORFS_FLOW" && make DESIGN_CONFIG=/path/to/config.mk
+```
+
+For gt2n, include the shared settings file as the gt2n examples do; GT2N's own
+platform config only names the platform.
 
 ## How it works
 
@@ -59,19 +102,18 @@ Fab PDKs run in LibreLane; predictive and educational PDKs run in
 
 - **sky130, gf180mcu, ihp-sg13g2:** LibreLane works as-is with
   `PDK_ROOT=<repo>/pdks`.
-- **icsprout55:** not managed by ciel; run LibreLane with `--manual-pdk`. The
-  LibreLane integration files (`libs.tech/librelane`, ...) come from
-  [`overlays/icsprout55`](overlays/icsprout55). Magic, KLayout and Netgen
-  entries there are placeholders: there is no open DRC/LVS deck for it yet.
+- **icsprout55:** not managed by ciel; `scripts/run_librelane.sh` adds
+  `--manual-pdk`. The LibreLane integration files (`libs.tech/librelane`,
+  KLayout layer map, ...) come from [`overlays/icsprout55`](overlays/icsprout55).
+  Magic and Netgen entries there are placeholders: there is no open DRC/LVS
+  deck for it yet.
 - **asap7, nangate45, gt2n, osu025:** run ORFS from `pdks/orfs/flow` with
   `openroad`, `yosys` and `klayout` on `PATH` (e.g. inside LibreLane's
   nix-shell). `source env.sh` sets the needed variables. Example designs:
 
   ```bash
-  source env.sh
-  tests/orfs/run_gcd.sh asap7        # or nangate45, gt2n, osu025
-  # your own design:
-  cd "$ORFS_FLOW" && make DESIGN_CONFIG=/path/to/config.mk   # PLATFORM = asap7 ...
+  tests/orfs/run.sh asap7            # gcd; or nangate45, gt2n, osu025
+  tests/orfs/run.sh gt2n aes         # larger design, full gt2n power grid
   ```
 
 #### ORFS version
