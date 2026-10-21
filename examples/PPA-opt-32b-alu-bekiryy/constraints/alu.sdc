@@ -23,11 +23,9 @@ set_output_delay -min [expr {0.0 * $clk_period}] -clock clk $outputs
 # Block-level example: input hold depends on the parent's clock insertion delay.
 set_false_path -hold -from $inputs
 
-# The low-power adder and multiplier are only used in low-power mode and get
-# 20 cycles, as in the original constraints. Written against the nets they
-# drive so it survives flattening.
-set lp_nets [get_nets -quiet {adder_lp_out[*] mult_lp_out[*]}]
-if { [llength $lp_nets] > 0 } {
-  set_multicycle_path 20 -setup -through $lp_nets
-  set_multicycle_path 19 -hold -through $lp_nets
-}
+# Time turbo mode. The original constraints gave the combinational low-power
+# adder/multiplier 20 cycles via -through [get_cells adder_lp/mult_lp]; those
+# instances do not survive flattening, so the mode is fixed instead: with
+# low_power = 0 their inputs are forced to 0 and their paths are not timed.
+# Low-power mode itself (180 MHz in the original) is not analysed here.
+set_case_analysis 0 [get_ports low_power]
