@@ -4,7 +4,9 @@
 #
 #   export PLATFORM = gt2n
 #   ...
-#   include $(PLATFORM_DIR)/all_free_pdks_w31_svtlvt.mk
+#   include $(dir $(firstword $(MAKEFILE_LIST)))platforms/gt2n/all_free_pdks_w31_svtlvt.mk
+#
+# (PLATFORM_DIR is not defined yet when ORFS reads a design config.)
 #
 # Adapted from GT2N's ORFS example (AES_128 .../1000ps_fspdn_tapm3_rdl_dense_u40_c80);
 # its PDN scripts are used as shipped. Their strap pitches are 6-12.8 um, so

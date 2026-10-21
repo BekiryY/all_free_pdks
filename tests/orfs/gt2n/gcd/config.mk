@@ -14,4 +14,5 @@ export CORE_MARGIN = 5.04
 # Denser placement left 3 M1/M2 spacing violations in detailed routing
 export PLACE_DENSITY ?= 0.40
 
-include $(PLATFORM_DIR)/all_free_pdks_w31_svtlvt.mk
+# PLATFORM_DIR is not defined yet while ORFS reads this file
+include $(dir $(firstword $(MAKEFILE_LIST)))platforms/gt2n/all_free_pdks_w31_svtlvt.mk
