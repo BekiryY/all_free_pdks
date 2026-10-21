@@ -1,5 +1,6 @@
 # Installed PDKs (populated by install_pdks.py, too large to track)
 /pdks/
+/work/
 
 # Python
 __pycache__/
