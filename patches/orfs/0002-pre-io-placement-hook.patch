@@ -1,0 +1,13 @@
+diff --git a/flow/scripts/io_placement.tcl b/flow/scripts/io_placement.tcl
+index 0ec25dc..70cc850 100644
+--- a/flow/scripts/io_placement.tcl
++++ b/flow/scripts/io_placement.tcl
+@@ -7,6 +7,8 @@ if {
+   ![env_var_exists_and_non_empty FOOTPRINT_TCL]
+ } {
+   load_design 3_1_place_gp_skip_io.odb 2_floorplan.sdc
++  # all_free_pdks: platform hook (newer ORFS has it), e.g. GT2N's IO keep-outs
++  source_env_var_if_exists PRE_IO_PLACEMENT_TCL
+   log_cmd place_pins \
+     -hor_layers $::env(IO_PLACER_H) \
+     -ver_layers $::env(IO_PLACER_V) \

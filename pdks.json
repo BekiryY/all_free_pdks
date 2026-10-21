@@ -62,7 +62,10 @@
         "flow/designs/asap7/gcd",
         "flow/designs/nangate45/gcd"
       ],
-      "patches": ["patches/orfs/0001-final-report-images-optional.patch"],
+      "patches": [
+        "patches/orfs/0001-final-report-images-optional.patch",
+        "patches/orfs/0002-pre-io-placement-hook.patch"
+      ],
       "approx_size_gb": 0.5
     },
     "asap7": {
