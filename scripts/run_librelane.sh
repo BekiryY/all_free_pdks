@@ -33,7 +33,10 @@ case "$pdk" in
       -c RUN_MAGIC_STREAMOUT=false -c RUN_MAGIC_WRITE_LEF=false -c RUN_MAGIC_DRC=false
       -c RUN_LVS=false -c RUN_KLAYOUT_DRC=false -c RUN_KLAYOUT_XOR=false
       -c RUN_HEURISTIC_DIODE_INSERTION=false
-      -S Magic.SpiceExtraction -S Odb.CheckDesignAntennaProperties)
+      -S Magic.SpiceExtraction -S Odb.CheckDesignAntennaProperties
+      # Without extraction, ff/ss hold metrics are stale pre-placement values
+      # (see the icsprout55 overlay config); check hold in the typical corner.
+      -c HOLD_VIOLATION_CORNERS=nom_tt_025C_1v20)
     ;;
 esac
 
