@@ -1,0 +1,24 @@
+# LibreLane config for ALU_TOP on the fab PDKs. Run with:
+#   scripts/run_librelane.sh examples/PPA-opt-32b-alu-bekiryy/librelane/config.yaml --pdk <pdk>
+DESIGN_NAME: ALU_TOP
+VERILOG_FILES: dir::../rtl/*.sv
+CLOCK_PORT: clk
+CLOCK_PERIOD: 10
+PNR_SDC_FILE: dir::../constraints/alu.sdc
+SIGNOFF_SDC_FILE: dir::../constraints/alu.sdc
+
+FP_CORE_UTIL: 40
+PL_TARGET_DENSITY_PCT: 55
+
+pdk::sky130*:
+  STD_CELL_LIBRARY: sky130_fd_sc_hd
+  CLOCK_PERIOD: 8
+pdk::gf180mcu*:
+  STD_CELL_LIBRARY: gf180mcu_fd_sc_mcu7t5v0
+  CLOCK_PERIOD: 15
+pdk::ihp-sg13g2:
+  STD_CELL_LIBRARY: sg13g2_stdcell
+  CLOCK_PERIOD: 8
+pdk::icsprout55:
+  STD_CELL_LIBRARY: ics55_LLSC_H7CR
+  CLOCK_PERIOD: 4
