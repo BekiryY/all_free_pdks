@@ -43,8 +43,11 @@ set ::env(PLACE_SITE_WIDTH) 0.200
 set ::env(PLACE_SITE_HEIGHT) 1.400
 
 # ── Fill / Decap ──
-set ::env(FILL_CELL) "FILLCAP32H7H FILLCAP16H7H FILLCAP8H7H FILLCAP4H7H"
-set ::env(DECAP_CELL) "FILLCAP32H7H"
+set ::env(FILL_CELL) "FILLER64H7H FILLER32H7H FILLER16H7H FILLER8H7H FILLER4H7H FILLER2H7H FILLER1H7H"
+set ::env(DECAP_CELL) "FILLCAP32H7H FILLCAP16H7H FILLCAP8H7H FILLCAP4H7H"
+# Logic cells have no well/substrate ties; FILLTAPH7H provides them.
+set ::env(WELLTAP_CELL) "FILLTAPH7H"
+set ::env(ENDCAP_CELL) "FILLTAPH7H"
 
 # ── Diode (not available) ──
 # set ::env(DIODE_CELL) ""
@@ -53,7 +56,7 @@ set ::env(DECAP_CELL) "FILLCAP32H7H"
 # ── Cell padding ──
 set ::env(GPL_CELL_PADDING) {0}
 set ::env(DPL_CELL_PADDING) {0}
-set ::env(CELL_PAD_EXCLUDE) "FILLCAP*"
+set ::env(CELL_PAD_EXCLUDE) "FILL*"
 
 # ── Constraints ──
 set ::env(MAX_TRANSITION_CONSTRAINT) 0.5
