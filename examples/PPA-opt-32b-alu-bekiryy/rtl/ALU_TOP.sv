@@ -114,11 +114,14 @@ assign comb_out = (CMD[4:3] == 2'b10) ? shifter_out : logic_out;
 
 // Priority: MULT32 > ADDER32 > SHIFTER = LOGIC_BLOCK
 
+// all_free_pdks: drive 0 instead of high-Z when no unit is valid. Y also
+// feeds flag_controller, and the open PDKs have no (or no usable) tristate
+// cells; all consumers are qualified by output_valid.
 assign Y = (valid_mult)  ? final_mult_out[31:0] :
            (valid_adder) ? final_adder_out :
-           (valid_comb)  ? comb_out : 32'dz;
+           (valid_comb)  ? comb_out : 32'd0;
 
-assign result_aux = (valid_mult) ? final_mult_out[63:32] : 32'dz;
+assign result_aux = (valid_mult) ? final_mult_out[63:32] : 32'd0;
 
     // Conflict Logic Module
     conflict_handler conflict_h (
