@@ -18,3 +18,6 @@ set_output_delay -max $io_delay_max -clock $clk_name [all_outputs]
 set_output_delay -min $io_delay_min -clock $clk_name [all_outputs]
 
 set_false_path -from $rst_port
+# Block-level test: input hold depends on the parent's clock insertion delay
+# (~160 ps here), which a standalone block cannot know.
+set_false_path -hold -from $non_clock_inputs
