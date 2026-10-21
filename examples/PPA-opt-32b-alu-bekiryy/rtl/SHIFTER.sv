@@ -21,6 +21,9 @@ logic [32:0] temp_res;
 
 
 always_comb begin
+    // all_free_pdks: default avoids a latch on temp_res (only the shift
+    // branches assign it); Yosys rejects latches inferred in always_comb.
+    temp_res = 33'd0;
     begin
         case (CMD)
             CMD_SLL: begin
