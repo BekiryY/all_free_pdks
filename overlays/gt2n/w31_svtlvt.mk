@@ -38,6 +38,8 @@ export MATCH_CELL_FOOTPRINT = 1
 export PLACE_SITE = gt2_6t
 export IO_PLACER_H ?= M2
 export IO_PLACER_V ?= M3
+# Keep IO pins off the M2/M3 PDN stripes (they extend to the die boundary)
+export PRE_IO_PLACEMENT_TCL ?= $(PLATFORM_DIR)/pre_io_avoid_pdn_stripes.tcl
 export PDN_TCL ?= $(GT2N_EXAMPLE)/pdn_no_bpr_m2m3_rdl_dense.tcl
 export GT2N_POST_PDN_TCL = $(GT2N_EXAMPLE)/post_pdn_tap_to_m3.tcl
 export POST_PDN_TCL ?= $(PLATFORM_DIR)/all_free_pdks_post_pdn.tcl
