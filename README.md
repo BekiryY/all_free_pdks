@@ -127,6 +127,8 @@ those tools:
 - `QT_QPA_PLATFORM=offscreen`, plus [a patch](patches/orfs) that makes the
   final screenshots non-fatal; this OpenROAD build lacks a display control
   ORFS's image script expects. Images are skipped, the layout is unaffected.
+- A second [patch](patches/orfs) adds the `PRE_IO_PLACEMENT_TCL` hook from
+  newer ORFS, which GT2N uses to keep IO pins off its PDN stripes.
 
 #### Local changes per PDK
 
@@ -139,8 +141,14 @@ Nothing upstream is stored here; these files are added or derived on install.
   tech-only LEF. RC values are rough estimates. The library has no tie cells,
   so designs must not synthesize constant nets.
 - **gt2n:** uses GT2N's own ORFS add-on from `Openroad_example/`, plus
+  [`overlays/gt2n/w31_svtlvt.mk`](overlays/gt2n/w31_svtlvt.mk), the shared
+  library/PDN settings a gt2n design includes, and
   [`overlays/gt2n/post_pdn.tcl`](overlays/gt2n/post_pdn.tcl), which removes an
   empty power wire the PDN leaves with this OpenROAD (KLayout cannot read it).
+- **icsprout55:** [`overlays/icsprout55`](overlays/icsprout55) provides the
+  LibreLane configs, a KLayout LEF/DEF-to-GDS layer map built from upstream's
+  layer map, and fill, decap and well-tap cells (the logic cells have no
+  substrate ties, so `FILLTAPH7*` taps are required).
 
 ## PDKs
 
