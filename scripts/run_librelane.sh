@@ -25,13 +25,15 @@ fi
 extra=()
 case "$pdk" in
   icsprout55)
-    # Not managed by ciel. The PDK ships no Magic tech, Netgen setup, RC
-    # extraction rules or LEF antenna data, so those steps (and the SPEF-based
-    # STA and IR drop reports) are skipped.
+    # Not managed by ciel. The PDK ships no Magic tech, Netgen setup, KLayout
+    # DRC deck, RC extraction rules, diode cell or LEF antenna data, so those
+    # steps (and the SPEF-based STA, IR drop and Magic/KLayout XOR) are off.
     extra=(--manual-pdk
-      -S OpenROAD.RCX -S OpenROAD.STAPostPNR -S OpenROAD.IRDropReport
-      -S Magic.StreamOut -S Magic.WriteLEF -S Magic.DRC -S Magic.SpiceExtraction
-      -S Netgen.LVS -S Odb.CheckDesignAntennaProperties)
+      -c RUN_SPEF_EXTRACTION=false -c RUN_MCSTA=false -c RUN_IRDROP_REPORT=false
+      -c RUN_MAGIC_STREAMOUT=false -c RUN_MAGIC_WRITE_LEF=false -c RUN_MAGIC_DRC=false
+      -c RUN_LVS=false -c RUN_KLAYOUT_DRC=false -c RUN_KLAYOUT_XOR=false
+      -c RUN_HEURISTIC_DIODE_INSERTION=false
+      -S Magic.SpiceExtraction -S Odb.CheckDesignAntennaProperties)
     ;;
 esac
 
