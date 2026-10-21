@@ -14,7 +14,7 @@ export ALU_SDC="$alu/constraints/alu.sdc" ALU_RC_LAYER=""
 
 case "$pdk" in
   sky130A|gf180mcuD|ihp-sg13g2|icsprout55)
-    run=$(ls -td "$alu"/librelane/runs/*/ | head -1)
+    run="$alu/librelane/runs/$pdk/"
     eval "$(python3 - "$run" <<'PY'
 import fnmatch, glob, json, sys
 run = sys.argv[1]

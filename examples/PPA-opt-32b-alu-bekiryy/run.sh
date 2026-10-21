@@ -12,8 +12,9 @@ repo="$(cd "$alu/../.." && pwd)"
 
 case "$pdk" in
   sky130A|gf180mcuD|ihp-sg13g2|icsprout55)
-    "$repo/scripts/run_librelane.sh" "$alu/librelane/config.yaml" --pdk "$pdk" "$@"
-    gds=$(ls -t "$alu"/librelane/runs/*/final/gds/*.gds | head -1)
+    "$repo/scripts/run_librelane.sh" "$alu/librelane/config.yaml" --pdk "$pdk" \
+      --run-tag "$pdk" --overwrite "$@"
+    gds=$(ls "$alu"/librelane/runs/"$pdk"/final/gds/*.gds | head -1)
     ;;
   nangate45|asap7|gt2n|osu025)
     source "$repo/env.sh" >/dev/null
