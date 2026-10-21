@@ -58,6 +58,7 @@
         "flow/platforms/asap7",
         "flow/platforms/nangate45",
         "flow/designs/src/gcd",
+        "flow/designs/src/aes",
         "flow/designs/asap7/gcd",
         "flow/designs/nangate45/gcd"
       ],
