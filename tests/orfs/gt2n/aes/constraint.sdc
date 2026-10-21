@@ -1,16 +1,20 @@
 current_design aes_cipher_top
 
-# Liberty time unit is 1 ps
-set clk_name clk
-set clk_port_name clk
-set clk_period 400
-set clk_io_pct 0.2
+# Same structure as GT2N's own AES example constraints.
+set_units -time ps -resistance Ohm -capacitance pF -voltage V -current mA
 
-set clk_port [get_ports $clk_port_name]
+set clk_name clk
+set clk_port [get_ports clk]
+set rst_port [get_ports rst]
+set clk_period 500
+set io_delay_max [expr $clk_period * 0.20]
+set io_delay_min [expr $clk_period * 0.10]
 
 create_clock -name $clk_name -period $clk_period $clk_port
-
 set non_clock_inputs [all_inputs -no_clocks]
+set_input_delay -max $io_delay_max -clock $clk_name $non_clock_inputs
+set_input_delay -min $io_delay_min -clock $clk_name $non_clock_inputs
+set_output_delay -max $io_delay_max -clock $clk_name [all_outputs]
+set_output_delay -min $io_delay_min -clock $clk_name [all_outputs]
 
-set_input_delay [expr $clk_period * $clk_io_pct] -clock $clk_name $non_clock_inputs
-set_output_delay [expr $clk_period * $clk_io_pct] -clock $clk_name [all_outputs]
+set_false_path -from $rst_port
