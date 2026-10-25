@@ -14,7 +14,7 @@ PL_TARGET_DENSITY_PCT: 65
 
 pdk::sky130*:
   STD_CELL_LIBRARY: sky130_fd_sc_hd
-  CLOCK_PERIOD: 8.5
+  CLOCK_PERIOD: 8.9
 pdk::gf180mcu*:
   STD_CELL_LIBRARY: gf180mcu_fd_sc_mcu7t5v0
   CLOCK_PERIOD: 18.5
