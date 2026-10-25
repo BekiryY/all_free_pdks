@@ -12,13 +12,13 @@ PL_TARGET_DENSITY_PCT: 55
 
 pdk::sky130*:
   STD_CELL_LIBRARY: sky130_fd_sc_hd
-  CLOCK_PERIOD: 8
+  CLOCK_PERIOD: 9
 pdk::gf180mcu*:
   STD_CELL_LIBRARY: gf180mcu_fd_sc_mcu7t5v0
-  CLOCK_PERIOD: 15
+  CLOCK_PERIOD: 18
 pdk::ihp-sg13g2:
   STD_CELL_LIBRARY: sg13g2_stdcell
-  CLOCK_PERIOD: 8
+  CLOCK_PERIOD: 7.5
 pdk::icsprout55:
   STD_CELL_LIBRARY: ics55_LLSC_H7CR
   CLOCK_PERIOD: 4
