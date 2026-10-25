@@ -23,4 +23,4 @@ pdk::ihp-sg13g2:
   CLOCK_PERIOD: 7.3
 pdk::icsprout55:
   STD_CELL_LIBRARY: ics55_LLSC_H7CR
-  CLOCK_PERIOD: 4
+  CLOCK_PERIOD: 3.4
