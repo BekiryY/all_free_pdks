@@ -17,7 +17,7 @@ pdk::sky130*:
   CLOCK_PERIOD: 8.5
 pdk::gf180mcu*:
   STD_CELL_LIBRARY: gf180mcu_fd_sc_mcu7t5v0
-  CLOCK_PERIOD: 17.5
+  CLOCK_PERIOD: 18.5
 pdk::ihp-sg13g2:
   STD_CELL_LIBRARY: sg13g2_stdcell
   CLOCK_PERIOD: 7.3
