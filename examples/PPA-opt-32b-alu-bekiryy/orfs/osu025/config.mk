@@ -10,6 +10,6 @@ export SDC_FILE      = $(ALU_DIR)/constraints/alu.sdc
 # Clock period in the platform's time unit (ns)
 export ALU_CLOCK_PERIOD = 15
 
-export CORE_UTILIZATION = 40
-export PLACE_DENSITY ?= 0.60
+export CORE_UTILIZATION = 55
+export PLACE_DENSITY ?= 0.65
 

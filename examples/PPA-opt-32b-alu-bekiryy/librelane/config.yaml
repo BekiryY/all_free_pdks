@@ -7,18 +7,20 @@ CLOCK_PERIOD: 10
 PNR_SDC_FILE: dir::../constraints/alu.sdc
 SIGNOFF_SDC_FILE: dir::../constraints/alu.sdc
 
-FP_CORE_UTIL: 40
-PL_TARGET_DENSITY_PCT: 55
+# Every PDK is run at its edge: the shortest clock that closes typical-corner
+# setup, at >= 50% core utilization.
+FP_CORE_UTIL: 55
+PL_TARGET_DENSITY_PCT: 65
 
 pdk::sky130*:
   STD_CELL_LIBRARY: sky130_fd_sc_hd
-  CLOCK_PERIOD: 9
+  CLOCK_PERIOD: 8.5
 pdk::gf180mcu*:
   STD_CELL_LIBRARY: gf180mcu_fd_sc_mcu7t5v0
-  CLOCK_PERIOD: 18
+  CLOCK_PERIOD: 17.5
 pdk::ihp-sg13g2:
   STD_CELL_LIBRARY: sg13g2_stdcell
-  CLOCK_PERIOD: 7.5
+  CLOCK_PERIOD: 7.3
 pdk::icsprout55:
   STD_CELL_LIBRARY: ics55_LLSC_H7CR
   CLOCK_PERIOD: 4
