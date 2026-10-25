@@ -30,6 +30,8 @@ print(f'export ALU_RC_LAYER="{c.get("DATA_WIRE_RC_LAYER") or ""}"')
 PY
 )"
     export CLOCK_PERIOD="$period"
+    # icsprout55 has no SPEF; estimate wires on the overlay's data-wire layer.
+    [ -n "$ALU_SPEF" ] || [ -n "$ALU_RC_LAYER" ] || ALU_RC_LAYER=MET2
     ;;
   nangate45|asap7|gt2n|osu025)
     base="$ORFS_FLOW/results/$pdk/alu/base"
