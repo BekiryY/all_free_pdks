@@ -73,6 +73,7 @@ hold met, 0 routing DRC, core utilization of at least 50% (target 55%).
 
 | PDK | Node | Flow | Turbo clock | Setup slack | Turbo power | Turbo energy/op | Low-power clock | Low-power power | Low-power energy/op | Core area | Utilization | Route DRC |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| sky130A | 130 nm | LibreLane | 113.6 MHz | +79 ps (0.9%) | 28.5 mW | 251 pJ | 12.3 MHz | 3.10 mW | 251 pJ | 308,336 µm² | 62% | 0 |
 | gf180mcuD | 180 nm | LibreLane | 54.1 MHz | +99 ps (0.5%) | 178.3 mW | 3,299 pJ | 5.9 MHz | 19.12 mW | 3,261 pJ | 685,054 µm² | 65% | 0 |
 | ihp-sg13g2 | 130 nm SiGe | LibreLane | 151.5 MHz | +187 ps (2.8%) | 27.0 mW | 178 pJ | 16.4 MHz | 2.96 mW | 180 pJ | 395,162 µm² | 63% | 0 |
 | icsprout55 | 55 nm | LibreLane | 333.3 MHz | +24 ps (0.8%) | 19.8 mW* | 59.5 pJ | 36.2 MHz | 2.15 mW* | 59.6 pJ | 67,236 µm² | 67% | 0 |
@@ -80,7 +81,7 @@ hold met, 0 routing DRC, core utilization of at least 50% (target 55%).
 | asap7 | 7 nm | ORFS | 1.56 GHz | +1 ps (0.1%) | 12.3 mW | 7.88 pJ | 169.5 MHz | 1.33 mW | 7.88 pJ | 3,570 µm² | 57% | 0 |
 | GPDK045 (reference) | 45 nm | Genus/Innovus | 1.66 GHz | +21 ps (3.5%) | 51.9 mW | 31.3 pJ | 180 MHz | 3.30 mW | 18.3 pJ | ≈67,700 µm²† | 77% | – |
 
-sky130A and gt2n are still being tuned to their edge and will be added.
+gt2n is still being tuned to its edge and will be added.
 
 - Setup slack is the worst typical-corner slack at signoff (for LibreLane,
   over all RC corners), in turbo mode. Hold is met everywhere.
@@ -107,7 +108,7 @@ Not to scale: each image is fit to its own die.
 
 | sky130A | gf180mcuD | ihp-sg13g2 | icsprout55 |
 | :---: | :---: | :---: | :---: |
-| (pending) | ![gf180mcuD](docs/alu-gf180mcuD.jpg) | ![ihp-sg13g2](docs/alu-ihp-sg13g2.jpg) | ![icsprout55](docs/alu-icsprout55.jpg) |
+| ![sky130A](docs/alu-sky130A.jpg) | ![gf180mcuD](docs/alu-gf180mcuD.jpg) | ![ihp-sg13g2](docs/alu-ihp-sg13g2.jpg) | ![icsprout55](docs/alu-icsprout55.jpg) |
 | **nangate45** | **asap7** | **gt2n** | **GPDK045 (original)** |
 | ![nangate45](docs/alu-nangate45.jpg) | ![asap7](docs/alu-asap7.jpg) | (pending) | ![GPDK045](https://raw.githubusercontent.com/BekiryY/PPA-Optimized-32-bit-Pipelined-ALU-Design/312caa8/documents/screenshots/ALU_main_gpdk045.png) |
 
