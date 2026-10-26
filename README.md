@@ -216,7 +216,7 @@ from a fresh `install_pdks.py` install. All tests use public example designs.
 | icsprout55 | LibreLane | `tests/librelane/run_spm.sh icsprout55` | pass: GDS, 0 route DRC, typical-corner timing met |
 | nangate45 | ORFS | `tests/orfs/run.sh nangate45` | pass: GDS, 0 route DRC |
 | asap7 | ORFS | `tests/orfs/run.sh asap7` | pass: GDS, 0 route DRC |
-| gt2n | ORFS | `tests/orfs/run.sh gt2n aes` | pass: GDS, 0 route DRC, PDN connected, timing met |
+| gt2n | ORFS | `tests/orfs/run.sh gt2n aes` | GDS, PDN connected, timing met; 1 M1 route DRC violation since the 100 ps slew limit (2026-10-26) |
 | osu025 | ORFS | `tests/orfs/run.sh osu025` | pass: GDS, 0 route DRC, timing met |
 
 `scripts/rtl2gds.sh` was checked on all eight PDKs on 2026-10-26 (LibreLane's
