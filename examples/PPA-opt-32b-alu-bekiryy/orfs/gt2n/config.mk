@@ -8,7 +8,7 @@ ALU_DIR = $(abspath $(dir $(DESIGN_CONFIG))../..)
 export VERILOG_FILES = $(sort $(wildcard $(ALU_DIR)/rtl/*.sv))
 export SDC_FILE      = $(ALU_DIR)/constraints/alu.sdc
 # Clock period in the platform's time unit (ps)
-export ALU_CLOCK_PERIOD = 500
+export ALU_CLOCK_PERIOD = 720
 
 export CORE_UTILIZATION = 55
 export PLACE_DENSITY ?= 0.65
