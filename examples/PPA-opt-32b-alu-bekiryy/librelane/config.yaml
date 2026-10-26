@@ -20,7 +20,7 @@ pdk::gf180mcu*:
   CLOCK_PERIOD: 18.5
 pdk::ihp-sg13g2:
   STD_CELL_LIBRARY: sg13g2_stdcell
-  CLOCK_PERIOD: 7.3
+  CLOCK_PERIOD: 6.6
 pdk::icsprout55:
   STD_CELL_LIBRARY: ics55_LLSC_H7CR
   CLOCK_PERIOD: 2.8
