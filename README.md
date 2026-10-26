@@ -32,7 +32,7 @@ in ns. Any PDK name from the table below works the same way.
 ## Flagship example: a 32-bit pipelined ALU on every PDK
 
 [`examples/PPA-opt-32b-alu-bekiryy`](examples/PPA-opt-32b-alu-bekiryy) takes a
-real dual-mode (turbo / low-power) 32-bit ALU from RTL to GDS on seven of the
+real dual-mode (turbo / low-power) 32-bit ALU from RTL to GDS on all eight
 PDKs here, each at the fastest clock it closes timing at, and compares the
 results with the original Cadence GPDK045 implementation.
 
