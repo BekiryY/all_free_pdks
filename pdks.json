@@ -93,7 +93,8 @@
       "repo_links": {
         "orfs/flow/designs/gt2n": "tests/orfs/gt2n",
         "gt2n/orfs_example/gt2n_openroad_run/OpenROAD-flow-scripts/flow/platforms/gt2n/all_free_pdks_post_pdn.tcl": "overlays/gt2n/post_pdn.tcl",
-        "gt2n/orfs_example/gt2n_openroad_run/OpenROAD-flow-scripts/flow/platforms/gt2n/all_free_pdks_w31_svtlvt.mk": "overlays/gt2n/w31_svtlvt.mk"
+        "gt2n/orfs_example/gt2n_openroad_run/OpenROAD-flow-scripts/flow/platforms/gt2n/all_free_pdks_w31_svtlvt.mk": "overlays/gt2n/w31_svtlvt.mk",
+        "gt2n/orfs_example/gt2n_openroad_run/OpenROAD-flow-scripts/flow/platforms/gt2n/all_free_pdks_set_rc.tcl": "overlays/gt2n/set_rc.tcl"
       },
       "approx_size_gb": 0.3
     },

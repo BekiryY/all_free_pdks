@@ -50,6 +50,10 @@ export TAPCELL_TCL ?= $(PLATFORM_DIR)/tapcell.tcl
 export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT ?= 1
 export CELL_PAD_IN_SITES_DETAIL_PLACEMENT ?= 1
 
+# CTS otherwise picks x1 buffers only: ~195 ps clock latency on a 1500-flop
+# design, which every register-to-output path pays.
+export CTS_BUF_LIST ?= gt2_6t_buf_x4_w31_lvt gt2_6t_buf_x8_w31_lvt
+
 export ROUTING_LAYER_ADJUSTMENT ?= 0.25
 export MIN_ROUTING_LAYER ?= M1
 export MIN_CLK_ROUTING_LAYER ?= M3
@@ -60,7 +64,9 @@ export KLAYOUT_TECH_FILE = $(PLATFORM_DIR)/$(PLATFORM).lyt
 export GDS_LAYER_MAP = $(PLATFORM_DIR)/techlib/gt2_techfile.layermap
 export FILL_CONFIG = $(PLATFORM_DIR)/fill.json
 export RCX_RULES = $(PLATFORM_DIR)/rcx_patterns.rules
-export LAYER_PARASITICS_FILE ?= $(PLATFORM_DIR)/setRC_fspdn.tcl
+# GT2N's RC plus a max slew (ps); the library's own limit is 1000 ps
+export LAYER_PARASITICS_FILE ?= $(PLATFORM_DIR)/all_free_pdks_set_rc.tcl
+export GT2N_MAX_TRANSITION ?= 100
 export SET_RC_TCL ?= $(PLATFORM_DIR)/setRC_fspdn.tcl
 export MAKE_TRACKS ?= $(PLATFORM_DIR)/make_tracks_fspdn.tcl
 
