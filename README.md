@@ -178,7 +178,10 @@ Upstream files are not stored here; these are added or derived on install.
   [`overlays/gt2n/w31_svtlvt.mk`](overlays/gt2n/w31_svtlvt.mk), the shared
   library/PDN settings a gt2n design includes, and
   [`overlays/gt2n/post_pdn.tcl`](overlays/gt2n/post_pdn.tcl), which removes an
-  empty power wire the PDN leaves with this OpenROAD (KLayout cannot read it).
+  empty power wire the PDN leaves with this OpenROAD (KLayout cannot read it)
+  and keeps standard cells out of the rows crossed by M2 power stripes (those
+  rows have too few free M2 tracks for pin access, which leaves M1
+  end-of-line route DRC violations).
 - **icsprout55:** [`overlays/icsprout55`](overlays/icsprout55) provides the
   LibreLane configs, a KLayout LEF/DEF-to-GDS layer map built from upstream's
   layer map, and fill, decap and well-tap cells (the logic cells have no
@@ -216,7 +219,7 @@ from a fresh `install_pdks.py` install. All tests use public example designs.
 | icsprout55 | LibreLane | `tests/librelane/run_spm.sh icsprout55` | pass: GDS, 0 route DRC, typical-corner timing met |
 | nangate45 | ORFS | `tests/orfs/run.sh nangate45` | pass: GDS, 0 route DRC |
 | asap7 | ORFS | `tests/orfs/run.sh asap7` | pass: GDS, 0 route DRC |
-| gt2n | ORFS | `tests/orfs/run.sh gt2n aes` | GDS, PDN connected, timing met; 1 M1 route DRC violation since the 100 ps slew limit (2026-10-26) |
+| gt2n | ORFS | `tests/orfs/run.sh gt2n aes` | pass: GDS, 0 route DRC, PDN connected, timing met (2026-10-27) |
 | osu025 | ORFS | `tests/orfs/run.sh osu025` | pass: GDS, 0 route DRC, timing met |
 
 `scripts/rtl2gds.sh` was checked on all eight PDKs on 2026-10-26 (LibreLane's
