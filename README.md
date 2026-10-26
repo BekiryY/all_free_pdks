@@ -22,10 +22,12 @@ git clone https://github.com/BekiryY/all_free_pdks.git
 cd all_free_pdks
 python3 install_pdks.py --only sky130     # or leave out --only for all (~13 GB)
 
-# inside LibreLane's nix-shell (or any shell with librelane on PATH):
-tests/librelane/run_spm.sh sky130A        # example design -> GDS
-scripts/run_librelane.sh my_design/config.json   # your own design
+# inside LibreLane's nix-shell (or any shell with LibreLane's tools on PATH):
+scripts/rtl2gds.sh --pdk sky130A --top my_top --clock clk --period 10 rtl/*.v
 ```
+
+That is all a design needs: RTL, the top module, the clock port and a period
+in ns. Any PDK name from the table below works the same way.
 
 ## Flagship example: a 32-bit pipelined ALU on every PDK
 
@@ -40,6 +42,24 @@ examples/PPA-opt-32b-alu-bekiryy/scripts/report_modes.sh asap7
 ```
 
 ## Your own design
+
+```bash
+scripts/rtl2gds.sh --pdk <pdk> --top <module> --clock <port> --period <ns> \
+    [--sdc my.sdc] [--util 50] [--set KEY=VALUE ...] rtl/*.v
+```
+
+[`rtl2gds.sh`](scripts/rtl2gds.sh) writes the flow config for the PDK
+(LibreLane for sky130A, gf180mcuD, ihp-sg13g2 and icsprout55; ORFS for
+nangate45, asap7, gt2n and osu025), converts the period to ps where the PDK
+uses ps, and runs the flow; the config lands in `work/rtl2gds/<top>-<pdk>/`.
+
+- Without `--sdc` it constrains the clock plus 20% input/output delays. Your own
+  SDC is used as-is, so write it in the PDK's time unit (ps on asap7 and gt2n).
+- `--set` passes any LibreLane or ORFS variable, e.g. `--set FP_PDN_MULTILAYER=false`.
+- Small designs on gt2n need a low `--util` (e.g. 5): GT2N's power straps need
+  a core at least ~40 µm wide.
+
+### Writing the config yourself
 
 **Fab PDKs (sky130, gf180mcu, ihp-sg13g2, icsprout55) with LibreLane.** Write a
 normal LibreLane `config.json` (set `PDK` and `STD_CELL_LIBRARY`, your
@@ -198,6 +218,9 @@ from a fresh `install_pdks.py` install. All tests use public example designs.
 | asap7 | ORFS | `tests/orfs/run.sh asap7` | pass: GDS, 0 route DRC |
 | gt2n | ORFS | `tests/orfs/run.sh gt2n aes` | pass: GDS, 0 route DRC, PDN connected, timing met |
 | osu025 | ORFS | `tests/orfs/run.sh osu025` | pass: GDS, 0 route DRC, timing met |
+
+`scripts/rtl2gds.sh` was checked on all eight PDKs on 2026-10-26 (LibreLane's
+spm example on the fab PDKs, ORFS's gcd on the others): each run produced a GDS.
 
 ORFS's stock gcd configs for nangate45 and asap7 set a clock slightly beyond
 what gcd meets (worst slack −0.05 ns and −33 ps); that is the example's
