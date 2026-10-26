@@ -10,7 +10,7 @@ repo="$(cd "$alu/../.." && pwd)"
 source "$repo/env.sh" >/dev/null
 out_dir="$repo/work/alu-modes"
 mkdir -p "$out_dir"
-export ALU_SDC="$alu/constraints/alu.sdc" ALU_RC_LAYER=""
+export ALU_SDC="$alu/constraints/alu.sdc" ALU_RC_LAYER="" ALU_RC_TCL=""
 
 case "$pdk" in
   sky130A|gf180mcuD|ihp-sg13g2|icsprout55)
@@ -38,7 +38,8 @@ PY
     export ALU_LIBS="$(make -s -C "$ORFS_FLOW" DESIGN_CONFIG="$alu/orfs/$pdk/config.mk" print-LIB_FILES \
       | sed -n 's/^LIB_FILES *[:=] *//p')"
     export ALU_ODB="$base/6_final.odb" ALU_SPEF="$base/6_final.spef"
-    [ -f "$ALU_SPEF" ] || ALU_SPEF=""
+    # osu025 has no RC extraction rules, so no SPEF; use the platform's wire RC.
+    [ -f "$ALU_SPEF" ] || { ALU_SPEF=""; export ALU_RC_TCL="$ORFS_FLOW/platforms/$pdk/setRC.tcl"; }
     period=$(sed -n 's/^export ALU_CLOCK_PERIOD = //p' "$alu/orfs/$pdk/config.mk")
     export ALU_CLOCK_PERIOD="$period"
     ;;

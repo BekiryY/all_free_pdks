@@ -1,6 +1,6 @@
 # Timing and power of the finished ALU layout in one operating mode.
 # Run by report_modes.sh; inputs come from the environment:
-#   ALU_LIBS ALU_ODB ALU_SPEF ALU_SDC ALU_MODE ALU_OUT [ALU_RC_LAYER]
+#   ALU_LIBS ALU_ODB ALU_SPEF ALU_SDC ALU_MODE ALU_OUT [ALU_RC_TCL | ALU_RC_LAYER]
 foreach lib $::env(ALU_LIBS) { read_liberty $lib }
 read_db $::env(ALU_ODB)
 read_sdc $::env(ALU_SDC)
@@ -9,6 +9,11 @@ set_propagated_clock [all_clocks]
 if { $::env(ALU_SPEF) ne "" } {
   read_spef $::env(ALU_SPEF)
   set parasitics "spef"
+} elseif { [info exists ::env(ALU_RC_TCL)] && $::env(ALU_RC_TCL) ne "" } {
+  # No extraction rules (osu025 in ORFS): use the platform's wire RC.
+  source $::env(ALU_RC_TCL)
+  estimate_parasitics -placement
+  set parasitics "estimated"
 } else {
   # No extraction rules (icsprout55): estimate wires from the LEF layer RC.
   set_wire_rc -signal -layer $::env(ALU_RC_LAYER)
