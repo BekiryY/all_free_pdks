@@ -44,6 +44,7 @@
    <routing-suffix/>
    <routing-datatype>0</routing-datatype>
    <lef-files>./osu025_stdcells.lef</lef-files>
+   <lef-files>./osu025_tie.lef</lef-files>
   </lefdef>
  </reader-options>
  <writer-options/>
