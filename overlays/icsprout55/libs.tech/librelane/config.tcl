@@ -70,7 +70,9 @@ set ::env(FP_TAPCELL_DIST) 14
 set ::env(FP_PDN_RAIL_LAYER) "MET1"
 
 set ::env(FP_PDN_RAIL_OFFSET) 0
-set ::env(FP_PDN_RAIL_WIDTH) 0.27
+# Same width as the cells' own rails (0.16 um); wider rails come within
+# 0.09 um (MET1-S.1) of the cells' M1 next to them.
+set ::env(FP_PDN_RAIL_WIDTH) 0.16
 
 # ── PDN: Core Ring ──
 set ::env(FP_PDN_CORE_RING_VWIDTH) 0.6

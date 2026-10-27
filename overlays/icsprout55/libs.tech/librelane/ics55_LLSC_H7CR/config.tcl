@@ -66,7 +66,7 @@ set ::env(CELL_PAD_EXCLUDE) "FILL*"
 set ::env(MAX_TRANSITION_CONSTRAINT) 0.5
 set ::env(MAX_FANOUT_CONSTRAINT) 10
 set ::env(MAX_CAPACITANCE_CONSTRAINT) 0.2
-set ::env(FP_PDN_RAIL_WIDTH) 0.21
+set ::env(FP_PDN_RAIL_WIDTH) 0.16
 
 # ── Tristate ──
 set ::env(TRISTATE_CELL_PREFIX) "TBUF"
