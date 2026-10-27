@@ -73,7 +73,8 @@
       ],
       "patches": [
         "patches/orfs/0001-final-report-images-optional.patch",
-        "patches/orfs/0002-pre-io-placement-hook.patch"
+        "patches/orfs/0002-pre-io-placement-hook.patch",
+        "patches/orfs/0003-nangate45-drc-flat.patch"
       ],
       "approx_size_gb": 0.5
     },

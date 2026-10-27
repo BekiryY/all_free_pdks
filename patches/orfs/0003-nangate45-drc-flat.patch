@@ -1,0 +1,15 @@
+diff --git a/flow/platforms/nangate45/drc/FreePDK45.lydrc b/flow/platforms/nangate45/drc/FreePDK45.lydrc
+index 8f77c07..52aacb0 100644
+--- a/flow/platforms/nangate45/drc/FreePDK45.lydrc
++++ b/flow/platforms/nangate45/drc/FreePDK45.lydrc
+@@ -46,7 +46,9 @@ tiles(1000.um)
+ tile_borders(1.um)
+ 
+ # Hierachical
+-deep
++# all_free_pdks: flat; in deep mode KLayout spends hours on the implant
++# merge below (nplus.or(pplus)), flat checks a whole block in about a minute.
++# deep
+ 
+ # Use 4 CPU cores
+ threads(4)

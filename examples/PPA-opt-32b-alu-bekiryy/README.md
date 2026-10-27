@@ -74,7 +74,7 @@ on gt2n, see below).
 
 | PDK | Node | Flow | Turbo clock | Setup slack | Turbo power | Turbo energy/op | Low-power clock | Low-power power | Low-power energy/op | Core area | Utilization | Route DRC |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| osu025 | 0.25 µm | ORFS | 90.9 MHz | +7 ps (0.1%) | 330.9 mW* | 3,639 pJ | 9.9 MHz | 37.10 mW* | 3,762 pJ | 3,716,350 µm² | 58% | 0 |
+| osu025 | 0.25 µm | ORFS | 90.9 MHz | +40 ps (0.4%) | 329.6 mW* | 3,625 pJ | 9.9 MHz | 36.96 mW* | 3,748 pJ | 3,716,350 µm² | 57% | 0 |
 | gf180mcuD | 180 nm | LibreLane | 54.1 MHz | +99 ps (0.5%) | 178.3 mW | 3,299 pJ | 5.9 MHz | 19.12 mW | 3,261 pJ | 685,054 µm² | 65% | 0 |
 | sky130A | 130 nm | LibreLane | 113.6 MHz | +79 ps (0.9%) | 28.5 mW | 251 pJ | 12.3 MHz | 3.10 mW | 251 pJ | 308,336 µm² | 62% | 0 |
 | ihp-sg13g2 | 130 nm SiGe | LibreLane | 151.5 MHz | +187 ps (2.8%) | 27.0 mW | 178 pJ | 16.4 MHz | 2.96 mW | 180 pJ | 395,162 µm² | 63% | 0 |
