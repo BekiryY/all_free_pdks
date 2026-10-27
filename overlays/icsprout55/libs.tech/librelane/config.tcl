@@ -52,6 +52,8 @@ source "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/openlane/$::env(STD_CELL_LIBRARY)
 set ::env(TRACKS_INFO_FILE) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/openlane/tracks.info"
 
 # ── Cell exclusion lists ──
+# drc_exclude.cells also lists MUX2X3: detailed routing finds no access
+# pattern for it (the vias on pins A and S0 cannot both fit, DRT-0085).
 set ::env(NO_SYNTH_CELL_LIST) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/openlane/$::env(STD_CELL_LIBRARY)/no_synth.cells"
 set ::env(DRC_EXCLUDE_CELL_LIST) "$::env(PDK_ROOT)/$::env(PDK)/libs.tech/openlane/$::env(STD_CELL_LIBRARY)/drc_exclude.cells"
 set ::env(DRC_EXCLUDE_CELL_LIST_OPT) $::env(DRC_EXCLUDE_CELL_LIST)
