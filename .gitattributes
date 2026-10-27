@@ -4,3 +4,4 @@
 *.gds binary
 *.jpg binary
 *.png binary
+patches/orfs/0003-klayout-drc-flat.patch -text

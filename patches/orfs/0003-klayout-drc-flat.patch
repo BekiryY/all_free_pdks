@@ -1,3 +1,18 @@
+diff --git a/flow/platforms/asap7/drc/asap7.lydrc b/flow/platforms/asap7/drc/asap7.lydrc
+index 47bf0b8..7e0b254 100644
+--- a/flow/platforms/asap7/drc/asap7.lydrc
++++ b/flow/platforms/asap7/drc/asap7.lydrc
+@@ -76,7 +76,9 @@ tile_borders(1.um)
+ #no_borders
+ 
+ # Hierachical
+-deep
++# all_free_pdks: flat; in deep mode KLayout had not got a third of the way
++# through the rules for a small block after 45 minutes, flat finishes them.
++# deep
+ 
+ # Use 4 CPU cores
+ threads(8)
 diff --git a/flow/platforms/nangate45/drc/FreePDK45.lydrc b/flow/platforms/nangate45/drc/FreePDK45.lydrc
 index 8f77c07..52aacb0 100644
 --- a/flow/platforms/nangate45/drc/FreePDK45.lydrc

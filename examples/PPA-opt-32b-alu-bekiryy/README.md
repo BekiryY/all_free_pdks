@@ -81,7 +81,7 @@ on gt2n, see below).
 | icsprout55 | 55 nm | LibreLane | 333.3 MHz | +24 ps (0.8%) | 19.8 mW* | 59.5 pJ | 36.2 MHz | 2.15 mW* | 59.6 pJ | 67,236 µm² | 67% | 0 |
 | nangate45 | 45 nm | ORFS | 806.5 MHz | +2 ps (0.2%) | 32.9 mW | 40.8 pJ | 87.5 MHz | 4.61 mW | 52.7 pJ | 48,569 µm² | 57% | 0 |
 | asap7 | 7 nm | ORFS | 1.56 GHz | +1 ps (0.1%) | 12.3 mW | 7.88 pJ | 169.5 MHz | 1.33 mW | 7.88 pJ | 3,570 µm² | 57% | 0 |
-| gt2n | 2 nm | ORFS | 1.33 GHz | +14 ps (1.9%) | 6.3 mW | 4.71 pJ | 144.6 MHz | 0.85 mW | 5.89 pJ | 1,662 µm² | 50% | 0 |
+| gt2n | 2 nm | ORFS | 1.33 GHz | +13 ps (1.7%) | 6.3 mW | 4.71 pJ | 144.6 MHz | 0.85 mW | 5.89 pJ | 1,662 µm² | 50% | 0 |
 | GPDK045 (reference) | 45 nm | Genus/Innovus | 1.66 GHz | +21 ps (3.5%) | 51.9 mW | 31.3 pJ | 180 MHz | 3.30 mW | 18.3 pJ | ≈67,700 µm²† | 77% | – |
 
 **gt2n is slower than asap7** on this design. Its low metal layers are very
