@@ -24,3 +24,6 @@ pdk::ihp-sg13g2:
 pdk::icsprout55:
   STD_CELL_LIBRARY: ics55_LLSC_H7CR
   CLOCK_PERIOD: 3.0
+  # Room for the router: the cells' 0.09 um pins leave little space for vias
+  FP_CORE_UTIL: 47
+  PL_TARGET_DENSITY_PCT: 55
