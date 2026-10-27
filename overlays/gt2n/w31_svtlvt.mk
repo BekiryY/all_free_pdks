@@ -9,8 +9,9 @@
 # (PLATFORM_DIR is not defined yet when ORFS reads a design config.)
 #
 # Adapted from GT2N's ORFS example (AES_128 .../1000ps_fspdn_tapm3_rdl_dense_u40_c80);
-# its PDN scripts are used as shipped. Their strap pitches are 6-12.8 um, so
-# the core should be at least ~40 um wide for the mesh to form.
+# its PDN script is used with minimum-width M4-M6 straps (all_free_pdks_pdn.tcl).
+# Its strap pitches are 6-12.8 um, so the core should be at least ~40 um wide
+# for the mesh to form.
 
 GT2N_EXAMPLE = $(realpath $(PLATFORM_DIR))/../../../../AES_128/GT2_2nm_PDK/03_spnr/tt/w31_svtlvt/1000ps_fspdn_tapm3_rdl_dense_u40_c80
 
@@ -40,7 +41,8 @@ export IO_PLACER_H ?= M2
 export IO_PLACER_V ?= M3
 # Keep IO pins off the M2/M3 PDN stripes (they extend to the die boundary)
 export PRE_IO_PLACEMENT_TCL ?= $(PLATFORM_DIR)/pre_io_avoid_pdn_stripes.tcl
-export PDN_TCL ?= $(GT2N_EXAMPLE)/pdn_no_bpr_m2m3_rdl_dense.tcl
+export GT2N_PDN_TCL = $(GT2N_EXAMPLE)/pdn_no_bpr_m2m3_rdl_dense.tcl
+export PDN_TCL ?= $(PLATFORM_DIR)/all_free_pdks_pdn.tcl
 export GT2N_POST_PDN_TCL = $(GT2N_EXAMPLE)/post_pdn_tap_to_m3.tcl
 export POST_PDN_TCL ?= $(PLATFORM_DIR)/all_free_pdks_post_pdn.tcl
 export TAP_CELL_NAME = gt2_6t_tapfspdn_w31_lvt
