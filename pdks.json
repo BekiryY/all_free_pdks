@@ -40,6 +40,15 @@
           {"name": "ICsprout_55LLULP1233_IO_251013_gds.tar.bz2", "sha256": "47d248be322a6f054a0ab11fe2f2ee83ad76f9ce15d6f4cd53a81c8d08c7693b", "extract_to": "IP/IO/ICsprout_55LLULP1233_IO_251013"}
         ]
       },
+      "derive": [
+        {
+          "comment": "Every foundry VIA1 keeps M1 0.005 um past the cut on all sides, which on a 0.09 um tall cell pin lands 0.085 um from the cell's own M1 (rule: 0.09), so many pins had no access point. The design rules (VIAn-En.2a/2b) allow 0 on two sides when the other two have 0.04; add those vias.",
+          "out": "icsprout55/prtech/techLEF/N551P6M_afp.lef",
+          "src": "icsprout55/prtech/techLEF/N551P6M_ecos.lef",
+          "insert_after": "^END MET2_MET1_VIA1_8",
+          "text": "\nVIA MET2_MET1_VIA1_PH0 DEFAULT\n\tRESISTANCE 2.5000000000 ;\n\tLAYER MET1 ;\n\t\tRECT -0.085 -0.045 0.085 0.045 ;\n\tLAYER VIA1 ;\n\t\tRECT -0.045 -0.045 0.045 0.045 ;\n\tLAYER MET2 ;\n\t\tRECT -0.050 -0.085 0.050 0.085 ;\nEND MET2_MET1_VIA1_PH0\n\nVIA MET2_MET1_VIA1_PH1 DEFAULT\n\tRESISTANCE 2.5000000000 ;\n\tLAYER MET1 ;\n\t\tRECT -0.085 -0.045 0.085 0.045 ;\n\tLAYER VIA1 ;\n\t\tRECT -0.045 -0.045 0.045 0.045 ;\n\tLAYER MET2 ;\n\t\tRECT -0.085 -0.050 0.085 0.050 ;\nEND MET2_MET1_VIA1_PH1\n\nVIA MET2_MET1_VIA1_PV0 DEFAULT\n\tRESISTANCE 2.5000000000 ;\n\tLAYER MET1 ;\n\t\tRECT -0.045 -0.085 0.045 0.085 ;\n\tLAYER VIA1 ;\n\t\tRECT -0.045 -0.045 0.045 0.045 ;\n\tLAYER MET2 ;\n\t\tRECT -0.050 -0.085 0.050 0.085 ;\nEND MET2_MET1_VIA1_PV0\n\nVIA MET2_MET1_VIA1_PV1 DEFAULT\n\tRESISTANCE 2.5000000000 ;\n\tLAYER MET1 ;\n\t\tRECT -0.045 -0.085 0.045 0.085 ;\n\tLAYER VIA1 ;\n\t\tRECT -0.045 -0.045 0.045 0.045 ;\n\tLAYER MET2 ;\n\t\tRECT -0.085 -0.050 0.085 0.050 ;\nEND MET2_MET1_VIA1_PV1"
+        }
+      ],
       "overlay": "overlays/icsprout55",
       "symlinks": {"libs.tech/openlane": "librelane"},
       "approx_size_gb": 2

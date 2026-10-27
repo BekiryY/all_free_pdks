@@ -26,7 +26,8 @@ set ::env(STD_CELL_POWER_PINS) "VDD"
 set ::env(STD_CELL_GROUND_PINS) "VSS"
 
 # ── Technology LEF ──
-set ::env(TECH_LEF) "$::env(PDK_ROOT)/$::env(PDK)/prtech/techLEF/N551P6M_ecos.lef"
+# The foundry tech LEF plus VIA1s that fit 0.09 um cell pins (pdks.json derive)
+set ::env(TECH_LEF) "$::env(PDK_ROOT)/$::env(PDK)/prtech/techLEF/N551P6M_afp.lef"
 # No separate min/max tech LEFs available
 set ::env(TECH_LEF_MIN) $::env(TECH_LEF)
 set ::env(TECH_LEF_MAX) $::env(TECH_LEF)
