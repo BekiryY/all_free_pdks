@@ -124,10 +124,11 @@
           "text": "  default_max_transition : 1.5 ;"
         },
         {
-          "comment": "OpenROAD rejects the obsolete same-layer TURN via rules.",
+          "comment": "OpenROAD rejects the obsolete same-layer TURN via rules. It also applies an old-style via rule OVERHANG along one axis only, so power-grid vias got no metal around the cut on the other axis (MOSIS rules need 0.15 um); state it as an ENCLOSURE instead.",
           "out": "osu025/osu025_stdcells.lef",
           "src": ".src/osu025/latest/cadence/lib/tsmc025/lib/osu025_stdcells.lef",
-          "drop_block": ["^VIARULE TURN\\d+ GENERATE", "^END TURN\\d+"]
+          "drop_block": ["^VIARULE TURN\\d+ GENERATE", "^END TURN\\d+"],
+          "replace": [["^\\s*DIRECTION \\w+ ;\\n(\\s*WIDTH [^\\n]*)\\n(\\s*)OVERHANG ([\\d.]+) ;\\n\\s*METALOVERHANG [\\d.]+ ;", "\\2ENCLOSURE \\3 \\3 ;\\n\\1"]]
         },
         {
           "comment": "Tech-only LEF (upstream ships tech and cells in one file); KLayout rejects reading the cells twice.",

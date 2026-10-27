@@ -245,6 +245,15 @@ def derive(d):
                 out.append(line)
             elif end.search(line):
                 skipping = False
+    else:
+        out = src
+    if "replace" in d:
+        text = "".join(out)
+        for pat, repl in d["replace"]:
+            text, n = re.subn(pat, repl, text, flags=re.M)
+            if not n:
+                die(f"{d['src']}: pattern {pat!r} not found")
+        out = [text]
     dst = PDK_ROOT / d["out"]
     dst.parent.mkdir(parents=True, exist_ok=True)
     if dst.is_symlink():
