@@ -12,7 +12,11 @@ set ::env(LIB_SLOWEST) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_
 set ::env(LIB_FASTEST) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR/liberty/ics55_LLSC_H7CR_ff_rcbest_1p32_m40_nldm.lib"
 
 # ── Physical data ──
-set ::env(CELLS_LEF) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR/lef/ics55_LLSC_H7CR_ecos.lef"
+# Not the _ecos LEF: its pins carry a VIA1 and an M2 stub that the plain GDS
+# does not draw (every pin connection is open in the final layout), and the
+# _M2 GDS that does draw them breaks the foundry's VIA1 enclosure rule. With
+# M1-only pins the router places the PDK's own vias.
+set ::env(CELLS_LEF) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR/lef/ics55_LLSC_H7CR.lef"
 set ::env(GDS_FILES) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR/gds/ics55_LLSC_H7CR.gds"
 
 # ── Verilog models ──

@@ -1,0 +1,109 @@
+# KLayout DRC for icsprout55 metal and via layers.
+#
+# Translated by hand from the foundry's open Calibre deck
+# (pv/DRC/ICsprout_CalDRC_55LLULP1233_REV1_0_OS.drc in openecos-projects/
+# icsprout55-pdk, commit 4f0a412) for its 6-metal option: M1-M5 and T4M2, as
+# in prtech/techLEF/N551P6M_ecos.lef. Rule names follow the Calibre deck.
+#
+# Covered: width, maximum width, spacing, wide-metal spacing, area and enclosed
+# area of M1-M5 and T4M2; size, spacing and enclosure of V1-V4 and T4V2.
+# Not covered: front-end rules (they apply inside the foundry's standard
+# cells), density, 45-degree rules, dense line-end spacing (Mn_S_5), via-array
+# and different-net via spacing (Vn_S_2, Vn_S_3), recommended (_R) rules, and
+# the NODRC/INDALL/SRAM exclusion regions.
+#
+#   klayout -b -r icsprout55_beol.drc -rd input=<gds> [-rd topcell=<cell>] \
+#     -rd report=<lyrdb> [-rd thr=<threads>]
+
+if $topcell
+  source($input, $topcell)
+else
+  source($input)
+end
+report("icsprout55 metal/via DRC", $report)
+deep
+threads(($thr || 8).to_i)
+
+# Drawing (datatype 1) minus slots (8); the *_all variants add dummy fill (2)
+metal = {}
+metal_all = {}
+(1..5).each do |i|
+  metal[i] = input(80 + i, 1) - input(80 + i, 8)
+  metal_all[i] = metal[i] + input(80 + i, 2)
+end
+t4m2 = input(103, 1) - input(103, 8)
+t4m2_all = t4m2 + input(103, 2)
+# Square vias (1) and via bars (7)
+via = {}
+via_sq = {}
+(1..4).each do |i|
+  via_sq[i] = input(90 + i, 1)
+  via[i] = via_sq[i] + input(90 + i, 7)
+end
+t4v2_sq = input(113, 1)
+t4v2 = t4v2_sq + input(113, 7)
+
+# Parts of a layer at least w wide (1 nm tolerance so width == w counts)
+def wide(layer, w)
+  d = w / 2.0 - 0.001
+  layer.sized(-d).sized(d).and(layer)
+end
+
+# Mn_2b: spacing >= s next to metal at least w wide, for run lengths >= l
+def wide_space(layer_all, w, l, s)
+  layer_all.separation(wide(layer_all, w), s, projection, projection_limits(l, nil),
+                       without_touching_edges)
+end
+
+# Vias whose cut, grown by any of the (dx, dy) pairs, lies inside metal
+def enclosed(v, m, pairs)
+  ok = nil
+  pairs.each do |dx, dy|
+    grown = v.sized(dx, dy).inside(m)
+    hit = v.inside(grown)
+    ok = ok ? ok + hit : hit
+  end
+  v - ok
+end
+
+def metal_rules(name, m, m_all, min_w, max_w, min_s, min_a, wide_rules, hole_a)
+  m.width(min_w, euclidian).output("#{name}_W_1", "#{name} width >= #{min_w} um")
+  m.sized(-max_w / 2.0).output("#{name}_W_1b", "#{name} width <= #{max_w} um")
+  m.space(min_s, euclidian).output("#{name}_S_1", "#{name} spacing >= #{min_s} um")
+  wide_rules.each do |rule, w, l, s|
+    wide_space(m_all, w, l, s).output("#{name}_#{rule}",
+      "#{name} spacing >= #{s} um next to metal >= #{w} um wide over >= #{l} um")
+  end
+  m.with_area(nil, min_a).output("#{name}_A_1", "#{name} area >= #{min_a} um2")
+  m.holes.with_area(nil, hole_a).output("#{name}_A_2", "#{name} enclosed area >= #{hole_a} um2")
+end
+
+metal_rules("MET1", metal[1], metal_all[1], 0.09, 12.0, 0.09, 0.042,
+            [["S_2", 0.42, 0.42, 0.15], ["S_3", 1.5, 1.5, 0.5]], 0.18)
+(2..5).each do |i|
+  metal_rules("M#{i}", metal[i], metal_all[i], 0.10, 12.0, 0.10, 0.052,
+              [["S_2", 0.42, 0.42, 0.15], ["S_3", 1.5, 1.5, 0.5]], 0.18)
+end
+metal_rules("T4M2", t4m2, t4m2_all, 0.40, 20.0, 0.40, 0.40, [["S_2", 2.0, 2.0, 0.5]], 0.6)
+
+(1..4).each do |i|
+  v = via[i]
+  sq = via_sq[i]
+  (sq.non_rectangles + sq.without_bbox_width(0.09) + sq.without_bbox_height(0.09))
+    .output("V#{i}_W_1", "V#{i} is a 0.09 x 0.09 um square")
+  v.space(0.11, euclidian).output("V#{i}_S_1", "V#{i} spacing >= 0.11 um")
+  # M(n) enclosure: 0.03 all round, or 0.04 on one pair of opposite sides
+  enclosed(v, metal[i], [[0.03, 0.03], [0.04, 0.0], [0.0, 0.04]])
+    .output("V#{i}_EN_2a_2b_2c", "M#{i} enclosure of V#{i}: >= 0.03 um all round or >= 0.04 um on two opposite sides")
+  # M(n+1) enclosure: 0.005, and 0.02 on one pair of opposite sides
+  enclosed(v, metal[i + 1], [[0.005, 0.02], [0.02, 0.005]])
+    .output("V#{i}_EN_5a_5b", "M#{i + 1} enclosure of V#{i}: >= 0.005 um, and >= 0.02 um on two opposite sides")
+end
+
+(t4v2_sq.non_rectangles + t4v2_sq.without_bbox_width(0.36) + t4v2_sq.without_bbox_height(0.36))
+  .output("T4V2_W_1", "T4V2 is a 0.36 x 0.36 um square")
+t4v2.space(0.34, euclidian).output("T4V2_S_1", "T4V2 spacing >= 0.34 um")
+enclosed(t4v2, metal[5], [[0.01, 0.05], [0.05, 0.01]])
+  .output("T4V2_EN_2_EN_3", "M5 enclosure of T4V2: >= 0.01 um, and >= 0.05 um on two opposite sides")
+enclosed(t4v2, t4m2, [[0.02, 0.02]])
+  .output("T4V2_EN_5_EN_6", "T4M2 enclosure of T4V2 >= 0.02 um")

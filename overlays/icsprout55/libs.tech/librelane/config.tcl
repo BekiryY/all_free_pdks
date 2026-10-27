@@ -34,7 +34,7 @@ set ::env(TECH_LEF_MAX) $::env(TECH_LEF)
 # ── Cell physical data ──
 # These get set per-library in the SCL config, but provide defaults here
 set _scl_base "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/$::env(STD_CELL_LIBRARY)"
-set ::env(CELLS_LEF) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/$::env(STD_CELL_LIBRARY)/lef/$::env(STD_CELL_LIBRARY)_ecos.lef"
+set ::env(CELLS_LEF) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/$::env(STD_CELL_LIBRARY)/lef/$::env(STD_CELL_LIBRARY).lef"
 set ::env(GDS_FILES) "$::env(PDK_ROOT)/$::env(PDK)/IP/STD_cell/ics55_LLSC_H7C_V1p10C100/$::env(STD_CELL_LIBRARY)/gds/$::env(STD_CELL_LIBRARY).gds"
 
 # ── IO pad LEFs ──
