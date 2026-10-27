@@ -48,7 +48,9 @@ set ::env(PLACE_SITE_HEIGHT) 1.400
 
 # ── Fill / Decap ──
 set ::env(FILL_CELL) "FILLER64H7H FILLER32H7H FILLER16H7H FILLER8H7H FILLER4H7H FILLER2H7H FILLER1H7H"
-set ::env(DECAP_CELL) "FILLCAP32H7H FILLCAP16H7H FILLCAP8H7H FILLCAP4H7H"
+# Not the FILLCAP decaps: LibreLane inserts decaps only after detailed routing,
+# and their internal M1 then lands next to routed wires (MET1-S.1).
+set ::env(DECAP_CELL) $::env(FILL_CELL)
 # Logic cells have no well/substrate ties; FILLTAPH7H provides them.
 set ::env(WELLTAP_CELL) "FILLTAPH7H"
 set ::env(ENDCAP_CELL) "FILLTAPH7H"
