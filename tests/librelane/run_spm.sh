@@ -12,6 +12,7 @@ work="$here/work/spm-$pdk"
 rm -rf "$work"
 mkdir -p "$here/work"
 cp -r "$src" "$work"
+chmod -R u+w "$work"  # the example may come from the read-only nix store
 
 extra=(--pdk "$pdk")
 case "$pdk" in
