@@ -26,14 +26,14 @@
     "icsprout55": {
       "kind": "git",
       "repo": "https://github.com/openecos-projects/icsprout55-pdk.git",
-      "commit": "e3d5c11a34ce4288302d71a34e0be40eeeb62eca",
+      "commit": "4f0a4124e3528163f6805e464a0f2fc4587549ec",
       "dest": "icsprout55",
       "assets": {
-        "base_url": "https://github.com/openecos-projects/icsprout55-pdk/releases/download/v1.10.101",
+        "base_url": "https://github.com/openecos-projects/icsprout55-pdk/releases/download/v1.10.103",
         "files": [
-          {"name": "ics55_LLSC_H7CH_liberty.tar.bz2", "sha256": "0f6931fbc61277869bef49528b0e324a7b5a02dae6c3607efda94c1c32fd57d8", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
-          {"name": "ics55_LLSC_H7CL_liberty.tar.bz2", "sha256": "a8fee1e683005b36f87c06e5f3b9f3fbd603070ee51ce8ea0160c50f52064f1e", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
-          {"name": "ics55_LLSC_H7CR_liberty.tar.bz2", "sha256": "970fd1e19137672749538b0e4d3c4552d731e5c3480d862b485a3bad6edda0de", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
+          {"name": "ics55_LLSC_H7CH_liberty.tar.bz2", "sha256": "9c06a04e52af68163ec027b6f0054e3c896b0f18a9cac699aad1813b7b65e481", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
+          {"name": "ics55_LLSC_H7CL_liberty.tar.bz2", "sha256": "5b064b347aabe1cf1da1406ad6be59fd505bcc83601d6b40cb13196fb87a6e79", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
+          {"name": "ics55_LLSC_H7CR_liberty.tar.bz2", "sha256": "6c6b9c2102a7efd885558dd60892fdb6d2f9dad81a63ec872c06e398ab262fbf", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
           {"name": "ics55_LLSC_H7CH_gds.tar.bz2", "sha256": "6268684fdd0784087adc1a972125f9001bc9761c3142ab954d2a9eade53d5490", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CH"},
           {"name": "ics55_LLSC_H7CL_gds.tar.bz2", "sha256": "9a643ae864d178f45fec4aa59dc98f0420894760d8a431ce0fd640b97e1c2f68", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CL"},
           {"name": "ics55_LLSC_H7CR_gds.tar.bz2", "sha256": "525a7a486e15e36888e4ce08887c946cd16c60dc2c90819fb493d865ed38cc2b", "extract_to": "IP/STD_cell/ics55_LLSC_H7C_V1p10C100/ics55_LLSC_H7CR"},
@@ -119,11 +119,13 @@
         "latest/cadence/lib/tsmc025/lib",
         "latest/cadence/lib/tsmc025/signalstorm",
         "latest/cadence/lib/source/gds2",
-        "latest/cadence/flow/tsmc025"
+        "latest/cadence/flow/tsmc025",
+        "latest/cadence/flow/techfiles"
       ],
       "links": {
         "osu025/osu025_stdcells.gds": ".src/osu025/latest/cadence/lib/source/gds2/osu025_stdcells.gds2",
         "osu025/osu025_stdcells.v": ".src/osu025/latest/cadence/flow/tsmc025/osu025_stdcells.v",
+        "osu025/tsmc025.tech": ".src/osu025/latest/cadence/flow/techfiles/tsmc025.tech",
         "orfs/flow/platforms/osu025": "osu025"
       },
       "derive": [
