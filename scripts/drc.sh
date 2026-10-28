@@ -52,7 +52,7 @@ case "$pdk" in
     [ -n "$top" ] || top="$(python3 -c 'import sys, klayout.db as db; l = db.Layout(); l.read(sys.argv[1]); print(l.top_cell().name)' "$gds")"
     test -f "$pdk_root/osu025/tsmc025.tech" || { echo "error: no $pdk_root/osu025/tsmc025.tech; rerun install_pdks.py" >&2; exit 1; }
     GDS="$gds" TOP="$top" OUT="$report" magic -dnull -noconsole -T "$pdk_root/osu025/tsmc025.tech" \
-      "$here/scripts/magic_drc.tcl" >"$base.drc.log"
+      "$here/scripts/magic_drc.tcl" >"$base.drc.log" 2>&1
     if ! grep -q DRC_COUNT "$base.drc.log" || grep -q "couldn't be read" "$base.drc.log"; then
       echo "error: Magic could not check $gds, see $base.drc.log" >&2; exit 1
     fi
