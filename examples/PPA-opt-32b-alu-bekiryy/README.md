@@ -78,7 +78,7 @@ on gt2n, see below).
 | gf180mcuD | 180 nm | LibreLane | 54.1 MHz | +99 ps (0.5%) | 178.3 mW | 3,299 pJ | 5.9 MHz | 19.12 mW | 3,261 pJ | 685,054 µm² | 65% | 0 |
 | sky130A | 130 nm | LibreLane | 113.6 MHz | +79 ps (0.9%) | 28.5 mW | 251 pJ | 12.3 MHz | 3.10 mW | 251 pJ | 308,336 µm² | 62% | 0 |
 | ihp-sg13g2 | 130 nm SiGe | LibreLane | 151.5 MHz | +187 ps (2.8%) | 27.0 mW | 178 pJ | 16.4 MHz | 2.96 mW | 180 pJ | 395,162 µm² | 63% | 0 |
-| icsprout55 | 55 nm | LibreLane | 333.3 MHz | +24 ps (0.8%) | 19.8 mW* | 59.5 pJ | 36.2 MHz | 2.15 mW* | 59.6 pJ | 67,236 µm² | 67% | 0 |
+| icsprout55 | 55 nm | LibreLane | 317.5 MHz | +43 ps (1.4%) | 19.1 mW* | 60.3 pJ | 34.4 MHz | 2.08 mW* | 60.4 pJ | 78,624 µm² | 57% | 0 |
 | nangate45 | 45 nm | ORFS | 806.5 MHz | +2 ps (0.2%) | 32.9 mW | 40.8 pJ | 87.5 MHz | 4.61 mW | 52.7 pJ | 48,569 µm² | 57% | 0 |
 | asap7 | 7 nm | ORFS | 1.56 GHz | +1 ps (0.1%) | 12.3 mW | 7.88 pJ | 169.5 MHz | 1.33 mW | 7.88 pJ | 3,570 µm² | 57% | 0 |
 | gt2n | 2 nm | ORFS | 1.33 GHz | +13 ps (1.7%) | 6.3 mW | 4.71 pJ | 144.6 MHz | 0.85 mW | 5.89 pJ | 1,662 µm² | 50% | 0 |

@@ -197,8 +197,10 @@ Upstream files are not stored here; these are added or derived on install.
   It uses the plain cell LEF, not upstream's `_ecos` one, whose pins carry
   VIA1 and M2 shapes the cell GDS does not draw (every pin was left open). The
   installer derives a tech LEF with extra VIA1s that fit the 0.09 µm cell pins
-  (the foundry's own VIA1s cannot land on them), `MUX2X3` is excluded (no
-  router access to its pins), and the M1 rails are as wide as the cells' own.
+  (the foundry's own VIA1s cannot land on them), `MUX2X2`-`MUX2X4` are excluded (no
+  router access to their pins), the M1 rails are as wide as the cells' own,
+  and post-route fill uses only the M1-free fillers: the `FILLCAP` decaps have
+  M1 inside that lands next to routed wires.
   [`icsprout55_beol.drc`](overlays/icsprout55/libs.tech/klayout/drc/icsprout55_beol.drc)
   is a KLayout metal/via deck translated from upstream's Calibre deck; its
   header lists what it does not cover.
