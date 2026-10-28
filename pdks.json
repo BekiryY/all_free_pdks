@@ -42,7 +42,8 @@
       },
       "derive": [
         {
-          "comment": "Every foundry VIA1 keeps M1 0.005 um past the cut on all sides, which on a 0.09 um tall cell pin lands 0.085 um from the cell's own M1 (rule: 0.09), so many pins had no access point. The design rules (VIAn-En.2a/2b) allow 0 on two sides when the other two have 0.04; add those vias.",
+          "comment": "Every foundry VIA1 keeps M1 0.005 um past the cut on all sides, which on a 0.09 um tall cell pin lands 0.085 um from the cell's own M1 (rule: 0.09), so many pins had no access point. The design rules (VIAn-En.2a/2b) allow 0 on two sides when the other two have 0.04; add those vias. MET1-5 also get the wide-metal spacing rules (Mn-S.2: 0.15 next to metal 0.42 wide, Mn-S.3: 0.5 next to 1.5 wide), which the router otherwise does not know.",
+          "replace": [["^(  AREA 0\\.0[45]2 ;\\n)  SPACING (0\\.09|0\\.1) ;$", "\\1  SPACINGTABLE\\n    PARALLELRUNLENGTH 0 0.42 1.5\\n    WIDTH 0 \\2 \\2 \\2\\n    WIDTH 0.42 \\2 0.15 0.15\\n    WIDTH 1.5 \\2 0.15 0.5 ;"]],
           "out": "icsprout55/prtech/techLEF/N551P6M_afp.lef",
           "src": "icsprout55/prtech/techLEF/N551P6M_ecos.lef",
           "insert_after": "^END MET2_MET1_VIA1_8",
