@@ -255,6 +255,19 @@ icsprout55 has no RC extraction rules, so LibreLane cannot run its post-route
 multi-corner STA; timing is signed off in the typical corner only, and the
 ff/ss values in its reports are stale pre-placement numbers.
 
+#### Signoff DRC (optional)
+
+LibreLane runs Magic and KLayout DRC on sky130A and ihp-sg13g2, and ORFS has
+`make drc` for nangate45, asap7 and gt2n. For the other three, run:
+
+```bash
+scripts/drc.sh <icsprout55|gf180mcuD|osu025> <your.gds> [top cell]
+```
+
+icsprout55 uses this repo's metal/via deck (no front-end rules), gf180mcuD the
+PDK's full KLayout deck (LibreLane 3.0.6 skips it), and osu025 Magic with the
+upstream MOSIS SCMOS tech file. The report is written next to the GDS.
+
 #### Known DRC limitations
 
 Signoff DRC on the [ALU](examples/PPA-opt-32b-alu-bekiryy) is clean on
