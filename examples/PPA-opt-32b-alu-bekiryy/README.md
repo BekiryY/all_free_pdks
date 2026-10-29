@@ -84,6 +84,10 @@ on gt2n, see below).
 | gt2n | 2 nm | ORFS | 1.33 GHz | +13 ps (1.7%) | 6.3 mW | 4.71 pJ | 144.6 MHz | 0.85 mW | 5.89 pJ | 1,662 µm² | 50% | 0 |
 | GPDK045 (reference) | 45 nm | Genus/Innovus | 1.66 GHz | +21 ps (3.5%) | 51.9 mW | 31.3 pJ | 180 MHz | 3.30 mW | 18.3 pJ | ≈67,700 µm²† | 77% | – |
 
+[`alu_pdk_performances.md`](alu_pdk_performances.md) compares the PDKs metric by
+metric (speed, energy, area, density, leakage, low-power mode, signoff) and
+names the winner of each.
+
 **gt2n is slower than asap7** on this design. Its low metal layers are very
 resistive, so long or high-fanout nets cost far more delay than at 7 nm, and
 the critical input-to-output path ends up at about 420 ps of a 750 ps clock.
