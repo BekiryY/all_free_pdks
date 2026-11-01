@@ -34,8 +34,8 @@ def load(name="inputs.csv"):
     return sorted(pdks, key=lambda p: -p["overall"])
 
 
-def table(pdks):
-    rows = ["| # | PDK | Clock | Speed | Energy/op | Energy | Logic area | Density | Overall |",
+def table(pdks, what="PDK"):
+    rows = [f"| # | {what} | Clock | Speed | Energy/op | Energy | Logic area | Density | Overall |",
             "| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for i, p in enumerate(pdks, 1):
         rows.append(f"| {i} | {p['pdk']} | {p['mhz']:,.1f} MHz | {p['speed']:,.0f} | {p['pj']:,.2f} pJ | "
@@ -146,7 +146,7 @@ def svg(w, h, body):
                       *body, "</svg>", ""])
 
 
-def group_chart(pdks, title, path):
+def group_chart(pdks, title, path, what="PDK"):
     frac, rings = stretched_scale(pdks)
     lo = {k: min(pdks, key=lambda p: p[k]) for k, *_ in AXES}
     hi = {k: max(pdks, key=lambda p: p[k]) for k, *_ in AXES}
@@ -155,7 +155,7 @@ def group_chart(pdks, title, path):
             "density": f"area: {lo['density']['mlam2']:.2f} → {hi['density']['mlam2']:.2f} M λ²"}
     cx, cy, R = 350, 320, 180
     body = [text(24, 34, title, 18, anchor="start", weight="600"),
-            text(24, 56, "Each axis is stretched from the worst PDK in this chart (inner ring) to the best "
+            text(24, 56, f"Each axis is stretched from the worst {what} in this chart (inner ring) to the best "
                          "(outer ring), log scale", 13, INK2, "start")]
     body += hexagon(cx, cy, R, rings, subs)
     for p in sorted(pdks, key=lambda p: p["overall"]):
@@ -203,5 +203,5 @@ if __name__ == "__main__":
     group_chart([p for p in pdks if p["fab"]], "PPA of the PDKs you can tape out", "ppa_manufacturable.svg")
     group_chart([p for p in pdks if not p["fab"]], "PPA of the research and learning PDKs", "ppa_research.svg")
     libs = load("sky130_libraries.csv")
-    print("\n" + table(libs))
-    group_chart(libs, "PPA of the sky130 standard cell libraries", "ppa_sky130_libraries.svg")
+    print("\n" + table(libs, "Library"))
+    group_chart(libs, "PPA of the sky130 standard cell libraries", "ppa_sky130_libraries.svg", "library")

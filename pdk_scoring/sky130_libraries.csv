@@ -1,0 +1,6 @@
+pdk,node_nm,flow,can_tape_out,clock_ns,power_mw,logic_um2,pitch_um,pitch_layer,vdd_v,leakage_uw
+sky130_fd_sc_hd,130,LibreLane,yes,8.8,28.4726,191387.3,0.34,met1,1.8,0.162
+sky130_fd_sc_hs,130,LibreLane,yes,6.9,53.1127,238855.4,0.34,met1,1.8,2.414
+sky130_fd_sc_ms,130,LibreLane,yes,7.55,46.2222,236970.7,0.34,met1,1.8,0.000
+sky130_fd_sc_ls,130,LibreLane,yes,9.2,35.6208,237165.3,0.34,met1,1.8,0.338
+sky130_fd_sc_hdll,130,LibreLane,yes,11.2,34.3933,428623.3,0.34,met1,1.8,0.346

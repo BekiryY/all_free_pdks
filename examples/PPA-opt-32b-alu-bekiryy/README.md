@@ -42,9 +42,24 @@ PDKs: `sky130A gf180mcuD ihp-sg13g2 icsprout55` (LibreLane, config in
 reports in `work/alu-modes/<pdk>-<mode>.json`.
 
 Runtime and peak memory on a 28-thread machine: 10–45 minutes and 4–12 GB per
-PDK; gt2n needs more (see the table). Do not run more than two PDKs at once on
-a 32 GB machine; detailed routing of several at the same time can run out of
-memory.
+PDK; gt2n needs more (see the table).
+
+**Another cell library:** add it to the target, as a full name or a short
+one: `run.sh sky130A/hs` and `report_modes.sh sky130A/hs` use
+`sky130_fd_sc_hs`, with the run in `librelane/runs/sky130A-sky130_fd_sc_hs/`.
+The `scl::` blocks in the config set each library's clock. The
+[sky130 library comparison](../../pdk_scoring/README.md#sky130-standard-cell-libraries)
+runs hd, hs, ms, ls and hdll.
+
+**Several at once:** [`scripts/batch.py`](../../scripts/batch.py) starts as
+many runs as your cores and free memory allow:
+
+```bash
+scripts/batch.py examples/PPA-opt-32b-alu-bekiryy/run.sh ::: sky130A gf180mcuD ihp-sg13g2
+```
+
+Peak memory grows with the threads per run. With `--threads 4` to `12`, a
+sky130 run peaks below 2 GB.
 
 ## Constraints and the two modes
 
