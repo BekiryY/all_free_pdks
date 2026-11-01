@@ -306,6 +306,23 @@ def liberty_area_from_lef(pattern):
             log(f"{lib_dir.relative_to(PDK_ROOT)}: Liberty area set to the LEF size for {len(fixed)} cells")
 
 
+def exclude_cells(pattern, cells):
+    """Add cells to a flow's cell exclusion list (e.g. drc_exclude.cells).
+
+    For upstream list bugs: sky130_fd_sc_hdll's list names its isolation cells
+    with hd's lpflow_ prefix, which hdll's cells do not have, so the list
+    misses them and synthesis uses them as ordinary logic. pattern globs list
+    files under PDK_ROOT.
+    """
+    for path in sorted(PDK_ROOT.glob(pattern)):
+        text = path.read_text()
+        new = [c for c in cells if c not in text.split()]
+        if new:
+            sep = "" if text.endswith("\n") else "\n"
+            path.write_text(text + sep + "# added by all_free_pdks install_pdks.py\n" + "".join(c + "\n" for c in new))
+            log(f"{path.relative_to(PDK_ROOT)}: {len(new)} cells excluded")
+
+
 def install_links(pdk):
     for link, target in pdk.get("links", {}).items():
         relink(PDK_ROOT / link, PDK_ROOT / target)
@@ -404,6 +421,8 @@ def main():
                 install_ciel(name, pdk, cfg, args.extra_libs)
                 for pattern in pdk.get("liberty_area_from_lef", []):
                     liberty_area_from_lef(pattern)
+                for pattern, cells in pdk.get("exclude_cells", {}).items():
+                    exclude_cells(pattern, cells)
             elif pdk["kind"] == "link":
                 install_links(pdk)
             else:

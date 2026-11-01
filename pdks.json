@@ -9,6 +9,14 @@
       "libraries": ["default", "sky130_fd_sc_hs"],
       "extra_libraries": ["sky130_fd_sc_ms", "sky130_fd_sc_ls", "sky130_fd_sc_hdll"],
       "liberty_area_from_lef": ["sky130*/libs.ref/sky130_fd_sc_hdll"],
+      "exclude_cells": {
+        "sky130*/libs.tech/openlane/sky130_fd_sc_hdll/drc_exclude.cells": [
+          "sky130_fd_sc_hdll__isobufsrc_1", "sky130_fd_sc_hdll__isobufsrc_2",
+          "sky130_fd_sc_hdll__isobufsrc_4", "sky130_fd_sc_hdll__isobufsrc_8",
+          "sky130_fd_sc_hdll__isobufsrc_16", "sky130_fd_sc_hdll__inputiso0p_1",
+          "sky130_fd_sc_hdll__inputiso1n_1"
+        ]
+      },
       "approx_size_gb": 6
     },
     "gf180mcu": {
