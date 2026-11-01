@@ -262,6 +262,50 @@ def derive(d):
     dst.write_text("".join(out), errors="surrogateescape")
 
 
+def liberty_area_from_lef(pattern):
+    """Set each cell's Liberty area to its LEF size where the two disagree.
+
+    For upstream data bugs: synthesis picks cells by Liberty area, so a cell
+    whose Liberty area is far below its real size gets overused. pattern
+    globs library directories (under PDK_ROOT) holding lef/*.lef and lib/*.lib.
+    """
+    cell_re = re.compile(r'^\s*cell\s*\(\s*"?([^")\s]+)"?\s*\)')
+    area_re = re.compile(r"^(\s*area\s*:\s*)([0-9.eE+-]+)(\s*;.*)$")
+    for lib_dir in sorted(PDK_ROOT.glob(pattern)):
+        size = {}
+        for lef in (lib_dir / "lef").glob("*.lef"):
+            cell = None
+            for line in lef.read_text(errors="surrogateescape").splitlines():
+                m = re.match(r"\s*MACRO\s+(\S+)", line)
+                if m:
+                    cell = m.group(1)
+                m = re.match(r"\s*SIZE\s+([0-9.]+)\s+BY\s+([0-9.]+)", line)
+                if m and cell:
+                    size[cell] = float(m.group(1)) * float(m.group(2))
+                    cell = None
+        fixed = set()
+        for lib in sorted((lib_dir / "lib").glob("*.lib")):
+            out, cell, changed = [], None, False
+            for line in lib.read_text(errors="surrogateescape").splitlines(keepends=True):
+                m = cell_re.match(line)
+                if m:
+                    cell = m.group(1)
+                m = area_re.match(line)
+                if m and cell in size:
+                    if abs(float(m.group(2)) - size[cell]) > 0.01 * size[cell]:
+                        line = f"{m.group(1)}{size[cell]:.4f}{m.group(3)}\n"
+                        fixed.add(cell)
+                        changed = True
+                    cell = None
+                out.append(line)
+            if changed:
+                tmp = lib.with_name(lib.name + ".tmp")
+                tmp.write_text("".join(out), errors="surrogateescape")
+                os.replace(tmp, lib)
+        if fixed:
+            log(f"{lib_dir.relative_to(PDK_ROOT)}: Liberty area set to the LEF size for {len(fixed)} cells")
+
+
 def install_links(pdk):
     for link, target in pdk.get("links", {}).items():
         relink(PDK_ROOT / link, PDK_ROOT / target)
@@ -358,6 +402,8 @@ def main():
         try:
             if pdk["kind"] == "ciel":
                 install_ciel(name, pdk, cfg, args.extra_libs)
+                for pattern in pdk.get("liberty_area_from_lef", []):
+                    liberty_area_from_lef(pattern)
             elif pdk["kind"] == "link":
                 install_links(pdk)
             else:
