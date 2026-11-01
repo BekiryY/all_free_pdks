@@ -17,13 +17,13 @@ pdk::sky130*:
   # sky130_fd_sc_hd, the PDK's default library; others with run.sh sky130A/<lib>
   CLOCK_PERIOD: 8.8
 scl::sky130_fd_sc_hs:
-  CLOCK_PERIOD: 6.0
+  CLOCK_PERIOD: 6.25
 scl::sky130_fd_sc_ms:
-  CLOCK_PERIOD: 7.5
+  CLOCK_PERIOD: 7.3
 scl::sky130_fd_sc_ls:
-  CLOCK_PERIOD: 10
+  CLOCK_PERIOD: 9.2
 scl::sky130_fd_sc_hdll:
-  CLOCK_PERIOD: 10
+  CLOCK_PERIOD: 10.4
 pdk::gf180mcu*:
   CLOCK_PERIOD: 18.5
 pdk::ihp-sg13g2:

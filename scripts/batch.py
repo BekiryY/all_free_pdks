@@ -19,7 +19,8 @@ cores defaults to all CPUs and memory to what is available now minus
 machine are taken into account. Each job is told to use --threads threads
 (LibreLane: _OPENLANE_MAX_CORES, ORFS: NUM_CORES).
 
-Each job's output goes to <log dir>/<ARG>.log. The summary at the end lists
+Each job's output goes to <log dir>/<ARG>.log. The summary at the end (also
+in <log dir>/summary.txt) lists
 every job's result, run time and peak memory; use the peak memory to tune
 --mem-per-job for your design. Linux only (reads /proc).
 """
@@ -145,13 +146,15 @@ def main():
             print(f"batch: {'done' if rc == 0 else 'FAILED'} {job['item']} after {fmt_time(job['time'])}, "
                   f"peak {job['peak']:.1f} GB", flush=True)
 
-    print(f"\n{'job':<28} {'result':<10} {'time':>9} {'peak mem':>9}")
+    lines = [f"{'job':<28} {'result':<10} {'time':>9} {'peak mem':>9}"]
     for job in sorted(done, key=lambda j: items.index(j["item"])):
         result = "ok" if job["rc"] == 0 else f"exit {job['rc']}"
-        print(f"{job['item']:<28} {result:<10} {fmt_time(job['time']):>9} {job['peak']:>7.1f} GB")
+        lines.append(f"{job['item']:<28} {result:<10} {fmt_time(job['time']):>9} {job['peak']:>7.1f} GB")
     failed = sum(j["rc"] != 0 for j in done)
     if failed:
-        print(f"\n{failed} job(s) failed; see the logs in {log_dir}")
+        lines.append(f"\n{failed} job(s) failed; see the logs in {log_dir}")
+    (log_dir / "summary.txt").write_text("\n".join(lines) + "\n")
+    print("\n" + "\n".join(lines))
     sys.exit(1 if failed else 0)
 
 
