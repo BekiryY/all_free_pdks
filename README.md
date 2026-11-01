@@ -65,7 +65,7 @@ uses ps, and runs the flow; the config lands in `work/rtl2gds/<top>-<pdk>/`.
   a core at least ~40 µm wide.
 - Another standard cell library: `--set STD_CELL_LIBRARY=sky130_fd_sc_hs`.
   sky130's ms, ls and hdll libraries are installed with
-  `install_pdks.py --only sky130 --extra-libs` (several GB more).
+  `install_pdks.py --only sky130 --extra-libs` (about 10 GB more).
 
 ### Many runs at once
 
