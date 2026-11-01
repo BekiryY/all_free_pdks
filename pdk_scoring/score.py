@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""PDK points from the ALU results in inputs.csv; see README.md for the method.
+"""PDK points from the ALU results in inputs.csv (and the sky130 library
+comparison in sky130_libraries.csv); see README.md for the method.
 
     python3 pdk_scoring/score.py
 
-Prints the points table (Markdown) and writes the three PPA hexagon charts.
+Prints the points tables (Markdown) and writes the PPA hexagon charts.
 """
 import csv
 import math
@@ -17,9 +18,9 @@ ENERGY_PJ = 100_000                 # points = ENERGY_PJ / (pJ per operation)
 DENSITY_MLAMBDA2 = 10_000           # points = DENSITY_MLAMBDA2 / (logic area in M lambda^2)
 
 
-def load():
+def load(name="inputs.csv"):
     pdks = []
-    with open(HERE / "inputs.csv", newline="") as f:
+    with open(HERE / name, newline="") as f:
         for r in csv.DictReader(f):
             clock_ns, power_mw = float(r["clock_ns"]), float(r["power_mw"])
             lam_um = float(r["pitch_um"]) / 2
@@ -49,7 +50,10 @@ FAB, RESEARCH = "#2a78d6", "#eb6834"         # the group colors of docs/pdk-node
 # Per-PDK colors of the group charts (four-color sets that pass the all-pairs
 # colour-vision checks; no blue or orange, which mean "group" elsewhere)
 COLOR = {"icsprout55": "#6250d6", "ihp-sg13g2": "#1baf7a", "sky130A": "#eda100", "gf180mcuD": "#008300",
-         "gt2n": "#6250d6", "asap7": "#008300", "nangate45": "#e87ba4", "osu025": "#eda100"}
+         "gt2n": "#6250d6", "asap7": "#008300", "nangate45": "#e87ba4", "osu025": "#eda100",
+         # sky130 libraries: a five-colour set that also passes the all-pairs checks
+         "sky130_fd_sc_hd": "#6250d6", "sky130_fd_sc_hs": "#e87ba4", "sky130_fd_sc_ms": "#1baf7a",
+         "sky130_fd_sc_ls": "#008300", "sky130_fd_sc_hdll": "#eda100"}
 AXES = [("speed", "Performance", "clock", -90), ("energy", "Power", "energy per operation", 30),
         ("density", "Area", "logic area in λ²", 150)]
 FONT = 'font-family="Segoe UI, Helvetica, Arial, sans-serif"'
@@ -198,3 +202,6 @@ if __name__ == "__main__":
     each_chart(pdks, "ppa_each.svg")
     group_chart([p for p in pdks if p["fab"]], "PPA of the PDKs you can tape out", "ppa_manufacturable.svg")
     group_chart([p for p in pdks if not p["fab"]], "PPA of the research and learning PDKs", "ppa_research.svg")
+    libs = load("sky130_libraries.csv")
+    print("\n" + table(libs))
+    group_chart(libs, "PPA of the sky130 standard cell libraries", "ppa_sky130_libraries.svg")
