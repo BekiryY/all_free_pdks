@@ -32,7 +32,8 @@ utilization (see the [README](README.md) for the method).
 11. [Signoff quality](#11-signoff-quality)
 12. [Head to head at the same node](#12-head-to-head-at-the-same-node)
 13. [Scorecard](#13-scorecard)
-14. [How the numbers were measured](#14-how-the-numbers-were-measured)
+14. [PDK points](#14-pdk-points)
+15. [How the numbers were measured](#15-how-the-numbers-were-measured)
 
 ---
 
@@ -366,7 +367,70 @@ measures both differences together, not the tools alone.
 
 ---
 
-## 14. How the numbers were measured
+## 14. PDK points
+
+One score per PDK from the ALU results, for comparing the PDKs at a glance.
+Bigger is better in every column. GPDK045 is left out: its tools and corner
+differ, so its points would not mean the same thing.
+
+| Metric | What it rewards | Points |
+| --- | --- | --- |
+| Speed | a faster turbo clock | 10 per MHz |
+| Energy | fewer joules per operation | 100 per GOPS/W (100,000 / pJ per operation) |
+| Density | a smaller layout *for the node*: logic cell area in λ² | 10,000 / (area in M λ²) |
+| **Overall** | all three equally | geometric mean of the three |
+
+| # | PDK | Clock | Speed | Energy/op | Energy | Area | Density | **Overall** |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| **1** | **gt2n** | 1,333 MHz | 13,333 | 4.71 pJ | **21,238** | 5.79 M λ² | 1,728 | **7,881** |
+| 2 | asap7 | 1,563 MHz | **15,625** | 7.88 pJ | 12,688 | 6.28 M λ² | 1,593 | 6,809 |
+| 3 | nangate45 | 806.5 MHz | 8,065 | 40.8 pJ | 2,451 | 5.64 M λ² | 1,774 | 3,273 |
+| 4 | icsprout55 | 317.5 MHz | 3,175 | 60.3 pJ | 1,657 | 4.50 M λ² | **2,224** | 2,270 |
+| 5 | ihp-sg13g2 | 151.5 MHz | 1,515 | 178.3 pJ | 561 | 5.66 M λ² | 1,766 | 1,145 |
+| 6 | sky130A | 113.6 MHz | 1,136 | 250.6 pJ | 399 | 6.62 M λ² | 1,510 | 881 |
+| 7 | osu025 | 90.9 MHz | 909 | 3,625 pJ | 28 | 5.96 M λ² | 1,677 | 348 |
+| 8 | gf180mcuD | 54.1 MHz | 541 | 3,299 pJ | 30 | 5.71 M λ² | 1,751 | 306 |
+
+> **Winner: gt2n with 7,881 points**, ahead of asap7 on energy and density.
+> The best PDK you can tape out is icsprout55 (2,270), twice ihp-sg13g2.
+> icsprout55 also wins density: its library fits the ALU in 4.5 M λ², 20%
+> below the next. Once area is scaled to the node, all eight libraries are
+> within 1.5× of each other. Speed (29× spread) and energy (770×) are where
+> the nodes really differ.
+
+**Why area is scaled and power is not.** Absolute area mostly says how small
+the node is: gt2n would beat osu025 by 2,600 times and every other column
+would stop mattering. Silicon is also far cheaper per mm² at old nodes, so a
+big layout there is not the cost it is at 7 nm. Dividing by λ² measures how
+well the library and the flow use the node they have. Energy stays absolute:
+a joule drains the same battery and makes the same heat at any node. It is
+taken per operation rather than as power at each PDK's own clock, which would
+reward running slowly.
+
+**What λ is.** Half the tightest routing pitch of the first two metal layers
+in the PDK's tech LEF. The node name cannot be used below about 20 nm: "2 nm"
+is a product label, and λ = 1 nm would put gt2n's ALU at 208 M (node)², 18
+times worse than sky130A.
+
+| PDK | Node name | Tightest metal pitch | λ | Supply | Leakage | Can tape out |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| osu025 | 250 nm | 1.2 µm (metal2) | 600 nm | 2.5 V | 2.92 µW | no |
+| gf180mcuD | 180 nm | 0.56 µm (Metal1) | 280 nm | 5.0 V | 4.22 µW | yes |
+| ihp-sg13g2 | 130 nm | 0.42 µm (Metal1) | 210 nm | 1.2 V | 10.58 µW | yes |
+| sky130A | 130 nm | 0.34 µm (li1, met1) | 170 nm | 1.8 V | 0.16 µW | yes |
+| icsprout55 | 55 nm | 0.20 µm (MET1) | 100 nm | 1.2 V | 3.10 µW | yes (test and academic shuttles) |
+| nangate45 | 45 nm | 0.14 µm (metal1) | 70 nm | 1.1 V | 507.0 µW | no |
+| asap7 | 7 nm | 36 nm (M1) | 18 nm | 0.7 V | 1.22 µW | no |
+| gt2n | 2 nm | 24 nm (M0) | 12 nm | 0.7 V | 181.5 µW | no |
+
+Supply voltage and leakage are shown but not scored. The supply explains much
+of the energy column (energy grows with the square of the voltage, and
+gf180mcuD's library runs at 5 V). Leakage depends mostly on which threshold
+voltages the flow picks (gt2n mixes SVT and LVT cells), not on the PDK alone.
+
+---
+
+## 15. How the numbers were measured
 
 - **Same RTL everywhere.** The ALU in [`rtl/`](rtl) with the constraints in
   [`constraints/`](constraints); no PDK-specific logic changes.
