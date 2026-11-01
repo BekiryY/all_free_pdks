@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0.5" y="0.5" width="819" height="559" rx="10" fill="#fcfcfb" stroke="#d9d8d3"/>
+<text x="24.0" y="34.0" font-size="18" fill="#0b0b0b" text-anchor="start" font-weight="600">PPA of the PDKs you can tape out</text>
+<text x="24.0" y="56.0" font-size="13" fill="#52514e" text-anchor="start" font-weight="normal">Outer ring = best PDK in this chart on that axis; each ring inward is 10 times worse (log scale)</text>
+<polygon points="270.0,140.0 425.9,230.0 425.9,410.0 270.0,500.0 114.1,410.0 114.1,230.0" fill="none" stroke="#d9d8d3"/>
+<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="270.0" y="513.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">best</text>
+<polygon points="270.0,230.0 347.9,275.0 347.9,365.0 270.0,410.0 192.1,365.0 192.1,275.0" fill="none" stroke="#d9d8d3"/>
+<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="270.0" y="423.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷10</text>
+<line x1="270" y1="320" x2="270.0" y2="140.0" stroke="#d9d8d3"/>
+<text x="270.0" y="110.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="600">Performance</text>
+<text x="270.0" y="124.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">clock</text>
+<line x1="270" y1="320" x2="425.9" y2="410.0" stroke="#d9d8d3"/>
+<text x="448.4" y="423.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">Power</text>
+<text x="448.4" y="439.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">energy per operation</text>
+<line x1="270" y1="320" x2="114.1" y2="410.0" stroke="#d9d8d3"/>
+<text x="91.6" y="423.0" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="600">Area</text>
+<text x="91.6" y="439.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal">logic area in λ²</text>
+<g><title>gf180mcuD: 54.1 MHz, 3,299.10 pJ/op, 5.71 M λ², 306 points</title>
+<polygon points="270.0,209.2 290.4,331.8 122.2,405.3" fill="#008300" fill-opacity="0.1" stroke="#008300" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="270.0" cy="209.2" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="290.4" cy="331.8" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="122.2" cy="405.3" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<g><title>sky130A: 113.6 MHz, 250.56 pJ/op, 6.62 M λ², 881 points</title>
+<polygon points="270.0,180.2 377.7,382.2 127.2,402.4" fill="#eda100" fill-opacity="0.1" stroke="#eda100" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="270.0" cy="180.2" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="377.7" cy="382.2" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="127.2" cy="402.4" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<g><title>ihp-sg13g2: 151.5 MHz, 178.31 pJ/op, 5.66 M λ², 1,145 points</title>
+<polygon points="270.0,168.9 389.2,388.8 121.9,405.5" fill="#1baf7a" fill-opacity="0.1" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="270.0" cy="168.9" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="389.2" cy="388.8" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="121.9" cy="405.5" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<g><title>icsprout55: 317.5 MHz, 60.35 pJ/op, 4.50 M λ², 2,270 points</title>
+<polygon points="270.0,140.0 425.9,410.0 114.1,410.0" fill="#6250d6" fill-opacity="0.1" stroke="#6250d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="270.0" cy="140.0" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="425.9" cy="410.0" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="114.1" cy="410.0" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="540.0" y="100.0" font-size="13" fill="#52514e" text-anchor="start" font-weight="600">Points (bigger is better)</text>
+<line x1="540" y1="125" x2="562" y2="125" stroke="#6250d6" stroke-width="3"/>
+<circle cx="551" cy="125" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="572.0" y="130.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="600">icsprout55</text>
+<text x="790.0" y="130.0" font-size="14" fill="#0b0b0b" text-anchor="end" font-weight="600">2,270</text>
+<text x="572.0" y="148.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">317.5 MHz · 60.3 pJ · 4.50 M λ²</text>
+<line x1="540" y1="187" x2="562" y2="187" stroke="#1baf7a" stroke-width="3"/>
+<circle cx="551" cy="187" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<text x="572.0" y="192.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="600">ihp-sg13g2</text>
+<text x="790.0" y="192.0" font-size="14" fill="#0b0b0b" text-anchor="end" font-weight="600">1,145</text>
+<text x="572.0" y="210.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">151.5 MHz · 178.3 pJ · 5.66 M λ²</text>
+<line x1="540" y1="249" x2="562" y2="249" stroke="#eda100" stroke-width="3"/>
+<circle cx="551" cy="249" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<text x="572.0" y="254.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="600">sky130A</text>
+<text x="790.0" y="254.0" font-size="14" fill="#0b0b0b" text-anchor="end" font-weight="600">881</text>
+<text x="572.0" y="272.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">113.6 MHz · 250.6 pJ · 6.62 M λ²</text>
+<line x1="540" y1="311" x2="562" y2="311" stroke="#008300" stroke-width="3"/>
+<circle cx="551" cy="311" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+<text x="572.0" y="316.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="600">gf180mcuD</text>
+<text x="790.0" y="316.0" font-size="14" fill="#0b0b0b" text-anchor="end" font-weight="600">306</text>
+<text x="572.0" y="334.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">54.1 MHz · 3,299.1 pJ · 5.71 M λ²</text>
+</svg>

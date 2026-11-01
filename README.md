@@ -10,7 +10,7 @@ plus one-line commands to run your own design.
 ![The eight PDKs on a log-scale process-node axis, from osu025 at 250 nm to gt2n at 2 nm](docs/pdk-nodes.svg)
 
 How they compare on one real design (speed, energy and node-scaled density,
-as points): [PDK points from the ALU example](examples/PPA-opt-32b-alu-bekiryy/alu_pdk_performances.md#14-pdk-points).
+as points): [`pdk_scoring/`](pdk_scoring).
 
 ## Why
 

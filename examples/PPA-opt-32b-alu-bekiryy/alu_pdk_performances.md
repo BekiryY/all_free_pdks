@@ -398,35 +398,9 @@ differ, so its points would not mean the same thing.
 > within 1.5× of each other. Speed (29× spread) and energy (770×) are where
 > the nodes really differ.
 
-**Why area is scaled and power is not.** Absolute area mostly says how small
-the node is: gt2n would beat osu025 by 2,600 times and every other column
-would stop mattering. Silicon is also far cheaper per mm² at old nodes, so a
-big layout there is not the cost it is at 7 nm. Dividing by λ² measures how
-well the library and the flow use the node they have. Energy stays absolute:
-a joule drains the same battery and makes the same heat at any node. It is
-taken per operation rather than as power at each PDK's own clock, which would
-reward running slowly.
-
-**What λ is.** Half the tightest routing pitch of the first two metal layers
-in the PDK's tech LEF. The node name cannot be used below about 20 nm: "2 nm"
-is a product label, and λ = 1 nm would put gt2n's ALU at 208 M (node)², 18
-times worse than sky130A.
-
-| PDK | Node name | Tightest metal pitch | λ | Supply | Leakage | Can tape out |
-| --- | ---: | ---: | ---: | ---: | ---: | --- |
-| osu025 | 250 nm | 1.2 µm (metal2) | 600 nm | 2.5 V | 2.92 µW | no |
-| gf180mcuD | 180 nm | 0.56 µm (Metal1) | 280 nm | 5.0 V | 4.22 µW | yes |
-| ihp-sg13g2 | 130 nm | 0.42 µm (Metal1) | 210 nm | 1.2 V | 10.58 µW | yes |
-| sky130A | 130 nm | 0.34 µm (li1, met1) | 170 nm | 1.8 V | 0.16 µW | yes |
-| icsprout55 | 55 nm | 0.20 µm (MET1) | 100 nm | 1.2 V | 3.10 µW | yes (test and academic shuttles) |
-| nangate45 | 45 nm | 0.14 µm (metal1) | 70 nm | 1.1 V | 507.0 µW | no |
-| asap7 | 7 nm | 36 nm (M1) | 18 nm | 0.7 V | 1.22 µW | no |
-| gt2n | 2 nm | 24 nm (M0) | 12 nm | 0.7 V | 181.5 µW | no |
-
-Supply voltage and leakage are shown but not scored. The supply explains much
-of the energy column (energy grows with the square of the voltage, and
-gf180mcuD's library runs at 5 V). Leakage depends mostly on which threshold
-voltages the flow picks (gt2n mixes SVT and LVT cells), not on the PDK alone.
+How each column is calculated, why area is scaled by λ² while energy stays
+absolute, the λ of every PDK and the PPA hexagon charts are in
+[`pdk_scoring/`](../../pdk_scoring).
 
 ---
 

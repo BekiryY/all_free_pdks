@@ -1,0 +1,9 @@
+pdk,node_nm,flow,can_tape_out,clock_ns,power_mw,logic_um2,pitch_um,pitch_layer,vdd_v,leakage_uw
+osu025,250,ORFS,no,11,329.5813,2146106.0,1.2,metal2,2.5,2.919
+gf180mcuD,180,LibreLane,yes,18.5,178.3299,447661.1,0.56,Metal1,5,4.216
+ihp-sg13g2,130,LibreLane,yes,6.6,27.0174,249706.4,0.42,Metal1,1.2,10.584
+sky130A,130,LibreLane,yes,8.8,28.4726,191387.3,0.34,met1,1.8,0.162
+icsprout55,55,LibreLane,yes,3.15,19.1579,44961.8,0.2,MET1,1.2,3.105
+nangate45,45,ORFS,no,1.24,32.9093,27615.6,0.14,metal1,1.1,507.021
+asap7,7,ORFS,no,0.64,12.3146,2034.5,0.036,M1,0.7,1.220
+gt2n,2,ORFS,no,0.75,6.2780,833.2,0.024,M0,0.7,181.516

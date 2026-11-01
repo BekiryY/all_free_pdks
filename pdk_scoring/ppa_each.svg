@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 590" width="880" height="590" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0.5" y="0.5" width="879" height="589" rx="10" fill="#fcfcfb" stroke="#d9d8d3"/>
+<text x="24.0" y="34.0" font-size="18" fill="#0b0b0b" text-anchor="start" font-weight="600">Power, performance and area of the ALU on each PDK</text>
+<text x="24.0" y="56.0" font-size="13" fill="#52514e" text-anchor="start" font-weight="normal">Same scale in every panel: outer ring = best of all eight, each ring inward 10 times worse</text>
+<circle cx="590" cy="30" r="6" fill="#2a78d6"/>
+<text x="602.0" y="35.0" font-size="13" fill="#52514e" text-anchor="start" font-weight="normal">can tape out</text>
+<circle cx="710" cy="30" r="6" fill="#eb6834"/>
+<text x="722.0" y="35.0" font-size="13" fill="#52514e" text-anchor="start" font-weight="normal">research and learning only</text>
+<text x="110.0" y="104.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">osu025</text>
+<text x="110.0" y="121.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">250 nm · 348 points</text>
+<polygon points="110.0,153.0 163.7,184.0 163.7,246.0 110.0,277.0 56.3,246.0 56.3,184.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="110.0,173.7 145.8,194.3 145.8,235.7 110.0,256.3 74.2,235.7 74.2,194.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="110.0,194.3 127.9,204.7 127.9,225.3 110.0,235.7 92.1,225.3 92.1,204.7" fill="none" stroke="#d9d8d3"/>
+<line x1="110.0" y1="215" x2="110.0" y2="153.0" stroke="#d9d8d3"/>
+<text x="110.0" y="145.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="110.0" y1="215" x2="163.7" y2="246.0" stroke="#d9d8d3"/>
+<text x="163.7" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="110.0" y1="215" x2="56.3" y2="246.0" stroke="#d9d8d3"/>
+<text x="56.3" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>osu025: 90.9 MHz, 3,625.39 pJ/op, 5.96 M λ², 348 points</title>
+<polygon points="110.0,178.5 112.0,216.2 58.5,244.7" fill="#eb6834" fill-opacity="0.18" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="110.0" cy="178.5" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="112.0" cy="216.2" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="58.5" cy="244.7" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="330.0" y="104.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">gf180mcuD</text>
+<text x="330.0" y="121.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">180 nm · 306 points</text>
+<polygon points="330.0,153.0 383.7,184.0 383.7,246.0 330.0,277.0 276.3,246.0 276.3,184.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="330.0,173.7 365.8,194.3 365.8,235.7 330.0,256.3 294.2,235.7 294.2,194.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="330.0,194.3 347.9,204.7 347.9,225.3 330.0,235.7 312.1,225.3 312.1,204.7" fill="none" stroke="#d9d8d3"/>
+<line x1="330.0" y1="215" x2="330.0" y2="153.0" stroke="#d9d8d3"/>
+<text x="330.0" y="145.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="330.0" y1="215" x2="383.7" y2="246.0" stroke="#d9d8d3"/>
+<text x="383.7" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="330.0" y1="215" x2="276.3" y2="246.0" stroke="#d9d8d3"/>
+<text x="276.3" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>gf180mcuD: 54.1 MHz, 3,299.10 pJ/op, 5.71 M λ², 306 points</title>
+<polygon points="330.0,183.2 332.8,216.6 278.2,244.9" fill="#2a78d6" fill-opacity="0.18" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="330.0" cy="183.2" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="332.8" cy="216.6" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="278.2" cy="244.9" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="550.0" y="104.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">ihp-sg13g2</text>
+<text x="550.0" y="121.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">130 nm · 1,145 points</text>
+<polygon points="550.0,153.0 603.7,184.0 603.7,246.0 550.0,277.0 496.3,246.0 496.3,184.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="550.0,173.7 585.8,194.3 585.8,235.7 550.0,256.3 514.2,235.7 514.2,194.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="550.0,194.3 567.9,204.7 567.9,225.3 550.0,235.7 532.1,225.3 532.1,204.7" fill="none" stroke="#d9d8d3"/>
+<line x1="550.0" y1="215" x2="550.0" y2="153.0" stroke="#d9d8d3"/>
+<text x="550.0" y="145.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="550.0" y1="215" x2="603.7" y2="246.0" stroke="#d9d8d3"/>
+<text x="603.7" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="550.0" y1="215" x2="496.3" y2="246.0" stroke="#d9d8d3"/>
+<text x="496.3" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>ihp-sg13g2: 151.5 MHz, 178.31 pJ/op, 5.66 M λ², 1,145 points</title>
+<polygon points="550.0,173.9 575.4,229.7 498.1,245.0" fill="#2a78d6" fill-opacity="0.18" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="550.0" cy="173.9" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="575.4" cy="229.7" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="498.1" cy="245.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="770.0" y="104.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">sky130A</text>
+<text x="770.0" y="121.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">130 nm · 881 points</text>
+<polygon points="770.0,153.0 823.7,184.0 823.7,246.0 770.0,277.0 716.3,246.0 716.3,184.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="770.0,173.7 805.8,194.3 805.8,235.7 770.0,256.3 734.2,235.7 734.2,194.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="770.0,194.3 787.9,204.7 787.9,225.3 770.0,235.7 752.1,225.3 752.1,204.7" fill="none" stroke="#d9d8d3"/>
+<line x1="770.0" y1="215" x2="770.0" y2="153.0" stroke="#d9d8d3"/>
+<text x="770.0" y="145.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="770.0" y1="215" x2="823.7" y2="246.0" stroke="#d9d8d3"/>
+<text x="823.7" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="770.0" y1="215" x2="716.3" y2="246.0" stroke="#d9d8d3"/>
+<text x="716.3" y="264.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>sky130A: 113.6 MHz, 250.56 pJ/op, 6.62 M λ², 881 points</title>
+<polygon points="770.0,176.5 792.8,228.2 719.3,244.3" fill="#2a78d6" fill-opacity="0.18" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="770.0" cy="176.5" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="792.8" cy="228.2" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="719.3" cy="244.3" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="110.0" y="354.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">icsprout55</text>
+<text x="110.0" y="371.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">55 nm · 2,270 points</text>
+<polygon points="110.0,403.0 163.7,434.0 163.7,496.0 110.0,527.0 56.3,496.0 56.3,434.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="110.0,423.7 145.8,444.3 145.8,485.7 110.0,506.3 74.2,485.7 74.2,444.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="110.0,444.3 127.9,454.7 127.9,475.3 110.0,485.7 92.1,475.3 92.1,454.7" fill="none" stroke="#d9d8d3"/>
+<line x1="110.0" y1="465" x2="110.0" y2="403.0" stroke="#d9d8d3"/>
+<text x="110.0" y="395.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="110.0" y1="465" x2="163.7" y2="496.0" stroke="#d9d8d3"/>
+<text x="163.7" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="110.0" y1="465" x2="56.3" y2="496.0" stroke="#d9d8d3"/>
+<text x="56.3" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>icsprout55: 317.5 MHz, 60.35 pJ/op, 4.50 M λ², 2,270 points</title>
+<polygon points="110.0,417.3 143.9,484.6 56.3,496.0" fill="#2a78d6" fill-opacity="0.18" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="110.0" cy="417.3" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="143.9" cy="484.6" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="56.3" cy="496.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="330.0" y="354.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">nangate45</text>
+<text x="330.0" y="371.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">45 nm · 3,273 points</text>
+<polygon points="330.0,403.0 383.7,434.0 383.7,496.0 330.0,527.0 276.3,496.0 276.3,434.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="330.0,423.7 365.8,444.3 365.8,485.7 330.0,506.3 294.2,485.7 294.2,444.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="330.0,444.3 347.9,454.7 347.9,475.3 330.0,485.7 312.1,475.3 312.1,454.7" fill="none" stroke="#d9d8d3"/>
+<line x1="330.0" y1="465" x2="330.0" y2="403.0" stroke="#d9d8d3"/>
+<text x="330.0" y="395.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="330.0" y1="465" x2="383.7" y2="496.0" stroke="#d9d8d3"/>
+<text x="383.7" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="330.0" y1="465" x2="276.3" y2="496.0" stroke="#d9d8d3"/>
+<text x="276.3" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>nangate45: 806.5 MHz, 40.81 pJ/op, 5.64 M λ², 3,273 points</title>
+<polygon points="330.0,408.9 366.9,486.3 278.1,495.0" fill="#eb6834" fill-opacity="0.18" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="330.0" cy="408.9" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="366.9" cy="486.3" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="278.1" cy="495.0" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="550.0" y="354.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">asap7</text>
+<text x="550.0" y="371.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">7 nm · 6,809 points</text>
+<polygon points="550.0,403.0 603.7,434.0 603.7,496.0 550.0,527.0 496.3,496.0 496.3,434.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="550.0,423.7 585.8,444.3 585.8,485.7 550.0,506.3 514.2,485.7 514.2,444.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="550.0,444.3 567.9,454.7 567.9,475.3 550.0,485.7 532.1,475.3 532.1,454.7" fill="none" stroke="#d9d8d3"/>
+<line x1="550.0" y1="465" x2="550.0" y2="403.0" stroke="#d9d8d3"/>
+<text x="550.0" y="395.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="550.0" y1="465" x2="603.7" y2="496.0" stroke="#d9d8d3"/>
+<text x="603.7" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="550.0" y1="465" x2="496.3" y2="496.0" stroke="#d9d8d3"/>
+<text x="496.3" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>asap7: 1,562.5 MHz, 7.88 pJ/op, 6.28 M λ², 6,809 points</title>
+<polygon points="550.0,403.0 599.7,493.7 498.9,494.5" fill="#eb6834" fill-opacity="0.18" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="550.0" cy="403.0" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="599.7" cy="493.7" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="498.9" cy="494.5" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+<text x="770.0" y="354.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="600">gt2n</text>
+<text x="770.0" y="371.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal">2 nm · 7,881 points</text>
+<polygon points="770.0,403.0 823.7,434.0 823.7,496.0 770.0,527.0 716.3,496.0 716.3,434.0" fill="none" stroke="#d9d8d3"/>
+<polygon points="770.0,423.7 805.8,444.3 805.8,485.7 770.0,506.3 734.2,485.7 734.2,444.3" fill="none" stroke="#d9d8d3"/>
+<polygon points="770.0,444.3 787.9,454.7 787.9,475.3 770.0,485.7 752.1,475.3 752.1,454.7" fill="none" stroke="#d9d8d3"/>
+<line x1="770.0" y1="465" x2="770.0" y2="403.0" stroke="#d9d8d3"/>
+<text x="770.0" y="395.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Performance</text>
+<line x1="770.0" y1="465" x2="823.7" y2="496.0" stroke="#d9d8d3"/>
+<text x="823.7" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Power</text>
+<line x1="770.0" y1="465" x2="716.3" y2="496.0" stroke="#d9d8d3"/>
+<text x="716.3" y="514.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">Area</text>
+<g><title>gt2n: 1,333.3 MHz, 4.71 pJ/op, 5.79 M λ², 7,881 points</title>
+<polygon points="770.0,404.4 823.7,496.0 718.3,494.9" fill="#eb6834" fill-opacity="0.18" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="770.0" cy="404.4" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="823.7" cy="496.0" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="718.3" cy="494.9" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+</g>
+</svg>
