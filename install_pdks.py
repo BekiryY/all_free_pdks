@@ -7,6 +7,7 @@ needed; ciel is installed into a repo-local .venv on first use.
 
     python3 install_pdks.py                 # install everything
     python3 install_pdks.py --only sky130,asap7
+    python3 install_pdks.py --only sky130 --extra-libs   # also sky130 ms/ls/hdll
     python3 install_pdks.py --list          # show pins and install status
 """
 
@@ -105,10 +106,10 @@ def ciel_bin(version):
     return exe
 
 
-def install_ciel(name, pdk, cfg):
+def install_ciel(name, pdk, cfg, extra_libs=False):
     exe = ciel_bin(cfg["ciel_version"])
     cmd = [exe, "enable", "--pdk-root", PDK_ROOT, "--pdk-family", pdk["family"]]
-    for lib in pdk["libraries"]:
+    for lib in pdk["libraries"] + (pdk.get("extra_libraries", []) if extra_libs else []):
         cmd += ["-l", lib]
     cmd.append(pdk["version"])
     # ciel reads PDK/PDK_FAMILY/PDK_ROOT from the environment; keep them out.
@@ -333,6 +334,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--only", help="comma-separated PDK names (default: all)")
     ap.add_argument("--list", action="store_true", help="show pins and install status")
+    ap.add_argument("--extra-libs", action="store_true",
+                    help="also install the optional standard cell libraries (extra_libraries in pdks.json)")
     ap.add_argument("--skip-space-check", action="store_true")
     args = ap.parse_args()
 
@@ -354,7 +357,7 @@ def main():
         log(f"=== {name}")
         try:
             if pdk["kind"] == "ciel":
-                install_ciel(name, pdk, cfg)
+                install_ciel(name, pdk, cfg, args.extra_libs)
             elif pdk["kind"] == "link":
                 install_links(pdk)
             else:

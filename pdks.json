@@ -7,6 +7,7 @@
       "family": "sky130",
       "version": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
       "libraries": ["default", "sky130_fd_sc_hs"],
+      "extra_libraries": ["sky130_fd_sc_ms", "sky130_fd_sc_ls", "sky130_fd_sc_hdll"],
       "approx_size_gb": 6
     },
     "gf180mcu": {
