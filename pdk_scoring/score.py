@@ -23,7 +23,7 @@ DENSITY_MLAMBDA2 = 10_000           # points = DENSITY_MLAMBDA2 / (logic area in
 
 def load(path=HERE / "inputs.csv"):
     pdks = []
-    with open(path, newline="") as f:
+    with open(path, newline="", encoding="utf-8") as f:
         for r in csv.DictReader(f):
             clock_ns, power_mw = float(r["clock_ns"]), float(r["power_mw"])
             lam_um = float(r["pitch_um"]) / 2
@@ -76,7 +76,7 @@ def pts(xy):
     return " ".join(f"{x:.1f},{y:.1f}" for x, y in xy)
 
 
-FLOOR = 0.2                         # stretched charts: radius of the worst PDK
+FLOOR = 0.2                         # stretched charts: radius of the worst PDK (widest axis if shared)
 
 
 def log_scale(pdks):
@@ -89,17 +89,26 @@ def log_scale(pdks):
     return (lambda key, v: max(0.0, 1 + math.log10(v / best[key]) / decades)), rings
 
 
-def stretched_scale(pdks):
-    """Each axis stretched from the worst PDK (inner ring) to the best (outer
-    ring), on a log scale, so small differences become visible."""
-    lo = {k: min(p[k] for p in pdks) for k, *_ in AXES}
+def stretched_scale(pdks, shared=False):
+    """Zoomed log scale: the best PDK of each axis on the outer ring.
+
+    Default: each axis on its own, from its worst PDK (inner ring) to its best,
+    for groups whose axes span very different ranges. shared: one scale for all
+    three axes, the inner ring as many times worse as the widest axis needs, so
+    a 25% gap on one axis never looks as big as 60% on another; for groups that
+    are close on every axis, such as the libraries of one PDK."""
     hi = {k: max(p[k] for p in pdks) for k, *_ in AXES}
+    span = {k: math.log(hi[k] / min(p[k] for p in pdks)) or 1.0 for k, *_ in AXES}
+    if shared:
+        span = dict.fromkeys(span, max(span.values()))
 
     def frac(key, v):
-        if hi[key] == lo[key]:
-            return 1.0
-        return FLOOR + (1 - FLOOR) * math.log(v / lo[key]) / math.log(hi[key] / lo[key])
-    rings = [(1.0, "best")] + [(FLOOR + (1 - FLOOR) * i / 4, "") for i in (3, 2, 1)] + [(FLOOR, "worst")]
+        return 1 - (1 - FLOOR) * math.log(hi[key] / v) / span[key]
+    if shared:
+        rings = [(1 - (1 - FLOOR) * i / 4, "best" if i == 0 else f"÷{math.exp(max(span.values()) * i / 4):.2f}")
+                 for i in range(5)]
+    else:
+        rings = [(1 - (1 - FLOOR) * i / 4, {0: "best", 4: "worst"}.get(i, "")) for i in range(5)]
     return frac, rings
 
 
@@ -149,8 +158,8 @@ def svg(w, h, body):
                       *body, "</svg>", ""])
 
 
-def group_chart(pdks, title, path, what="PDK"):
-    frac, rings = stretched_scale(pdks)
+def group_chart(pdks, title, path, what="PDK", shared=False):
+    frac, rings = stretched_scale(pdks, shared)
     lo = {k: min(pdks, key=lambda p: p[k]) for k, *_ in AXES}
     hi = {k: max(pdks, key=lambda p: p[k]) for k, *_ in AXES}
     subs = {"speed": f"clock: {lo['speed']['mhz']:,.1f} → {hi['speed']['mhz']:,.1f} MHz",
@@ -158,7 +167,9 @@ def group_chart(pdks, title, path, what="PDK"):
             "density": f"area: {lo['density']['mlam2']:.2f} → {hi['density']['mlam2']:.2f} M λ²"}
     cx, cy, R = 350, 320, 180
     body = [text(24, 34, title, 18, anchor="start", weight="600"),
-            text(24, 56, f"Each axis is stretched from the worst {what} in this chart (inner ring) to the best "
+            text(24, 56, f"Zoomed log scale, the same on every axis: best {what} on the outer ring, "
+                         "rings marked with how many times worse" if shared else
+                         f"Each axis is stretched from the worst {what} in this chart (inner ring) to the best "
                          "(outer ring), log scale", 13, INK2, "start")]
     body += hexagon(cx, cy, R, rings, subs)
     for p in sorted(pdks, key=lambda p: p["overall"]):
@@ -175,7 +186,7 @@ def group_chart(pdks, title, path, what="PDK"):
                  text(lx + 250, y, f"{p['overall']:,.0f}", 14, INK, "end", "600"),
                  text(lx + 32, y + 18, f"{p['mhz']:,.1f} MHz · {p['pj']:,.1f} pJ · {p['mlam2']:.2f} M λ²",
                       11, INK2, "start")]
-    (HERE / path).write_text(svg(900, 560, body))
+    (HERE / path).write_text(svg(900, 560, body), encoding="utf-8")
 
 
 def each_chart(pdks, path):
@@ -196,7 +207,7 @@ def each_chart(pdks, path):
                  text(cx, oy + 31, f"{p['node_nm']} nm · {p['overall']:,.0f} points", 12, INK2)]
         body += hexagon(cx, cy, R, rings)
         body += shape(cx, cy, R, frac, p, FAB if p["fab"] else RESEARCH, 0.18)
-    (HERE / path).write_text(svg(4 * cw, top + 2 * ch, body))
+    (HERE / path).write_text(svg(4 * cw, top + 2 * ch, body), encoding="utf-8")
 
 
 if __name__ == "__main__":
@@ -207,7 +218,7 @@ if __name__ == "__main__":
     if args.libraries:
         libs = load(args.libraries)
         print(table(libs, "Library"))
-        group_chart(libs, args.title, args.libraries.resolve().with_name("ppa.svg"), "library")
+        group_chart(libs, args.title, args.libraries.resolve().with_name("ppa.svg"), "library", shared=True)
     else:
         pdks = load()
         print(table(pdks))

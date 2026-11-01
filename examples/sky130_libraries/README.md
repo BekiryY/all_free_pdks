@@ -49,7 +49,9 @@ input activity on the routed layout; logic area excludes fill, tap and decap
 cells. Points are the [`pdk_scoring`](../../pdk_scoring) formulas: speed = 10 ×
 MHz, energy = 100,000 / pJ per operation, density = 10,000 / logic area in Mλ²
 (λ = 0.17 µm for every library, the same metal stack), overall = geometric mean.
-The chart stretches each axis from the worst library to the best.
+The chart zooms in with one log scale shared by all three axes: the best
+library of each axis on the outer ring, each ring further in a fixed factor
+worse, so equal ratios look equal on every axis.
 
 - **hd wins overall:** the smallest logic and the second-lowest energy.
 - **hs is the fastest**, 28% above hd, for 46% more energy per operation and
