@@ -10,7 +10,6 @@ taken from RTL to GDS on every PDK at the fastest clock it closes timing at.
 | File | What it is |
 | --- | --- |
 | [`inputs.csv`](inputs.csv) | the measured inputs, one row per PDK |
-| [`sky130_libraries.csv`](sky130_libraries.csv) | the same inputs for the sky130 library comparison, one row per library |
 | [`score.py`](score.py) | computes the points and draws the charts (`python3 pdk_scoring/score.py`, standard library only) |
 | `ppa_*.svg` | the charts on this page |
 
@@ -148,50 +147,8 @@ every axis, further out is better.
 osu025 is in the research-and-learning chart because it cannot be
 manufactured any more: it is a legacy MOSIS process, not a predictive one.
 
-## sky130 standard cell libraries
-
-The same ALU on five of sky130's cell libraries, each at its own edge clock
-(inputs in [`sky130_libraries.csv`](sky130_libraries.csv)). Same PDK, same
-metal stack and the same λ (170 nm), so this compares the libraries alone.
-
-![PPA of the sky130 standard cell libraries](ppa_sky130_libraries.svg)
-
-| # | Library | Clock | Speed | Energy/op | Energy | Logic area | Density | Overall |
-| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | sky130_fd_sc_hd | 113.6 MHz | 1,136 | 250.56 pJ | **399** | 6.62 M λ² | **1,510** | **881** |
-| 2 | sky130_fd_sc_hs | 144.9 MHz | **1,449** | 366.48 pJ | 273 | 8.26 M λ² | 1,210 | 782 |
-| 3 | sky130_fd_sc_ms | 132.5 MHz | 1,325 | 348.98 pJ | 287 | 8.20 M λ² | 1,220 | 774 |
-| 4 | sky130_fd_sc_ls | 108.7 MHz | 1,087 | 327.71 pJ | 305 | 8.21 M λ² | 1,219 | 739 |
-| 5 | sky130_fd_sc_hdll | 89.3 MHz | 893 | 385.20 pJ | 260 | 14.83 M λ² | 674 | 539 |
-
-- **hd, the default, scores highest overall.** It has the lowest energy and the
-  smallest layout.
-- **hs is the fastest**, 28% above hd, at 46% more energy per operation.
-- **hs, ms and ls are one family.** Their layouts are the same size, and they
-  trade speed for energy in order: hs fastest, ls most frugal.
-- **hdll comes last on this design.** Its ALU needs 2.2 times hd's cell area
-  and runs at the slowest clock.
-- **Setup slack** at the worst typical corner: hd +79 ps, hs +50 ps,
-  ms +54 ps, ls +1 ps and hdll +147 ps.
-- **Signoff:** all five route with 0 DRC and are clean in Magic DRC, KLayout
-  DRC and LVS.
-- **Critical path.** On hs it is a combinational path from an input to an
-  output, which the constraints give only 58% of the clock. That limits how
-  far a faster library can push the clock on this design, so the speed gaps
-  between libraries are smaller than in a fully registered circuit.
-- **Leakage** is not compared: sky130's ms Liberty files give every cell zero
-  leakage.
-
-Reproduce with the extra libraries installed (`install_pdks.py --only sky130
---extra-libs`):
-
-```bash
-scripts/batch.py examples/PPA-opt-32b-alu-bekiryy/run.sh ::: \
-    sky130A/hd sky130A/hs sky130A/ms sky130A/ls sky130A/hdll
-```
-
-On a 28-core machine with 24 GB, all five run at once. Each takes 20 to 45
-minutes and peaks at about 2 GB.
+The same scoring applied to sky130's five cell libraries is in
+[`examples/sky130_libraries`](../examples/sky130_libraries).
 
 ## Where the inputs come from
 

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""PDK points from the ALU results in inputs.csv (and the sky130 library
-comparison in sky130_libraries.csv); see README.md for the method.
+"""PDK points from the ALU results in inputs.csv; see README.md for the method.
 
     python3 pdk_scoring/score.py
+    python3 pdk_scoring/score.py --libraries examples/sky130_libraries/libraries.csv
 
-Prints the points tables (Markdown) and writes the PPA hexagon charts.
+Prints the points table (Markdown) and writes the PPA hexagon charts. With
+--libraries, scores the cell libraries in that CSV (same columns) instead and
+writes ppa.svg next to it.
 """
+import argparse
 import csv
 import math
 import pathlib
@@ -18,9 +21,9 @@ ENERGY_PJ = 100_000                 # points = ENERGY_PJ / (pJ per operation)
 DENSITY_MLAMBDA2 = 10_000           # points = DENSITY_MLAMBDA2 / (logic area in M lambda^2)
 
 
-def load(name="inputs.csv"):
+def load(path=HERE / "inputs.csv"):
     pdks = []
-    with open(HERE / name, newline="") as f:
+    with open(path, newline="") as f:
         for r in csv.DictReader(f):
             clock_ns, power_mw = float(r["clock_ns"]), float(r["power_mw"])
             lam_um = float(r["pitch_um"]) / 2
@@ -197,11 +200,17 @@ def each_chart(pdks, path):
 
 
 if __name__ == "__main__":
-    pdks = load()
-    print(table(pdks))
-    each_chart(pdks, "ppa_each.svg")
-    group_chart([p for p in pdks if p["fab"]], "PPA of the PDKs you can tape out", "ppa_manufacturable.svg")
-    group_chart([p for p in pdks if not p["fab"]], "PPA of the research and learning PDKs", "ppa_research.svg")
-    libs = load("sky130_libraries.csv")
-    print("\n" + table(libs, "Library"))
-    group_chart(libs, "PPA of the sky130 standard cell libraries", "ppa_sky130_libraries.svg", "library")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--libraries", type=pathlib.Path, help="CSV of cell libraries of one PDK")
+    ap.add_argument("--title", default="PPA of the sky130 standard cell libraries")
+    args = ap.parse_args()
+    if args.libraries:
+        libs = load(args.libraries)
+        print(table(libs, "Library"))
+        group_chart(libs, args.title, args.libraries.resolve().with_name("ppa.svg"), "library")
+    else:
+        pdks = load()
+        print(table(pdks))
+        each_chart(pdks, "ppa_each.svg")
+        group_chart([p for p in pdks if p["fab"]], "PPA of the PDKs you can tape out", "ppa_manufacturable.svg")
+        group_chart([p for p in pdks if not p["fab"]], "PPA of the research and learning PDKs", "ppa_research.svg")

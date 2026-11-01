@@ -63,26 +63,11 @@ uses ps, and runs the flow; the config lands in `work/rtl2gds/<top>-<pdk>/`.
 - `--set` passes any LibreLane or ORFS variable, e.g. `--set FP_PDN_MULTILAYER=false`.
 - Small designs on gt2n need a low `--util` (e.g. 5): GT2N's power straps need
   a core at least ~40 µm wide.
-- Another standard cell library: `--set STD_CELL_LIBRARY=sky130_fd_sc_hs`.
-  sky130's ms, ls and hdll libraries are installed with
-  `install_pdks.py --only sky130 --extra-libs` (about 10 GB more).
-
-### Many runs at once
-
-[`scripts/batch.py`](scripts/batch.py) runs one command per argument, as many
-at a time as the machine can take:
-
-```bash
-scripts/batch.py scripts/rtl2gds.sh --pdk {} --top my_top --clock clk --period 10 rtl/*.v \
-    ::: sky130A gf180mcuD ihp-sg13g2 icsprout55
-```
-
-It runs `min(cores / --threads, memory / --mem-per-job)` jobs at once (4
-threads and 4 GB per job by default), counting only the memory that is free
-now, and gives each job its thread budget. `--cores`, `--mem-gb` and
-`--max-jobs` cap it further. Logs go to `work/batch/<date-time>/`, and the
-summary shows each job's run time and peak memory, which tells you what
-`--mem-per-job` your design needs.
+- Another standard cell library: `--set STD_CELL_LIBRARY=sky130_fd_sc_hs`
+  (see [`examples/sky130_libraries`](examples/sky130_libraries)).
+- Several runs at once, sized to your cores and memory:
+  `scripts/batch.py scripts/rtl2gds.sh --pdk {} ... ::: sky130A gf180mcuD`
+  (options in [`batch.py`](scripts/batch.py)).
 
 ### Writing the config yourself
 
@@ -127,7 +112,6 @@ cd all_free_pdks
 python3 install_pdks.py                     # everything (~13 GB)
 python3 install_pdks.py --only sky130,asap7 # or a subset
 python3 install_pdks.py --list              # pins and install status
-python3 install_pdks.py --only sky130 --extra-libs  # plus sky130 ms, ls, hdll
 source env.sh                               # sets PDK_ROOT=<repo>/pdks
 ```
 
@@ -195,6 +179,8 @@ those tools:
 
 Upstream files are not stored here; these are added or derived on install.
 
+- **sky130 hdll:** Liberty areas corrected to the LEF sizes, see
+  [`examples/sky130_libraries`](examples/sky130_libraries#hdll-liberty-area-bug).
 - **osu025:** ORFS platform written for this repo
   ([`overlays/osu025`](overlays/osu025)). The installer derives three files
   from the upstream cells: Liberty with a `default_max_transition` (CTS needs
