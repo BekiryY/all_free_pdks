@@ -75,7 +75,8 @@ below their real size (the LEF `SIZE`). `nand2_12` claims 3.75 µm² against
 32.53 µm², less than `nand2_1`. Eight more differ by 1–10%. hd, hs, ms and ls
 have no such mismatch. The values come from upstream
 [skywater-pdk-libs-sky130_fd_sc_hdll](https://github.com/google/skywater-pdk-libs-sky130_fd_sc_hdll)
-and open_pdks passes them through.
+and open_pdks passes them through. Reported upstream as
+[google/skywater-pdk#452](https://github.com/google/skywater-pdk/issues/452).
 
 Synthesis minimizes area, so it took these cells as nearly free: 6,407
 `nand2_12` in the ALU.
