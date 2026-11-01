@@ -69,39 +69,63 @@ def pts(xy):
     return " ".join(f"{x:.1f},{y:.1f}" for x, y in xy)
 
 
-def hexagon(cx, cy, R, decades, labels=True):
-    """Hexagonal grid with one ring per decade and the three PPA axes.
+FLOOR = 0.2                         # stretched charts: radius of the worst PDK
+
+
+def log_scale(pdks):
+    """True ratios: outer ring = best, each ring inward 10 times worse."""
+    best = {k: max(p[k] for p in pdks) for k, *_ in AXES}
+    spread = max(best[k] / min(p[k] for p in pdks) for k, *_ in AXES)
+    decades = max(1, math.ceil(math.log10(spread)))
+    rings = [(i / decades, "best" if i == decades else f"÷{10 ** (decades - i):,}")
+             for i in range(decades, 0, -1)]
+    return (lambda key, v: max(0.0, 1 + math.log10(v / best[key]) / decades)), rings
+
+
+def stretched_scale(pdks):
+    """Each axis stretched from the worst PDK (inner ring) to the best (outer
+    ring), on a log scale, so small differences become visible."""
+    lo = {k: min(p[k] for p in pdks) for k, *_ in AXES}
+    hi = {k: max(p[k] for p in pdks) for k, *_ in AXES}
+
+    def frac(key, v):
+        if hi[key] == lo[key]:
+            return 1.0
+        return FLOOR + (1 - FLOOR) * math.log(v / lo[key]) / math.log(hi[key] / lo[key])
+    rings = [(1.0, "best")] + [(FLOOR + (1 - FLOOR) * i / 4, "") for i in (3, 2, 1)] + [(FLOOR, "worst")]
+    return frac, rings
+
+
+def hexagon(cx, cy, R, rings, subs=None):
+    """Hexagonal grid and the three PPA axes; subs maps axis key to the line
+    under its name (None for the small panels, which get short names only).
 
     The axes take every other corner; the rings are labelled at the free
     bottom corner, where no axis line runs."""
     out = []
-    for i in range(decades, 0, -1):
-        r = R * i / decades
+    for f, tag in rings:
+        r = R * f
         out.append(f'<polygon points="{pts(polar(cx, cy, r, a) for a in range(-90, 270, 60))}" '
                    f'fill="none" stroke="{RULE}"/>')
-        if labels:
-            tag = "best" if i == decades else f"÷{10 ** (decades - i):,}"
+        if subs and tag:
             out.append(text(cx, cy + r + 13, tag, 10, MUTED).replace(
                 "<text ", f'<text paint-order="stroke" stroke="{SURFACE}" stroke-width="3" '))
-    for key, name, sub, a in AXES:
+    for key, name, _, a in AXES:
         x, y = polar(cx, cy, R, a)
         out.append(f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" stroke="{RULE}"/>')
-        if labels:
+        if subs:
             lx, ly = polar(cx, cy, R + (22 if a == -90 else 26), a)
             anchor = "middle" if a == -90 else "start" if a == 30 else "end"
             out.append(text(lx, ly - (8 if a == -90 else 0), name, 13, INK, anchor, "600"))
-            out.append(text(lx, ly + (6 if a == -90 else 16), sub, 11, INK2, anchor))
-        else:                       # small panels: names just outside the corners
+            out.append(text(lx, ly + (6 if a == -90 else 16), subs[key], 11, INK2, anchor))
+        else:
             out.append(text(x, y - 8 if a == -90 else y + 18, name, 11, INK2))
     return out
 
 
-def shape(cx, cy, R, decades, p, best, color, fill=0.10):
-    """The PDK's triangle: on each axis, its points relative to the best, on a log scale."""
-    xy = []
-    for key, _, _, a in AXES:
-        r = R * max(0.0, 1 + math.log10(p[key] / best[key]) / decades)
-        xy.append(polar(cx, cy, r, a))
+def shape(cx, cy, R, frac, p, color, fill=0.10):
+    """The PDK's triangle: its radius on each axis comes from the chart's scale."""
+    xy = [polar(cx, cy, R * frac(key, p[key]), a) for key, _, _, a in AXES]
     tip = (f"{p['pdk']}: {p['mhz']:,.1f} MHz, {p['pj']:,.2f} pJ/op, {p['mlam2']:.2f} M λ², "
            f"{p['overall']:,.0f} points")
     out = [f'<g><title>{tip}</title>',
@@ -112,11 +136,6 @@ def shape(cx, cy, R, decades, p, best, color, fill=0.10):
     return out + ["</g>"]
 
 
-def decades_for(pdks):
-    spread = max(max(p[k] for p in pdks) / min(p[k] for p in pdks) for k, *_ in AXES)
-    return max(1, math.ceil(math.log10(spread)))
-
-
 def svg(w, h, body):
     return "\n".join([f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" {FONT}>',
                       f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="10" fill="{SURFACE}" stroke="{RULE}"/>',
@@ -124,17 +143,21 @@ def svg(w, h, body):
 
 
 def group_chart(pdks, title, path):
-    best = {k: max(p[k] for p in pdks) for k, *_ in AXES}
-    D = decades_for(pdks)
-    cx, cy, R = 270, 320, 180
+    frac, rings = stretched_scale(pdks)
+    lo = {k: min(pdks, key=lambda p: p[k]) for k, *_ in AXES}
+    hi = {k: max(pdks, key=lambda p: p[k]) for k, *_ in AXES}
+    subs = {"speed": f"clock: {lo['speed']['mhz']:,.1f} → {hi['speed']['mhz']:,.1f} MHz",
+            "energy": f"energy/op: {lo['energy']['pj']:,.1f} → {hi['energy']['pj']:,.1f} pJ",
+            "density": f"area: {lo['density']['mlam2']:.2f} → {hi['density']['mlam2']:.2f} M λ²"}
+    cx, cy, R = 350, 320, 180
     body = [text(24, 34, title, 18, anchor="start", weight="600"),
-            text(24, 56, f"Outer ring = best PDK in this chart on that axis; each ring inward is 10 times "
-                         f"worse (log scale)", 13, INK2, "start")]
-    body += hexagon(cx, cy, R, D)
+            text(24, 56, "Each axis is stretched from the worst PDK in this chart (inner ring) to the best "
+                         "(outer ring), log scale", 13, INK2, "start")]
+    body += hexagon(cx, cy, R, rings, subs)
     for p in sorted(pdks, key=lambda p: p["overall"]):
-        body += shape(cx, cy, R, D, p, best, COLOR[p["pdk"]])
+        body += shape(cx, cy, R, frac, p, COLOR[p["pdk"]], 0.08)
     # legend doubling as the data table
-    lx, ly = 540, 130
+    lx, ly = 620, 130
     body += [text(lx, ly - 30, "Points (bigger is better)", 13, INK2, "start", "600")]
     for i, p in enumerate(pdks):
         y = ly + i * 62
@@ -145,12 +168,11 @@ def group_chart(pdks, title, path):
                  text(lx + 250, y, f"{p['overall']:,.0f}", 14, INK, "end", "600"),
                  text(lx + 32, y + 18, f"{p['mhz']:,.1f} MHz · {p['pj']:,.1f} pJ · {p['mlam2']:.2f} M λ²",
                       11, INK2, "start")]
-    (HERE / path).write_text(svg(820, 560, body))
+    (HERE / path).write_text(svg(900, 560, body))
 
 
 def each_chart(pdks, path):
-    best = {k: max(p[k] for p in pdks) for k, *_ in AXES}
-    D = decades_for(pdks)
+    frac, rings = log_scale(pdks)
     order = sorted(pdks, key=lambda p: -int(p["node_nm"]))
     cw, ch, top = 220, 250, 90
     body = [text(24, 34, "Power, performance and area of the ALU on each PDK", 18, anchor="start", weight="600"),
@@ -165,8 +187,8 @@ def each_chart(pdks, path):
         cx, cy, R = ox + cw / 2, oy + 125, 62
         body += [text(cx, oy + 14, p["pdk"], 14, INK, weight="600"),
                  text(cx, oy + 31, f"{p['node_nm']} nm · {p['overall']:,.0f} points", 12, INK2)]
-        body += hexagon(cx, cy, R, D, labels=False)
-        body += shape(cx, cy, R, D, p, best, FAB if p["fab"] else RESEARCH, 0.18)
+        body += hexagon(cx, cy, R, rings)
+        body += shape(cx, cy, R, frac, p, FAB if p["fab"] else RESEARCH, 0.18)
     (HERE / path).write_text(svg(4 * cw, top + 2 * ch, body))
 
 

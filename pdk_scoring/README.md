@@ -126,16 +126,19 @@ Each chart has three axes on alternate corners of a hexagon: **Performance**
 (speed points), **Power** (energy points) and **Area** (density points). On
 every axis, further out is better.
 
-- **Scale.** A PDK's point on an axis is its points divided by the best PDK's
-  in that chart, on a log scale. The outer ring is the best, and each ring
-  inward is 10 times worse. A log scale keeps PDKs 770 times apart on the same
-  chart. Triangle size grows with the overall score, but area on a log chart is
-  not proportional to it.
-- **Each PDK** (top of this page): all eight on one shared scale, so panels can
-  be compared directly.
-- **By group** (below): the outer ring is the best PDK *in that group*, so
-  differences within the group are easier to see. The two group charts have
-  different outer rings.
+- **Each PDK** (top of this page): true ratios on one scale shared by all
+  eight panels, so panels can be compared directly. A PDK's point on an axis is
+  its points divided by the best of all eight, on a log scale. The outer ring
+  is the best, and each ring inward is 10 times worse; a log scale keeps PDKs
+  770 times apart on the same chart. A bigger triangle means a higher overall
+  score, but its area is not proportional to it.
+- **By group** (below): each axis is stretched so the worst PDK in the group
+  sits on the inner ring and the best on the outer ring, still on a log scale.
+  This magnifies small gaps on purpose: on the research chart's area axis,
+  the whole radius covers only 1.1×. The real range of each axis is printed
+  under its name.
+  The rings show position, not ratios, and the two group charts cannot be
+  compared with each other.
 
 ![PPA of the PDKs you can tape out](ppa_manufacturable.svg)
 
