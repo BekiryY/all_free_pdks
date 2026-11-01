@@ -179,7 +179,8 @@ those tools:
 
 Upstream files are not stored here; these are added or derived on install.
 
-- **sky130 hdll:** Liberty areas corrected to the LEF sizes, see
+- **sky130 hdll:** Liberty areas corrected to the LEF sizes and the missed
+  isolation cells excluded from synthesis, see
   [`examples/sky130_libraries`](examples/sky130_libraries#hdll-liberty-area-bug).
 - **osu025:** ORFS platform written for this repo
   ([`overlays/osu025`](overlays/osu025)). The installer derives three files

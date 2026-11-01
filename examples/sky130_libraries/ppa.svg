@@ -5,50 +5,50 @@
 <polygon points="350.0,140.0 505.9,230.0 505.9,410.0 350.0,500.0 194.1,410.0 194.1,230.0" fill="none" stroke="#d9d8d3"/>
 <text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="513.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">best</text>
 <polygon points="350.0,176.0 474.7,248.0 474.7,392.0 350.0,464.0 225.3,392.0 225.3,248.0" fill="none" stroke="#d9d8d3"/>
-<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="477.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.13</text>
+<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="477.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.14</text>
 <polygon points="350.0,212.0 443.5,266.0 443.5,374.0 350.0,428.0 256.5,374.0 256.5,266.0" fill="none" stroke="#d9d8d3"/>
-<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="441.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.27</text>
+<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="441.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.29</text>
 <polygon points="350.0,248.0 412.4,284.0 412.4,356.0 350.0,392.0 287.6,356.0 287.6,284.0" fill="none" stroke="#d9d8d3"/>
-<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="405.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.43</text>
+<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="405.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.47</text>
 <polygon points="350.0,284.0 381.2,302.0 381.2,338.0 350.0,356.0 318.8,338.0 318.8,302.0" fill="none" stroke="#d9d8d3"/>
-<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="369.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.61</text>
+<text paint-order="stroke" stroke="#fcfcfb" stroke-width="3" x="350.0" y="369.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal">÷1.67</text>
 <line x1="350" y1="320" x2="350.0" y2="140.0" stroke="#d9d8d3"/>
 <text x="350.0" y="110.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="600">Performance</text>
-<text x="350.0" y="124.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">clock: 100.0 → 144.9 MHz</text>
+<text x="350.0" y="124.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">clock: 87.0 → 144.9 MHz</text>
 <line x1="350" y1="320" x2="505.9" y2="410.0" stroke="#d9d8d3"/>
 <text x="528.4" y="423.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">Power</text>
-<text x="528.4" y="439.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">energy/op: 366.5 → 227.4 pJ</text>
+<text x="528.4" y="439.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">energy/op: 366.5 → 228.0 pJ</text>
 <line x1="350" y1="320" x2="194.1" y2="410.0" stroke="#d9d8d3"/>
 <text x="171.6" y="423.0" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="600">Area</text>
 <text x="171.6" y="439.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal">area: 8.26 → 6.62 M λ²</text>
 <g><title>sky130_fd_sc_ls: 108.7 MHz, 327.71 pJ/op, 8.21 M λ², 739 points</title>
-<polygon points="350.0,226.8 410.4,354.9 250.1,377.7" fill="#008300" fill-opacity="0.08" stroke="#008300" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="350.0" cy="226.8" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="410.4" cy="354.9" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="250.1" cy="377.7" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="350.0,221.1 417.4,358.9 246.5,379.8" fill="#008300" fill-opacity="0.08" stroke="#008300" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="350.0" cy="221.1" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="417.4" cy="358.9" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="246.5" cy="379.8" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
 </g>
 <g><title>sky130_fd_sc_ms: 132.5 MHz, 348.98 pJ/op, 8.20 M λ², 774 points</title>
-<polygon points="350.0,167.2 394.0,345.4 249.9,377.8" fill="#1baf7a" fill-opacity="0.08" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="350.0" cy="167.2" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="394.0" cy="345.4" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="249.9" cy="377.8" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="350.0,165.4 402.0,350.0 246.3,379.9" fill="#1baf7a" fill-opacity="0.08" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="350.0" cy="165.4" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="402.0" cy="350.0" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="246.3" cy="379.9" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
 </g>
 <g><title>sky130_fd_sc_hs: 144.9 MHz, 366.48 pJ/op, 8.26 M λ², 782 points</title>
-<polygon points="350.0,140.0 381.2,338.0 252.0,376.6" fill="#e87ba4" fill-opacity="0.08" stroke="#e87ba4" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="350.0,140.0 390.1,343.1 248.2,378.8" fill="#e87ba4" fill-opacity="0.08" stroke="#e87ba4" stroke-width="2" stroke-linejoin="round"/>
 <circle cx="350.0" cy="140.0" r="4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="381.2" cy="338.0" r="4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="252.0" cy="376.6" r="4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="390.1" cy="343.1" r="4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="248.2" cy="378.8" r="4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
 </g>
-<g><title>sky130_fd_sc_hdll: 100.0 MHz, 227.35 pJ/op, 6.99 M λ², 857 points</title>
-<polygon points="350.0,251.9 505.9,410.0 208.1,401.9" fill="#eda100" fill-opacity="0.08" stroke="#eda100" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="350.0" cy="251.9" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<g><title>sky130_fd_sc_hdll: 87.0 MHz, 228.05 pJ/op, 7.10 M λ², 813 points</title>
+<polygon points="350.0,284.0 505.9,410.0 211.3,400.1" fill="#eda100" fill-opacity="0.08" stroke="#eda100" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="350.0" cy="284.0" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
 <circle cx="505.9" cy="410.0" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="208.1" cy="401.9" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="211.3" cy="400.1" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
 </g>
 <g><title>sky130_fd_sc_hd: 113.6 MHz, 250.56 pJ/op, 6.62 M λ², 881 points</title>
-<polygon points="350.0,213.4 480.5,395.3 194.1,410.0" fill="#6250d6" fill-opacity="0.08" stroke="#6250d6" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="350.0" cy="213.4" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
-<circle cx="480.5" cy="395.3" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="350.0,208.6 482.9,396.7 194.1,410.0" fill="#6250d6" fill-opacity="0.08" stroke="#6250d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="350.0" cy="208.6" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="482.9" cy="396.7" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
 <circle cx="194.1" cy="410.0" r="4" fill="#6250d6" stroke="#fcfcfb" stroke-width="2"/>
 </g>
 <text x="620.0" y="100.0" font-size="13" fill="#52514e" text-anchor="start" font-weight="600">Points (bigger is better)</text>
@@ -60,8 +60,8 @@
 <line x1="620" y1="187" x2="642" y2="187" stroke="#eda100" stroke-width="3"/>
 <circle cx="631" cy="187" r="4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
 <text x="652.0" y="192.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="600">sky130_fd_sc_hdll</text>
-<text x="870.0" y="192.0" font-size="14" fill="#0b0b0b" text-anchor="end" font-weight="600">857</text>
-<text x="652.0" y="210.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">100.0 MHz · 227.4 pJ · 6.99 M λ²</text>
+<text x="870.0" y="192.0" font-size="14" fill="#0b0b0b" text-anchor="end" font-weight="600">813</text>
+<text x="652.0" y="210.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">87.0 MHz · 228.0 pJ · 7.10 M λ²</text>
 <line x1="620" y1="249" x2="642" y2="249" stroke="#e87ba4" stroke-width="3"/>
 <circle cx="631" cy="249" r="4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
 <text x="652.0" y="254.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="600">sky130_fd_sc_hs</text>

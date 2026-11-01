@@ -23,7 +23,7 @@ scl::sky130_fd_sc_ms:
 scl::sky130_fd_sc_ls:
   CLOCK_PERIOD: 9.2
 scl::sky130_fd_sc_hdll:
-  CLOCK_PERIOD: 10.0
+  CLOCK_PERIOD: 11.5
 pdk::gf180mcu*:
   CLOCK_PERIOD: 18.5
 pdk::ihp-sg13g2:
