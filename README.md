@@ -7,6 +7,8 @@ versions that are tested end to end with
 [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts),
 plus one-line commands to run your own design.
 
+![The eight PDKs on a log-scale process-node axis, from osu025 at 250 nm to gt2n at 2 nm](docs/pdk-nodes.svg)
+
 ## Why
 
 Open PDKs are spread across many upstream repositories, each with its own
