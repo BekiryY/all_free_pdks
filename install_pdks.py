@@ -319,7 +319,10 @@ def exclude_cells(pattern, cells):
         new = [c for c in cells if c not in text.split()]
         if new:
             sep = "" if text.endswith("\n") else "\n"
-            path.write_text(text + sep + "# added by all_free_pdks install_pdks.py\n" + "".join(c + "\n" for c in new))
+            # new file + rename, not an in-place write: PDK copies may share files as hard links
+            tmp = path.with_name(path.name + ".tmp")
+            tmp.write_text(text + sep + "# added by all_free_pdks install_pdks.py\n" + "".join(c + "\n" for c in new))
+            os.replace(tmp, path)
             log(f"{path.relative_to(PDK_ROOT)}: {len(new)} cells excluded")
 
 
